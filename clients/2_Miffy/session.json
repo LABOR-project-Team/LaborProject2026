@@ -1,0 +1,151 @@
+{
+  "sessions": {
+    "prognosis": {
+      "status": "completed",
+      "last_question_index": 46,
+      "total_questions": 46,
+      "answers": {
+        "q1": [
+          "Man"
+        ],
+        "q2": [
+          "25-45"
+        ],
+        "q3": [
+          "Westers"
+        ],
+        "q4": [
+          "Noord-Brabant"
+        ],
+        "q5": [
+          "Migratieachtergrond: Westers"
+        ],
+        "q6": [
+          "Extraversie"
+        ],
+        "q7": [
+          "Gekleed Informeel"
+        ],
+        "q8": [
+          "Psychisch & Somatisch"
+        ],
+        "q9": [
+          "Gedeeltelijk arbeidsgeschikt"
+        ],
+        "q10": [
+          "Actief"
+        ],
+        "q11": [
+          "Geen"
+        ],
+        "q12": [
+          "6 - 12 maanden"
+        ],
+        "q13": [
+          "3 - 4 jaar"
+        ],
+        "q14": [
+          "Geen schuldenproblematiek"
+        ],
+        "q15": [
+          "Overige inkomsten met invloed op uitkering"
+        ],
+        "q16": [
+          "Niet beschikbaar"
+        ],
+        "q17": [
+          "Normaal (IQ 85-115)"
+        ],
+        "q18": [
+          "Onafhankelijke gebruiker (B1-B2 / 65% van Nederlandse bevolking)"
+        ],
+        "q19": [
+          "2 of meer vreemde talen"
+        ],
+        "q20": [
+          "Onafhankelijke gebruiker (B1-B2)"
+        ],
+        "q21": [
+          "Gevorderd (MBO 3-4)"
+        ],
+        "q22": [
+          "Onderwijsniveau: Middelbaar"
+        ],
+        "q23": [
+          "Redelijke perspectieven"
+        ],
+        "q24": [
+          "Matig-slechte perspectieven"
+        ],
+        "q25": [
+          "Goede perspectieven"
+        ],
+        "q26": [
+          "Samenwonend/gehuwd met kind(eren) <9 jaar"
+        ],
+        "q27": [
+          "Samenwonend/gehuwd zonder kind(eren)"
+        ],
+        "q28": [
+          "Midden inkomensklasse"
+        ],
+        "q29": [
+          "Middelbaar onderwijsniveau (MBO)"
+        ],
+        "q30": [
+          "4 jaar"
+        ],
+        "q31": [
+          "Gemiddeld (25-50 pers.)"
+        ],
+        "q32": [
+          "Problemen met justitie | VOG overlegbaar"
+        ],
+        "q33": [
+          "Problemen in thuissituatie | Geen belemmering voor werk"
+        ],
+        "q34": [
+          "Verslavingsproblematiek | Belemmering voor werk"
+        ],
+        "q35": [
+          "ik volg lessen"
+        ],
+        "q36": [
+          "Onbeperkt(OV/EV)"
+        ],
+        "q37": [
+          "II: Scholing naar betaalde arbeid"
+        ],
+        "q38": [
+          "Vanuit volledige arbeidsongeschiktheid"
+        ],
+        "q39": [
+          "Heterogene transitie"
+        ],
+        "q40": [
+          "Volledig werkloos"
+        ],
+        "q41": [
+          "Geen vrijwilligerswerk"
+        ],
+        "q42": [
+          "3-6 mnd"
+        ],
+        "q43": [
+          "Structureel"
+        ],
+        "q44": [
+          "1-5 jaar (Starter)"
+        ],
+        "q45": [
+          ">10"
+        ],
+        "q46": [
+          "Jan-Mrt"
+        ]
+      },
+      "timestamp": "2026-05-11T13:03:09.291295",
+      "completed_timestamp": "2026-05-11T13:03:09.298939"
+    }
+  }
+}

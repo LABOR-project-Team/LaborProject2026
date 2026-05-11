@@ -1,0 +1,92 @@
+{
+  "sessions": {
+    "prognosis": {
+      "status": "in_progress",
+      "last_question_index": 17,
+      "total_questions": 46,
+      "answers": {
+        "q1": [],
+        "q2": [
+          "25-45"
+        ],
+        "q3": [
+          "Westers"
+        ],
+        "q4": [
+          "Noord-Brabant"
+        ],
+        "q5": [
+          "Migratieachtergrond: Westers"
+        ],
+        "q6": [
+          "Extraversie"
+        ],
+        "q7": [
+          "Zakelijk Informeel"
+        ],
+        "q8": [
+          "Psychisch & Somatisch"
+        ],
+        "q9": [
+          "Gedeeltelijk arbeidsgeschikt"
+        ],
+        "q10": [
+          "Actief"
+        ],
+        "q11": [
+          "Bijstand"
+        ],
+        "q12": [],
+        "q13": [],
+        "q14": [],
+        "q15": [],
+        "q16": [],
+        "q17": [],
+        "q18": [],
+        "q19": [],
+        "q20": [],
+        "q21": [],
+        "q22": [],
+        "q23": [],
+        "q24": [],
+        "q25": [],
+        "q26": [],
+        "q27": [],
+        "q28": [],
+        "q29": [],
+        "q30": [],
+        "q31": [],
+        "q32": [],
+        "q33": [],
+        "q34": [],
+        "q35": [],
+        "q36": [],
+        "q37": [
+          "II: Scholing naar betaalde arbeid"
+        ],
+        "q38": [
+          "Vanuit volledige arbeidsongeschiktheid"
+        ],
+        "q39": [
+          "Homogene transitie"
+        ],
+        "q40": [
+          "Volledig werkloos"
+        ],
+        "q41": [
+          "Vrijwilligerwerk"
+        ],
+        "q42": [
+          "0-3 mnd"
+        ],
+        "q43": [],
+        "q44": [
+          "1-5 jaar (Starter)"
+        ],
+        "q45": [],
+        "q46": []
+      },
+      "timestamp": "2026-05-11T14:53:45.077617"
+    }
+  }
+}

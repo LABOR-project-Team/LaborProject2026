@@ -186,24 +186,24 @@ def show_create_client_form(push_to_history=True):
     entries = {}
 
     fields = [
-        "Naam",
-        "Geboortedatum",
-        "Email",
-        "Telefoonnummer",
-        "Adres",
-        "Opleidingen",
-        "Land van herkomst",
-        "Leef situatie",
-        "Toelichting (optioneel)"
+        ("Naam", "name"),
+        ("Geboortedatum", "Date of Birth"),
+        ("Email", "email"),
+        ("Telefoonnummer", "phone number"),
+        ("Adres", "address"),
+        ("Opleidingen", "Qualifications"),
+        ("Land van herkomst", "Country of origin"),
+        ("Leef situatie", "Living situation"),
+        ("Toelichting (optioneel)", "Empty text field")
     ]
 
-    for field in fields:
+    for label, key in fields:
         row = tk.Frame(form_frame, bg=COLOR_BG)
         row.pack(fill="x", pady=5)
 
         tk.Label(
             row,
-            text=field,
+            text=label,
             width=20,
             anchor="w",
             bg=COLOR_BG,
@@ -213,11 +213,11 @@ def show_create_client_form(push_to_history=True):
         entry = tk.Entry(row, font=("Segoe UI", 11))
         entry.pack(side="left", fill="x", expand=True)
 
-        entries[field] = entry
+        entries[key] = entry
 
     # Save button
     def save_client():
-        name = entries["Naam"].get().strip()
+        name = entries["name"].get().strip()
 
         if not name:
             messagebox.showerror("Fout", "Naam is verplicht.")
@@ -229,14 +229,14 @@ def show_create_client_form(push_to_history=True):
         new_client = {
             "id": client_id,
             "name": name,
-            "Date of Birth": entries["Geboortedatum"].get(),
-            "email": entries["Email"].get(),
-            "phone number": entries["Telefoonnummer"].get(),
-            "address": entries["Adres"].get(),
-            "Qualifications": entries["Opleidingen"].get(),
-            "Country of origin": entries["Land van herkomst"].get(),
-            "Living situation": entries.get("Leef situatie", tk.Entry()).get(),
-            "Empty text field": entries.get("Toelichting (optioneel)", tk.Entry()).get(),
+            "Date of Birth": entries.get("Date of Birth", tk.Entry()).get(),
+            "email": entries.get("email", tk.Entry()).get(),
+            "phone number": entries.get("phone number", tk.Entry()).get(),
+            "address": entries.get("address", tk.Entry()).get(),
+            "Qualifications": entries.get("Qualifications", tk.Entry()).get(),
+            "Country of origin": entries.get("Country of origin", tk.Entry()).get(),
+            "Living situation": entries.get("Living situation", tk.Entry()).get(),
+            "Empty text field": entries.get("Empty text field", tk.Entry()).get(),
             "assessments": [],
             "prognosis": []
         }
@@ -613,20 +613,8 @@ def open_client_dashboard(client, push_to_history=True):
         activebackground="#c0392b"
     ).pack(pady=10, fill="x")
 
-    # View Results Button
-    tk.Button(
-        buttons_frame,
-        text="📊 Bekijk Resultaten",
-        command=lambda: view_client_results(client),
-        bg=COLOR_SUCCESS,
-        fg="white",
-        font=("Segoe UI", 12, "bold"),
-        padx=30,
-        pady=20,
-        relief="flat",
-        cursor="hand2",
-        activebackground="#229954"
-    ).pack(pady=10, fill="x")
+
+
 
 # --------- UI Layout ---------
 main_frame = tk.Frame(root, bg=COLOR_BG)

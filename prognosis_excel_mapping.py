@@ -43,47 +43,43 @@ PROGNOSIS_MAPPING = {
     "q9":        {"row": 68,  "options": 5},
     "q10":       {"row": 70,  "options": 3},
     "q11":       {"row": 74,  "options": 3},
-    "q12_ww":    {"row": 76,  "options": 5},
-    "q12_pw":    {"row": 78,  "options": 5},
-    "q13":       {"row": 80,  "options": 5},
-    "q14":       {"row": 82,  "options": 3},
-    "q15":       {"row": 84,  "options": 2},
-    "q16":       {"row": 87,  "options": 4},
-    "q17":       {"row": 90,  "options": 3},
-    "q18":       {"row": 93,  "options": 3},
-    "q19":       {"row": 95,  "options": 3},
-    "q20":       {"row": 97,  "options": 4},
-    "q21":       {"row": 100, "options": 3},
-    "q22":       {"row": 103, "options": 3},
-    "q23":       {"row": 106, "options": 3},
-    "q24":       {"row": 109, "options": 3},
+    "q12":       {"row": 76,  "options": 5},
+    "q13":       {"row": 78,  "options": 5},
+    "q14":       {"row": 80,  "options": 3},
+    "q15":       {"row": 82,  "options": 2},
+    "q16":       {"row": 84,  "options": 2},
+    "q17":       {"row": 87,  "options": 4},
+    "q18":       {"row": 90,  "options": 3},
+    "q19":       {"row": 93,  "options": 3},
+    "q20":       {"row": 95,  "options": 3},
+    "q21":       {"row": 97,  "options": 4},
+    "q22":       {"row": 100, "options": 3},
+    "q23":       {"row": 103, "options": 3},
+    "q24":       {"row": 106, "options": 3},
 
-    "q25": {
-        "depends_on": "gender",
-        "man":   {"row": 113, "options": 4},
-        "woman": {"row": 116, "options": 4},
-    },
+    "q25":       {"row": 109, "options": 3},
 
-    "q26":       {"row": 119, "options": 5},
-    "q27":       {"row": 122, "options": 3},
-    "q28":       {"row": 125, "options": 6},
-    "q29":       {"row": 127, "options": 3},
-    "q30":       {"row": 129, "options": 3},
-    "q31":       {"row": 131, "options": 3},
-    "q32":       {"row": 133, "options": 3},
-    "q33":       {"row": 135, "options": 3},
-    "q34":       {"row": 137, "options": 3},
-    "q35":       {"row": 140, "options": 4},
-    "q36":       {"row": 143, "options": 4},
-    "q37":       {"row": 146, "options": 2},
-    "q38":       {"row": 148, "options": 2},
-    "q39":       {"row": 150, "options": 2},
-    "q40":       {"row": 152, "options": 4},
-    "q41":       {"row": 154, "options": 2},
-    "q42":       {"row": 156, "options": 4},
-    "q43":       {"row": 158, "options": 3},
-    "q44":       {"row": 160, "options": 4},
-    "q45":       {"row": 162, "options": 2},
+    "q26":       {"row": 113, "options": 4},
+    "q27":       {"row": 116, "options": 4},
+    "q28":       {"row": 119, "options": 5},
+    "q29":       {"row": 122, "options": 3},
+    "q30":       {"row": 125, "options": 5},
+    "q31":       {"row": 127, "options": 3},
+    "q32":       {"row": 129, "options": 3},
+    "q33":       {"row": 131, "options": 3},
+    "q34":       {"row": 133, "options": 3},
+    "q35":       {"row": 135, "options": 3},
+    "q36":       {"row": 137, "options": 3},
+    "q37":       {"row": 140, "options": 4},
+    "q38":       {"row": 143, "options": 4},
+    "q39":       {"row": 146, "options": 2},
+    "q40":       {"row": 148, "options": 2},
+    "q41":       {"row": 150, "options": 2},
+    "q42":       {"row": 152, "options": 4},
+    "q43":       {"row": 154, "options": 2},
+    "q44":       {"row": 156, "options": 4},
+    "q45":       {"row": 158, "options": 3},
+    "q46":       {"row": 160, "options": 4},
 }
 
 # ─────────────────────────────────────────────
@@ -121,7 +117,17 @@ def fill_excel(file_path: str, answers: dict):
             config = config[gender]
 
         row = config["row"]
-        col = chr(ord("D") + answers[q])   # index 0 -> D, 1 -> E, 2 -> F ...
+
+        if q == "q1":
+            age_index = answers.get("q2")
+            if age_index is None:
+                option_index = answers[q]
+            else:
+                option_index = age_index
+        else:
+            option_index = answers[q]
+
+        col = chr(ord("D") + option_index)   # index 0 -> D, 1 -> E, 2 -> F ...
 
         value = ws[f"{col}{row}"].value
         ws[f"Q{row}"] = value
@@ -189,14 +195,6 @@ def test_mapping():
 
     Draai met:  python prognosis_excel_mapping.py
     """
-
-    # Scenario: Man, WW-uitkering, MBO opleiding
-    # Conditionele vragen die bewust ontbreken:
-    #   q12_pw -> alleen bij bijstand
-    #   q23    -> alleen bij HBO
-    #   q24    -> alleen bij WO
-    #   q28    -> alleen bij naturalisatieproces
-    #   q36    -> alleen bij werkloosheidsroute II
     test_answers = {
         "q1":      0,   # Man
         "q3":      1,   # Westers
@@ -208,7 +206,7 @@ def test_mapping():
         "q9":      4,   # Geen beperkingen
         "q10":     2,   # Actief
         "q11":     0,   # WW
-        "q12_ww":  1,   # 3-6 maanden WW
+        "q12":     1,   # 3-6 maanden WW
         "q13":     2,   # Geen schulden
         "q14":     2,   # Geen overige inkomsten
         "q15":     0,   # Financiele steun beschikbaar
@@ -237,7 +235,8 @@ def test_mapping():
         "q42":     1,   # 6-10 jaar ervaring
         "q43":     1,   # 5-10 sollicitaties/mnd
         "q44":     0,   # Jan-Mrt
-        "q45":     0,   # Man (sector)
+        "q45":     0,   # Hoeveel sollicitaties per maand
+        "q46":     0,   # Jan-Mrt
     }
 
     if not os.path.exists(TEMPLATE_PATH):
@@ -253,16 +252,17 @@ def test_mapping():
     verwacht = {
         3: "q1",  37: "q3",  39: "q4",  41: "q5",  45: "q6",
         48: "q7", 52: "q8",  68: "q9",  70: "q10", 74: "q11",
-        76: "q12_ww", 80: "q13", 82: "q14", 84: "q15",
-        87: "q16", 90: "q17", 93: "q18", 95: "q19", 97: "q20",
-        100: "q21", 103: "q22", 113: "q25", 119: "q26",
-        122: "q27", 127: "q29", 129: "q30", 131: "q31",
-        133: "q32", 135: "q33", 137: "q34", 140: "q35",
-        146: "q37", 148: "q38", 150: "q39", 152: "q40",
-        154: "q41", 156: "q42", 158: "q43", 160: "q44", 162: "q45",
+        76: "q12", 78: "q13", 80: "q14", 82: "q15",
+        84: "q16", 87: "q17", 90: "q18", 93: "q19", 95: "q20",
+        97: "q21", 100: "q22", 103: "q23", 106: "q24", 109: "q25",
+        113: "q26", 116: "q27", 119: "q28", 122: "q29", 125: "q30",
+        127: "q31", 129: "q32", 131: "q33", 133: "q34", 135: "q35",
+        137: "q36", 140: "q37", 143: "q38", 146: "q39", 148: "q40",
+        150: "q41", 152: "q42", 154: "q43", 156: "q44", 158: "q45",
+        160: "q46",
     }
 
-    conditioneel = ["q12_pw", "q23", "q24", "q28", "q36"]
+    conditioneel = ["q23", "q24", "q28", "q36"]
 
     print("\n=== TEST RESULTATEN ===")
     fouten = 0

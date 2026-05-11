@@ -1,0 +1,146 @@
+{
+  "sessions": {
+    "prognosis": {
+      "status": "in_progress",
+      "last_question_index": 44,
+      "total_questions": 46,
+      "answers": {
+        "q1": [],
+        "q2": [
+          "25-45"
+        ],
+        "q3": [
+          "Westers"
+        ],
+        "q4": [
+          "Noord-Brabant"
+        ],
+        "q5": [
+          "Migratieachtergrond: Westers"
+        ],
+        "q6": [
+          "Extraversie"
+        ],
+        "q7": [
+          "Zakelijk Informeel"
+        ],
+        "q8": [
+          "Psychisch & Somatisch"
+        ],
+        "q9": [
+          "Volledige en duurzaam arbeidsongeschikt"
+        ],
+        "q10": [
+          "Recreatief"
+        ],
+        "q11": [
+          "Geen"
+        ],
+        "q12": [
+          "3 - 6 maanden"
+        ],
+        "q13": [
+          "2 - 3 jaar"
+        ],
+        "q14": [
+          "Geen schuldenproblematiek"
+        ],
+        "q15": [
+          "Overige inkomsten met invloed op uitkering"
+        ],
+        "q16": [
+          "Niet beschikbaar"
+        ],
+        "q17": [
+          "Normaal (IQ 85-115)"
+        ],
+        "q18": [
+          "Onafhankelijke gebruiker (B1-B2 / 65% van Nederlandse bevolking)"
+        ],
+        "q19": [
+          "2 of meer vreemde talen"
+        ],
+        "q20": [
+          "Onafhankelijke gebruiker (B1-B2)"
+        ],
+        "q21": [
+          "Gevorderd (MBO 3-4)"
+        ],
+        "q22": [
+          "Onderwijsniveau: Middelbaar"
+        ],
+        "q23": [
+          "Matig-slechte perspectieven"
+        ],
+        "q24": [
+          "Goede perspectieven"
+        ],
+        "q25": [
+          "Redelijke perspectieven"
+        ],
+        "q26": [
+          "Samenwonend/gehuwd met kind(eren) <9 jaar"
+        ],
+        "q27": [
+          "Samenwonend/gehuwd zonder kind(eren)"
+        ],
+        "q28": [
+          "Midden inkomensklasse"
+        ],
+        "q29": [
+          "Hoger onderwijsniveau (HBO/WO)"
+        ],
+        "q30": [
+          "6 jaar"
+        ],
+        "q31": [
+          "Klein (< 25 pers.)"
+        ],
+        "q32": [
+          "Problemen met justitie | VOG overlegbaar"
+        ],
+        "q33": [
+          "Problemen in thuissituatie | Belemmering voor werk"
+        ],
+        "q34": [
+          "Verslavingsproblematiek | Geen belemmering voor werk"
+        ],
+        "q35": [
+          "ik volg lessen"
+        ],
+        "q36": [
+          "Onbeperkt(OV/EV)"
+        ],
+        "q37": [
+          "II: Scholing naar betaalde arbeid"
+        ],
+        "q38": [
+          "Vanuit ziekte"
+        ],
+        "q39": [
+          "Heterogene transitie"
+        ],
+        "q40": [
+          "Volledig werkloos"
+        ],
+        "q41": [
+          "Geen vrijwilligerswerk"
+        ],
+        "q42": [
+          "0-3 mnd"
+        ],
+        "q43": [],
+        "q44": [
+          "1-5 jaar (Starter)"
+        ],
+        "q45": [
+          "5-10"
+        ],
+        "q46": [
+          "Jul-Sept"
+        ]
+      },
+      "timestamp": "2026-05-11T13:53:37.948187"
+    }
+  }
+}

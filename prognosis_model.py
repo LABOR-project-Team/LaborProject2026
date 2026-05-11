@@ -6,9 +6,10 @@ from tkinter import ttk
 from prognosis_excel_mapping import process_submission
 from ui.ui_components import add_nav_buttons, create_sidebar, add_logo_to_sidebar
 from ui.ui_styles import COLOR_PRIMARY
+from utils.session_manager import save_session, load_session, mark_session_complete
 
 _USE_PILLOW = True
-EXCEL_PATH = "Integratie_Prognose_Model_5.0(2).xlsx"
+EXCEL_PATH = "Integratie_Prognose_Model_5.0_(2).xlsx"
 
 ROW_BG_1 = "#EEEEEE"
 ROW_BG_2 = "#E0E0E0"
@@ -86,15 +87,74 @@ def build_prognosis_page(parent, client=None, go_back=None):
     content.bind("<Configure>", on_configure)
 
     def on_mousewheel(event):
-        canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
+        if event.delta:
+            step = -1 if event.delta > 0 else 1
+            canvas.yview_scroll(step, "units")
+        elif event.num == 4:
+            canvas.yview_scroll(-1, "units")
+        elif event.num == 5:
+            canvas.yview_scroll(1, "units")
 
-    canvas.bind_all("<MouseWheel>", on_mousewheel)
+    parent_window = parent.winfo_toplevel()
+    parent_window.bind_all("<MouseWheel>", on_mousewheel)
+    parent_window.bind_all("<Button-4>", on_mousewheel)
+    parent_window.bind_all("<Button-5>", on_mousewheel)
+
+    def cleanup_scroll_bindings(event=None):
+        parent_window.unbind_all("<MouseWheel>")
+        parent_window.unbind_all("<Button-4>")
+        parent_window.unbind_all("<Button-5>")
+
+    page.bind("<Destroy>", cleanup_scroll_bindings)
 
     # --------- Lijst voor alle antwoorden ---------
     all_vars = []
 
+    saved_answers = {}
+    if client:
+        saved_session = load_session(str(client["id"]), client["name"], "prognosis")
+        saved_answers = saved_session.get("answers", {}) if saved_session else {}
+
+    def get_saved_answer_options(question_number: int) -> list:
+        value = saved_answers.get(f"q{question_number}", [])
+        return value if isinstance(value, list) else [value]
+
+    def get_prognosis_answers() -> dict:
+        answers = {}
+        for idx, vars_dict in enumerate(all_vars, start=1):
+            selected = []
+            for opt, var in vars_dict.items():
+                val = var.get()
+                # For BooleanVar (checkboxes): val is True/False
+                if isinstance(val, bool) and val:
+                    selected.append(opt)
+                # For StringVar (radiobuttons): val is the option string
+                elif isinstance(val, str) and val == opt:
+                    selected.append(opt)
+            answers[f"q{idx}"] = selected
+        return answers
+
+    def on_var_change(*args):
+
+        save_prognosis_progress()
+
+    def save_prognosis_progress():
+        if not client:
+            return
+        answers_to_save = get_prognosis_answers()
+        total_questions = len(all_vars)
+        answered_count = sum(1 for selected in answers_to_save.values() if selected)
+        save_session(
+            str(client["id"]),
+            client["name"],
+            "prognosis",
+            answered_count,
+            answers_to_save,
+            total_questions,
+        )
+
     # --------- Hulpfuncties ---------
-    def make_question_row(parent, number: int, question: str, options: list):
+    def make_question_row(parent, number: int, question: str, options: list, single_choice: bool = False):
         bg = ROW_BG_1 if number % 2 != 0 else ROW_BG_2
 
         row_frame = tk.Frame(parent, bg=bg)
@@ -129,22 +189,50 @@ def build_prognosis_page(parent, client=None, go_back=None):
         opts_frame = tk.Frame(text_frame, bg=bg)
         opts_frame.pack(anchor="w", pady=(3, 2))
 
-        for opt in options:
-            var = tk.BooleanVar(value=False)
-            vars_dict[opt] = var
-            tk.Checkbutton(
-                opts_frame,
-                text=opt,
-                variable=var,
-                bg=bg,
-                fg="#111111",
-                selectcolor="#FFFFFF",
-                activebackground=bg,
-                activeforeground="#111111",
-                font=("Segoe UI", 9),
-                relief="flat",
-                cursor="hand2",
-            ).pack(side="left", padx=(0, 14))
+        saved_options = get_saved_answer_options(number)
+        if single_choice:
+            selected_value = saved_options[0] if saved_options else ""
+            var = tk.StringVar(value=selected_value)
+            for opt in options:
+                vars_dict[opt] = var
+                tk.Radiobutton(
+                    opts_frame,
+                    text=opt,
+                    variable=var,
+                    value=opt,
+                    command=on_var_change,
+                    bg=bg,
+                    fg="#111111",
+                    selectcolor="#FFFFFF",
+                    activebackground=bg,
+                    activeforeground="#111111",
+                    font=("Segoe UI", 9),
+                    relief="flat",
+                    cursor="hand2",
+                ).pack(side="left", padx=(0, 14))
+        else:
+            for opt in options:
+                var = tk.BooleanVar()
+                var.set(opt in saved_options)
+                if number in [1, 43]:
+                    print(f"[Q{number}] Checkbox '{opt}' created, initial value: {var.get()}")
+                var.trace_add("write", on_var_change)
+                if number in [1, 43]:
+                    print(f"[Q{number}] trace_add attached to '{opt}'")
+                vars_dict[opt] = var
+                tk.Checkbutton(
+                    opts_frame,
+                    text=opt,
+                    variable=var,
+                    bg=bg,
+                    fg="#111111",
+                    selectcolor="#FFFFFF",
+                    activebackground=bg,
+                    activeforeground="#111111",
+                    font=("Segoe UI", 9),
+                    relief="flat",
+                    cursor="hand2",
+                ).pack(side="left", padx=(0, 14))
 
         return vars_dict
 
@@ -173,8 +261,8 @@ def build_prognosis_page(parent, client=None, go_back=None):
     # SECTIE 1
     make_section_header("1. Persoonlijk")
     make_column_header()
-    all_vars.append(make_question_row(content, 1, "Bent u een man of vrouw?", ["Man", "Vrouw", "Anders"]))
-    all_vars.append(make_question_row(content, 2, "Wat is uw leeftijd?", ["15-25", "25-45", "46-65", "> 65"]))
+    all_vars.append(make_question_row(content, 1, "Bent u een man of vrouw?", ["Man", "Vrouw"]))
+    all_vars.append(make_question_row(content, 2, "Wat is uw leeftijd?", ["15-25", "25-45", "46-65"]))
     all_vars.append(make_question_row(content, 3, "Wat is uw huidige nationaliteit?", ["Autochtoon", "Westers", "Niet-westers"]))
     all_vars.append(make_question_row(content, 4, "In welke provincie bent u opzoek naar werk?", ["Zeeland", "Utrecht", "Noord-Brabant", "Gelderland", "Noord-Holland", "Overijsel", "Limburg", "Drenthe", "Friesland", "Flevoland", "Zuid-Holland", "Groningen"]))
     all_vars.append(make_question_row(content, 5, "Wat is uw migratieachtergrond?", ["Migratieachtergrond: Autochtoon", "Migratieachtergrond: Westers", "Migratieachtergrond: Niet Westers"]))
@@ -222,30 +310,34 @@ def build_prognosis_page(parent, client=None, go_back=None):
     # SECTIE 7
     make_section_header("7. Persoonlijke Situatie")
     make_column_header()
-    all_vars.append(make_question_row(content, 26, "Beschrijf uw huidige leefsituatie.", ["Alleenstaand", "Samenwonend/gehuwd zonder kind(eren)", "Samenwonend/gehuwd met kind(eren) <9 jaar", "Samenwonend/gehuwd met kind(eren) >9 jaar"]))
-    all_vars.append(make_question_row(content, 27, "Wat is de hoogte van uw reguliere jaarinkomen?", ["Laagste inkomenklasse", "Laag midden inkomensklasse", "Midden inkomensklasse","Hoog midden inkomensklasse", "Hoogste inkomenklasse"]))
-    all_vars.append(make_question_row(content, 28, "Wat is uw hoogst behaalde onderwijsniveau?", ["Laag onderwijsniveau(LBO)", "Middelbaar onderwijsniveau (MBO)", "Hoger onderwijsniveau (HBO/WO)"]))
-    all_vars.append(make_question_row(content, 29, "Hoelang bevindt u zich reeds in het naturalisatieproces?", ["1-3 jaar", "4 jaar", "5 jaar", "6 jaar", "7 jaar", "8-10 jaar"]))
-    all_vars.append(make_question_row(content, 30, "Hoe groot is de omvang van uw netwerk? Beschikt u over LinkedIn? Indien, beschrijf de frequentie en de intensiteit van uw gebruik.", ["Klein (< 25 pers.)", "Gemiddeld (25-50 pers.)", "Groot (> 50 pers.)"]))
-    all_vars.append(make_question_row(content, 31, "Ervaart u problemen met justitie? Indien, vormen deze problemen een belemmering voor werk en kunt u een VOG overleggen?", ["Problemen met justitie | geen VOG overlegbaar", "Problemen met justitie | VOG overlegbaar", "Geen problemen met justitie"]))
-    all_vars.append(make_question_row(content, 32, "Ervaart u problemen in uw thuissituatie? Indien, vormen deze problemen een belemmering voor werk?", ["Problemen in thuissituatie | Belemmering voor werk", "Problemen in thuissituatie | Geen belemmering voor werk", "Geen problemen in thuissituatie"]))
-    all_vars.append(make_question_row(content, 33, "Ervaart u verslavingsproblematiek? Indien, vormt deze problematiek een belemmering voor werk?", ["Verslavingsproblematiek | Belemmering voor werk", "Verslavingsproblematiek | Geen belemmering voor werk", "Geen verslavingsproblematiek"]))
-    all_vars.append(make_question_row(content, 34, "Bent u in het bezit van een rijbewijs?", ["Nee", "ik volg lessen", "Ja"]))
-    all_vars.append(make_question_row(content, 35, "Beschikt u over eigen vervoer en bent u in staat om zelfstandig naar uw werkplek te reizen? Indien u afhankelijk bent van het OV, ervaart u dan beperkingen m.b.t. aansluitingen?", ["Beperkt(OV)", "Gedeeltelijk beperkt(OV)", "Onbeperkt(OV/EV)"]))
+    all_vars.append(make_question_row(content, 26, "Beschrijf uw huidige leefsituatie. [Leefsituatie Man]", ["Alleenstaand", "Samenwonend/gehuwd zonder kind(eren)", "Samenwonend/gehuwd met kind(eren) <9 jaar", "Samenwonend/gehuwd met kind(eren) >9 jaar"]))
+    all_vars.append(make_question_row(content, 27, "Beschrijf uw huidige leefsituatie. [Leefsituatie Vrouw]", ["Alleenstaand", "Samenwonend/gehuwd zonder kind(eren)", "Samenwonend/gehuwd met kind(eren) <9 jaar", "Samenwonend/gehuwd met kind(eren) >9 jaar"]))
+    all_vars.append(make_question_row(content, 28, "Wat is de hoogte van uw reguliere jaarinkomen?", ["Laagste inkomenklasse", "Laag midden inkomensklasse", "Midden inkomensklasse","Hoog midden inkomensklasse", "Hoogste inkomenklasse"]))
+    all_vars.append(make_question_row(content, 29, "Wat is uw hoogst behaalde onderwijsniveau?", ["Laag onderwijsniveau(LBO)", "Middelbaar onderwijsniveau (MBO)", "Hoger onderwijsniveau (HBO/WO)"]))
+    all_vars.append(make_question_row(content, 30, "Hoelang bevindt u zich reeds in het naturalisatieproces?", ["1-3 jaar", "4 jaar", "5 jaar", "6 jaar", "7 jaar", "8-10 jaar"]))
+    all_vars.append(make_question_row(content, 31, "Hoe groot is de omvang van uw netwerk? Beschikt u over LinkedIn? Indien, beschrijf de frequentie en de intensiteit van uw gebruik.", ["Klein (< 25 pers.)", "Gemiddeld (25-50 pers.)", "Groot (> 50 pers.)"]))
+    all_vars.append(make_question_row(content, 32, "Ervaart u problemen met justitie? Indien, vormen deze problemen een belemmering voor werk en kunt u een VOG overleggen?", ["Problemen met justitie | geen VOG overlegbaar", "Problemen met justitie | VOG overlegbaar", "Geen problemen met justitie"]))
+    all_vars.append(make_question_row(content, 33, "Ervaart u problemen in uw thuissituatie? Indien, vormen deze problemen een belemmering voor werk?", ["Problemen in thuissituatie | Belemmering voor werk", "Problemen in thuissituatie | Geen belemmering voor werk", "Geen problemen in thuissituatie"]))
+    all_vars.append(make_question_row(content, 34, "Ervaart u verslavingsproblematiek? Indien, vormt deze problematiek een belemmering voor werk?", ["Verslavingsproblematiek | Belemmering voor werk", "Verslavingsproblematiek | Geen belemmering voor werk", "Geen verslavingsproblematiek"]))
+    all_vars.append(make_question_row(content, 35, "Bent u in het bezit van een rijbewijs?", ["Nee", "ik volg lessen", "Ja"]))
+    all_vars.append(make_question_row(content, 36, "Beschikt u over eigen vervoer en bent u in staat om zelfstandig naar uw werkplek te reizen? Indien u afhankelijk bent van het OV, ervaart u dan beperkingen m.b.t. aansluitingen?", ["Beperkt(OV)", "Gedeeltelijk beperkt(OV)", "Onbeperkt(OV/EV)"]))
 
     # SECTIE 8
     make_section_header("8. Arbeidsmarkt & Re-integratie")
     make_column_header()
-    all_vars.append(make_question_row(content, 36, "Beschrijf uw arbeidsmarkttransitie.", ["I: Betaalde arbeid", "II: Scholing naar betaalde arbeid", "III: Zorg/Huishouden naarbetaalde arbeid", "IV: Uittreding naar bet.Arbeid"]))
-    all_vars.append(make_question_row(content, 37, "Beschrijf uw arbeidsmarkttransitie.", ["Vanuit volledige arbeidsongeschiktheid", "Vanuit gedeeltelijke arbeidsongeschiktheid", "Vanuit ziekte", "Vanuit ontslag/ Vanuit startpositie"]))
-    all_vars.append(make_question_row(content, 38, "Wilt u solliciteren in een gelijkwaardige of een ongelijkwaardige sector als voorheen?", ["Homogene transitie", "Heterogene transitie"]))
-    all_vars.append(make_question_row(content, 39, "Bent u geheel of slechts gedeeltelijk werkloos? Heeft u bijvoorbeeld een deeltijdbaan?", ["Volledig werkloos", "Gedeeltelijk werkloos"]))
-    all_vars.append(make_question_row(content, 40, "Verricht u momenteel vrijwilligerswerk?", ["Vrijwilligerwerk", "Geen vrijwilligerswerk"]))
-    all_vars.append(make_question_row(content, 41, "Hoelang bent u reeds werkloos?", ["0-3 mnd", "3-6 mnd", "6-12 mnd", "> 12 mnd"]))
-    all_vars.append(make_question_row(content, 42, "Bent u op zoek naar structureel (vast) werk of seizoenswerk?", ["Structureel", "Seizoen"]))
-    all_vars.append(make_question_row(content, 43, "Hoeveel jaar aan relevante werkervaring heeft u? (CV analyse)", ["1-5 jaar (Starter)", "6-10 jaar", "11-15 jaar", ">15 jaar"]))
-    all_vars.append(make_question_row(content, 44, "Hoeveel sollicitaties verricht u per maand?", ["1-4", "5-10", ">10"]))
-    all_vars.append(make_question_row(content, 45, "In welke periode solliciteert men momenteel? (Beoordeling door consulent)", ["Jan-Mrt", "Apr-Jun", "Jul-Sept", "Okt-Dec"]))
+    all_vars.append(make_question_row(content, 37, "Beschrijf uw arbeidsmarkttransitie.", ["I: Betaalde arbeid", "II: Scholing naar betaalde arbeid", "III: Zorg/Huishouden naarbetaalde arbeid", "IV: Uittreding naar bet.Arbeid"]))
+    all_vars.append(make_question_row(content, 38, "Beschrijf uw arbeidsmarkttransitie.", ["Vanuit volledige arbeidsongeschiktheid", "Vanuit gedeeltelijke arbeidsongeschiktheid", "Vanuit ziekte", "Vanuit ontslag/ Vanuit startpositie"]))
+    all_vars.append(make_question_row(content, 39, "Wilt u solliciteren in een gelijkwaardige of een ongelijkwaardige sector als voorheen?", ["Homogene transitie", "Heterogene transitie"]))
+    all_vars.append(make_question_row(content, 40, "Bent u geheel of slechts gedeeltelijk werkloos? Heeft u bijvoorbeeld een deeltijdbaan?", ["Volledig werkloos", "Gedeeltelijk werkloos"]))
+    all_vars.append(make_question_row(content, 41, "Verricht u momenteel vrijwilligerswerk?", ["Vrijwilligerwerk", "Geen vrijwilligerswerk"]))
+    all_vars.append(make_question_row(content, 42, "Hoelang bent u reeds werkloos?", ["0-3 mnd", "3-6 mnd", "6-12 mnd", "> 12 mnd"]))
+    all_vars.append(make_question_row(content, 43, "Bent u op zoek naar structureel (vast) werk of seizoenswerk?", ["Structureel", "Seizoen"]))
+    all_vars.append(make_question_row(content, 44, "Hoeveel jaar aan relevante werkervaring heeft u? (CV analyse)", ["1-5 jaar (Starter)", "6-10 jaar", "11-15 jaar", ">15 jaar"]))
+    all_vars.append(make_question_row(content, 45, "Hoeveel sollicitaties verricht u per maand?", ["1-4", "5-10", ">10"]))
+    all_vars.append(make_question_row(content, 46, "In welke periode solliciteert men momenteel? (Beoordeling door consulent)", ["Jan-Mrt", "Apr-Jun", "Jul-Sept", "Okt-Dec"]))
+
+    # Save the loaded state
+    save_prognosis_progress()
 
     # =========================================================================
     # Excel opslaan
@@ -254,24 +346,24 @@ def build_prognosis_page(parent, client=None, go_back=None):
         answers = {}
 
         for i, vars_dict in enumerate(all_vars):
-            options = list(vars_dict.keys())
+            for j, opt in enumerate(vars_dict.keys()):
+                if vars_dict[opt].get():
+                    q_key = f"q{i+1}"
+                    answers[q_key] = j
+                    break
 
-        for j, opt in enumerate(options):
-            if vars_dict[opt].get():
-                q_key = f"q{i+1}"
-                answers[q_key] = j
-                break
-
-    # 👇 NU BINNEN DE FUNCTIE
         if client:
             client_id = f"{client['id']}_{client['name'].replace(' ', '_')}"
         else:
             client_id = "onbekend"
 
-    # 👇 HIER gebeurt alles
         output_path = process_submission(client_id, answers)
 
         print(f"Prognose opgeslagen: {output_path}")
+
+        if client:
+            save_prognosis_progress()
+            mark_session_complete(str(client["id"]), client["name"], "prognosis")
 
         if go_back:
             for w in parent.winfo_children():
@@ -279,7 +371,7 @@ def build_prognosis_page(parent, client=None, go_back=None):
             go_back(client)
 
     # =========================================================================
-    # Excel inladen
+    # Excel inladen - DISABLED: We gebruiken nu session saving
     # =========================================================================
     def load_from_excel():
         if not os.path.exists(EXCEL_PATH):
@@ -292,8 +384,7 @@ def build_prognosis_page(parent, client=None, go_back=None):
                 for opt, var in all_vars[i].items():
                     var.set(opt in opgeslagen)
 
-    load_from_excel()
-
+    # load_from_excel()  # Uitgeschakeld omdat het session saving overschrijft
     # --------- Knoppen onderaan ---------
     btn_frame = tk.Frame(page, bg="white")
     btn_frame.pack(fill="x", padx=20, pady=10)
@@ -301,8 +392,6 @@ def build_prognosis_page(parent, client=None, go_back=None):
     add_nav_buttons(
         btn_frame,
         submit_command=on_submit,
-        skip_command=handle_back,
-        skip_text="Overslaan",
         submit_text="Opslaan en verder",
         skip_side="left",
         submit_side="right",
