@@ -1,4 +1,5 @@
 from http import client
+import sys
 import tkinter as tk
 from tkinter import ttk
 import json
@@ -13,6 +14,11 @@ _USE_PILLOW = True
 from tkinter import simpledialog, messagebox
 from ui.ui_styles import *
 from phases.phase11 import build_assessments_page
+
+def resource_path(relative_path: str) -> str:
+    """Get absolute path to resource, works for dev and PyInstaller."""
+    base_path = getattr(sys, "_MEIPASS", os.path.abspath("."))
+    return os.path.join(base_path, relative_path)
 from phases.phase20 import build_career_anchors_page
 from phases.phase21 import build_carriereclusters_page
 from phases.phase22 import build_cultuur_page
@@ -30,7 +36,7 @@ navigation_history = []  # Stack of (page_type, page_data) tuples
 
 myappid = 'mycompany.myproduct.version'
 ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
-root.iconbitmap(r"icon.ico")
+root.iconbitmap(resource_path("icon.ico"))
 
 # --------- Global Assessment Variables ---------
 current_assessment_client = None
@@ -51,7 +57,12 @@ from ui.ui_components import create_sidebar, add_logo_to_sidebar
 # --------- Sidebar ---------
 SIDEBAR_WIDTH = 200
 sidebar = create_sidebar(root, bg=COLOR_PRIMARY, width=SIDEBAR_WIDTH)
-logo_label = add_logo_to_sidebar(sidebar, logo_path=os.path.join("images", "labor-logo.png"), use_pillow=_USE_PILLOW, bg=COLOR_PRIMARY)
+logo_label = add_logo_to_sidebar(
+    sidebar,
+    logo_path=resource_path(os.path.join("images", "labor-logo.png")),
+    use_pillow=_USE_PILLOW,
+    bg=COLOR_PRIMARY
+)
 
 def push_history(page_type, page_data):
     """Push a page to the navigation history."""

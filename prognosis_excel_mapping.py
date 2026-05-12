@@ -173,7 +173,8 @@ def process_submission(client_id: str, answers: dict) -> str:
     
     client_folder = os.path.join(OUTPUT_FOLDER, client_id)
     os.makedirs(client_folder, exist_ok=True)
-    output_path = os.path.join(client_folder, "prognose.xlsx")
+    safe_client_id = client_id.replace(" ", "_")
+    output_path = os.path.join(client_folder, f"prognose_{safe_client_id}.xlsx")
     answers_path = os.path.join(client_folder, "answers.json")
     
     copy_template(output_path)

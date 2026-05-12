@@ -100,11 +100,71 @@ def build_career_anchors_page(parent_frame: tk.Frame, navigate_to) -> None:
 
     clear_frame(parent_frame)
 
+    # --------------- Fixed header area ---------------
+
+    title_frame = tk.Frame(parent_frame, bg="white")
+    title_frame.pack(fill="x")
+
+    title = tk.Label(
+        title_frame,
+        text="Fase 2.0 | Wat wil de cliënt? | Identificatie van de loopbaanwaarden",
+        bg=S["bg"],
+        fg="black",
+        font=S["f_title"],
+        anchor="w",
+    )
+    title.pack(fill="x", padx=20, pady=(20, 2))
+
+    subtitle = tk.Label(
+        title_frame,
+        text=(
+            "Beoordeling van stelling a.h.v. onderstaande criteria:\n"
+            "Met welke stelling kan cliënt zich het sterkst identificeren?"
+        ),
+        bg=S["bg"],
+        fg="black",
+        font=S["f_sub"],
+        anchor="w",
+        justify="left",
+    )
+    subtitle.pack(fill="x", padx=20, pady=(0, 15))
+
+    header_table = tk.Frame(parent_frame, bg=S["bg"])
+    header_table.pack(fill="x", padx=TABLE_PADX)
+
+    # columns
+    for c in range(7):
+        header_table.grid_columnconfigure(c, weight=0)
+    header_table.grid_columnconfigure(1, weight=1)  # statement column stretches
+
+    header_bg = S["header"]
+    headers = [
+        ("Nummer", 0),
+        ("Stelling", 1),
+        ("Omhoog | V", 2),
+        ("Veilig | W", 3),
+        ("Vrij | X", 4),
+        ("Balans | Y", 5),
+        ("Uitdaging | Z", 6),
+    ]
+
+    for text, col in headers:
+        lbl = tk.Label(
+            header_table,
+            text=text,
+            bg=header_bg,
+            fg="white",
+            font=S["f_b"],
+            padx=10,
+            anchor="w" if col <= 1 else "center",
+        )
+        lbl.grid(row=0, column=col, sticky="nsew")
+
     # --------------- Scrollable container ---------------
 
     container = tk.Frame(parent_frame, bg="white")
-
     container.pack(fill="both", expand=True)
+
     canvas = tk.Canvas(container, bg="white", highlightthickness=0)
     scrollbar = tk.Scrollbar(container, orient="vertical", command=canvas.yview)
 
@@ -129,33 +189,7 @@ def build_career_anchors_page(parent_frame: tk.Frame, navigate_to) -> None:
 
     canvas.bind_all("<MouseWheel>", on_mousewheel)
 
-    # --------------- Headers ---------------
-
-    title = tk.Label(
-        scroll_frame,
-        text="Fase 2.0 | Wat wil de cliënt? | Identificatie van de loopbaanwaarden",
-        bg=S["bg"],
-        fg="black",
-        font=S["f_title"],
-        anchor="w",
-    )
-    title.pack(fill="x", padx=20, pady=(20, 2))
-
-    subtitle = tk.Label(
-        scroll_frame,
-        text=(
-            "Beoordeling van stelling a.h.v. onderstaande criteria:\n"
-            "Met welke stelling kan cliënt zich het sterkst identificeren?"
-        ),
-        bg=S["bg"],
-        fg="black",
-        font=S["f_sub"],
-        anchor="w",
-        justify="left",
-    )
-    subtitle.pack(fill="x", padx=20, pady=(0, 15))
-
-    # =================== Table headers and rows ===================
+    # =================== Table rows ===================
     table = tk.Frame(scroll_frame, bg=S["bg"])
     table.pack(fill="both", expand=True, padx=TABLE_PADX, pady=TABLE_PADY)
 
@@ -163,30 +197,6 @@ def build_career_anchors_page(parent_frame: tk.Frame, navigate_to) -> None:
     for c in range(7):
         table.grid_columnconfigure(c, weight=0)
     table.grid_columnconfigure(1, weight=1)  # statement column stretches
-
-    header_bg = S["header"]
-    headers = [
-        ("Nummer", 0),
-        ("Stelling", 1),
-        ("Omhoog | V", 2),
-        ("Veilig | W", 3),
-        ("Vrij | X", 4),
-        ("Balans | Y", 5),
-        ("Uitdaging | Z", 6),
-    ]
-
-    for text, col in headers:
-        lbl = tk.Label(
-            table,
-            text=text,
-            bg=header_bg,
-            fg="white",
-            font=S["f_b"],
-            padx=10,
-            anchor="w" if col <= 1 else "center",
-        )
-        lbl.grid(row=0, column=col, sticky="nsew")
-
 
     # -------------------- Group statements per question --------------------
     from collections import defaultdict
@@ -240,9 +250,9 @@ def build_career_anchors_page(parent_frame: tk.Frame, navigate_to) -> None:
                 btn.config(text="", font=FONTS["medium"])
 
     # -------------------- Build rows --------------------
-    row_index = 1
+    row_index = 0
     for nummer, stmts in sorted(questions.items()):
-        row_bg = S["odd"] if row_index % 2 == 1 else S["even"]
+        row_bg = S["odd"] if row_index % 2 == 0 else S["even"]
 
         # Number (yellow block)
         num_label = tk.Label(
@@ -289,7 +299,7 @@ def build_career_anchors_page(parent_frame: tk.Frame, navigate_to) -> None:
                 value=code,
                 indicatoron=False,
                 text="",
-                width=2,
+                width=4,
                 font=FONTS["medium"],
                 bg=row_bg,
                 fg="black",
