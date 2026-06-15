@@ -1,13 +1,15 @@
 {
   "sessions": {
     "prognosis": {
-      "status": "in_progress",
-      "last_question_index": 44,
+      "status": "completed",
+      "last_question_index": 46,
       "total_questions": 46,
       "answers": {
-        "q1": [],
+        "q1": [
+          "Vrouw"
+        ],
         "q2": [
-          "25-45"
+          "15-25"
         ],
         "q3": [
           "Niet-westers"
@@ -16,31 +18,31 @@
           "Noord-Brabant"
         ],
         "q5": [
-          "Migratieachtergrond: Westers"
+          "Migratieachtergrond: Autochtoon"
         ],
         "q6": [
-          "Extraversie"
+          "Consciëntieusheid"
         ],
         "q7": [
-          "Gekleed Informeel"
+          "Zakelijk Informeel"
         ],
         "q8": [
-          "Somatisch"
+          "Psychisch & Somatisch"
         ],
         "q9": [
-          "Gedeeltelijk arbeidsgeschikt"
+          "Volledige en duurzaam arbeidsongeschikt"
         ],
         "q10": [
           "Actief"
         ],
         "q11": [
-          "Bijstand"
+          "Geen"
         ],
         "q12": [
           "3 - 6 maanden"
         ],
         "q13": [
-          "3 - 4 jaar"
+          "2 - 3 jaar"
         ],
         "q14": [
           "Geen schuldenproblematiek"
@@ -55,28 +57,28 @@
           "Normaal (IQ 85-115)"
         ],
         "q18": [
-          "Basisgebruiker (A1-A2 / 20% van Nederlandse bevolking)"
+          "Onafhankelijke gebruiker (B1-B2 / 65% van Nederlandse bevolking)"
         ],
         "q19": [
-          "1 vreemde taal"
+          "2 of meer vreemde talen"
         ],
         "q20": [
           "Onafhankelijke gebruiker (B1-B2)"
         ],
         "q21": [
-          "Expert (HBO/WO)"
+          "Gevorderd (MBO 3-4)"
         ],
         "q22": [
           "Onderwijsniveau: Middelbaar"
         ],
         "q23": [
-          "Goede perspectieven"
+          "Matig-slechte perspectieven"
         ],
         "q24": [
           "Matig-slechte perspectieven"
         ],
         "q25": [
-          "Goede perspectieven"
+          "Matig-slechte perspectieven"
         ],
         "q26": [
           "Samenwonend/gehuwd zonder kind(eren)"
@@ -88,28 +90,28 @@
           "Midden inkomensklasse"
         ],
         "q29": [
-          "Middelbaar onderwijsniveau (MBO)"
+          "Hoger onderwijsniveau (HBO/WO)"
         ],
         "q30": [
-          "6 jaar"
+          "7 jaar"
         ],
         "q31": [
           "Groot (> 50 pers.)"
         ],
         "q32": [
-          "Problemen met justitie | geen VOG overlegbaar"
+          "Problemen met justitie | VOG overlegbaar"
         ],
         "q33": [
           "Problemen in thuissituatie | Geen belemmering voor werk"
         ],
         "q34": [
-          "Verslavingsproblematiek | Belemmering voor werk"
+          "Verslavingsproblematiek | Geen belemmering voor werk"
         ],
         "q35": [
-          "ik volg lessen"
+          "Ja"
         ],
         "q36": [
-          "Onbeperkt(OV/EV)"
+          "Gedeeltelijk beperkt(OV)"
         ],
         "q37": [
           "II: Scholing naar betaalde arbeid"
@@ -124,23 +126,26 @@
           "Gedeeltelijk werkloos"
         ],
         "q41": [
-          "Vrijwilligerwerk"
+          "Geen vrijwilligerswerk"
         ],
         "q42": [
-          "3-6 mnd"
+          "6-12 mnd"
         ],
-        "q43": [],
+        "q43": [
+          "Seizoen"
+        ],
         "q44": [
-          "1-5 jaar (Starter)"
+          "6-10 jaar"
         ],
         "q45": [
-          "1-4"
+          "5-10"
         ],
         "q46": [
-          "Okt-Dec"
+          "Apr-Jun"
         ]
       },
-      "timestamp": "2026-05-11T13:22:50.409266"
+      "timestamp": "2026-05-27T08:47:07.782789",
+      "completed_timestamp": "2026-05-27T08:47:07.791607"
     }
   }
 }
