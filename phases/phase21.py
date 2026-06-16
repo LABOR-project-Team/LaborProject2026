@@ -72,7 +72,7 @@ class Culture22Page(tk.Frame):
 
         _, _, inner = scrollable(self)
 
-        tk.Label(inner, text="Fase 2.1 – Carrierrèclusters",
+        tk.Label(inner, text="Fase 2.1 – Carrière Clusters",
                  bg=S["bg"], font=S["f_title"], anchor="w").pack(fill="x", padx=20, pady=(15, 5))
         tk.Label(inner, text="Lees de stellingen uit het Excel-bestand en geef aan met een vinkje als je vaardigheid of interesse hebt.",
                  bg=S["bg"], font=S["f_sub"], anchor="w").pack(fill="x", padx=20, pady=(0, 12))
@@ -88,17 +88,89 @@ class Culture22Page(tk.Frame):
         # header
         h = tk.Frame(left, bg=S["dark"])
         h.pack(fill="x")
-        tk.Label(h, text="Cluster", bg=S["dark"], fg="white", font=S["f_b"], width=8, anchor="w", padx=10)\
+        tk.Label(h, text="Kies", bg=S["dark"], fg="white", font=S["f_b"], width=8, anchor="w", padx=10)\
             .grid(row=0, column=0, sticky="w")
-        tk.Label(h, text="Activiteiten die beschrijven wat de cliënt leuk vind om te doen", bg=S["dark"], fg="white", font=S["f_b"], anchor="center", padx=10)\
-            .grid(row=0, column=2, sticky="w")
+        tk.Label(h, text="Activiteiten die beschrijven wat de cliënt leuk vind om te doen", bg=S["dark"], fg="white", font=S["f_b"], anchor="w", padx=10)\
+            .grid(row=0, column=1, sticky="w")
         tk.Label(h, text="Competenties", bg=S["dark"], fg="white", font=S["f_b"], anchor="center", padx=10)\
-            .grid(row=0, column=3, sticky="w")
+            .grid(row=0, column=2, sticky="w")
         tk.Label(h, text="Educatieve onderwerpen", bg=S["dark"], fg="white", font=S["f_b"], anchor="center", padx=10)\
-            .grid(row=0, column=4, sticky="w")
+            .grid(row=0, column=3, sticky="w")
+        h.grid_columnconfigure(1, weight=1)
 
         body = tk.Frame(left, bg=S["bg"])
         body.pack(fill="both", expand=True)
+
+        # Cluster titles and descriptions
+        CLUSTER_INFO = {
+            1: {
+                "title": "Landbouw, voeding en natuurlijke grondstoffen",
+                "description": "De productie, verwerking, marketing, distributie, financiering en ontwikkeling van agrarische grondstoffen en hulpbronnen waaronder voedsel, vezels, houtproducten, natuurlijke hulpbronnen, tuinbouw, en andere plantaardige en dierlijke producten cq. hulpbronnen."
+            },
+            2: {
+                "title": "Architectuur en constructie",
+                "description": "Carrières bij het ontwerpen, plannen, beheren, bouwen en behoud van de gebouwde omgeving."
+            },
+            3: {
+                "title": "Kunst, audio- visuele technologie en communicatie",
+                "description": "Ontwerpen, produceren, vertonen, uitvoeren, schrijven en publiceren van multimedia-inhoud waaronder visuele en podiumkunsten, design, journalistiek en entertainmentdiensten."
+            },
+            4: {
+                "title": "Business Management en administratie",
+                "description": "Business Management en administratie loopbaan omvatten het plannen, organiseren, leiden en evalueren van zakelijke functies essentieel voor efficiënte en productieve bedrijfsactiviteiten. Management en administratie carrièremogelijkheden zijn beschikbaar in elke sector van de economie."
+            },
+            5: {
+                "title": "Educatie en training",
+                "description": "Planning, beheer en verstrekking van onderwijs- en opleidingsdiensten en gerelateerde ondersteuningsdiensten."
+            },
+            6: {
+                "title": "Financiën",
+                "description": "Planning, services voor financiële en investeringsplanning, bankieren, verzekeringen en bedrijfsfinancieel beheer."
+            },
+            7: {
+                "title": "Overheid en publieke administratie",
+                "description": "Het uitvoeren van overheidsfuncties om governance op te nemen. Denkende aan nationale veiligheid, buitenlandse dienst, planning, inkomsten en belastingen, regulatie en beheer en administratie bij de lokale staat en federale niveaus."
+            },
+            8: {
+                "title": "Gezondheidswetenschappen",
+                "description": "Planning, beheer en levering van therapeutische diensten, diagnostisch diensten, medische informatica, ondersteunende diensten en biotechnologie onderzoek en ontwikkeling."
+            },
+            9: {
+                "title": "Hospitality en toerisme",
+                "description": "Hospitality en toerisme omvat het management, marketing en activiteiten van restaurants en andere eetgelegenheden, logies, attracties en recreatie-evenementen en reisgerelateerde diensten."
+            },
+            10: {
+                "title": "Humanitaire dienstverlening",
+                "description": "Individuen voorbereiden op een baan in loopbaantrajecten en betrekking hebben op gezinnen en menselijke behoeften."
+            },
+            11: {
+                "title": "ICT",
+                "description": "Verbanden leggen in een IT-beroepskader voor instapniveau, technische en professionele loopbanen gerelateerd aan het ontwerp, ontwikkeling, ondersteuning en beheer van hardware, software, multimedia- en systeemintegratiediensten."
+            },
+            12: {
+                "title": "Publieke veiligheid en zekerheid",
+                "description": "Planning, beheer en verstrekking van wettelijke, openbare veiligheid, beschermende diensten en binnenlandse veiligheid inclusief professionele en technische ondersteuningsdiensten."
+            },
+            13: {
+                "title": "Fabricage",
+                "description": "Planning, beheer en uitvoering van de verwerking van materialen in tussentijdse of eindproducten en aanverwante professionele en technische ondersteuningsactiviteiten zoals productieplanning en controle, onderhoud en productie / procestechniek."
+            },
+            14: {
+                "title": "Marketing, sales en service",
+                "description": "Planning, beheer en uitvoering van marketingactiviteiten ten behoeve van het bereiken van organisatorische doelstellingen."
+            },
+            15: {
+                "title": "Wetenschap, technologie, engineering en mathematica",
+                "description": "Planning, beheer en bijdrage van wetenschappelijk onderzoek en professionele en technische diensten (bijv: wetenschap en techniek) inclusief laboratorium- en testdiensten en onderzoeks- en ontwikkelingsdiensten."
+            },
+            16: {
+                "title": "Transport, distributie en logistiek",
+                "description": "Planning, beheer en verplaatsing van mensen, materialen en goederen over de weg, pijpleiding, lucht, spoor en water en aanverwante professionele en technische ondersteuningsdiensten zoals transportinfrastructuur, planning en beheer, logistieke diensten, mobiele apparatuur en onderhoud van faciliteiten."
+            }
+        }
+
+        # Einde van Omschrijving en titels inplaatst van alleen de clusters
+
 
         # Hardcoded questions for each cluster
         # Example structure: {cluster_id: [ {main_statement, skill_statement, interest_statement}, ... ] }
@@ -641,10 +713,37 @@ class Culture22Page(tk.Frame):
 
         for cluster_id, rows in rows_by_cluster.items():
             # Cluster header
+            cluster_title = CLUSTER_INFO.get(cluster_id, {}).get("title") or f"Cluster {cluster_id}"
+            cluster_description = CLUSTER_INFO.get(cluster_id, {}).get("description", "")
+
             grp = tk.Frame(body, bg=S["yellow"])
-            grp.pack(fill="x", pady=(8, 2))
+            grp.pack(fill="x", pady=(8, 0))
             tk.Label(grp, text=str(cluster_id), bg=S["yellow"], font=S["f_b"], width=8).grid(row=0, column=0)
-            tk.Label(grp, text=f"Cluster {cluster_id}", bg=S["yellow"], font=S["f_b"], anchor="w", padx=10).grid(row=0, column=1, sticky="w")
+            tk.Label(
+                grp,
+                text=cluster_title,
+                bg=S["yellow"],
+                font=S["f_b"],
+                anchor="w",
+                padx=10,
+                justify="left",
+                wraplength=760
+            ).grid(row=0, column=1, sticky="w")
+
+            if cluster_description:
+                desc_frame = tk.Frame(body, bg=S["even"])
+                desc_frame.pack(fill="x", padx=2, pady=(0, 2))
+                tk.Label(
+                    desc_frame,
+                    text=cluster_description,
+                    bg=S["even"],
+                    font=S["f_small"],
+                    anchor="w",
+                    justify="left",
+                    wraplength=900,
+                    padx=12,
+                    pady=6
+                ).pack(fill="x")
 
             for idx, row in rows:  # Show all questions per cluster
                 bg = S["odd"] if idx % 2 else S["even"]
@@ -684,7 +783,7 @@ class Culture22Page(tk.Frame):
                     self.vars[(row.get("cluster_id", cluster_id), idx)] = (main_var, skill_var, interest_var)
 
                 cb_main = tk.Checkbutton(r, text="", variable=main_var, onvalue=1, offvalue=0, bg=bg)
-                cb_main.grid(row=0, column=0, sticky="w", padx=(12, 8), pady=2)
+                cb_main.grid(row=0, column=0, sticky="w", padx=(12, 12), pady=4)
 
                 tk.Label(
                     r,
@@ -693,11 +792,12 @@ class Culture22Page(tk.Frame):
                     font=S["f"],
                     anchor="w",
                     justify="left",
-                    wraplength=900,
-                    padx=8
+                    wraplength=700,
+                    padx=8,
+                    pady=6
                 ).grid(row=0, column=1, sticky="ew", pady=2)
 
-            # Only create skill checkbox if skill_statement exists
+                # Only create skill checkbox if skill_statement exists
                 if has_skill:
                     cb_skill = tk.Checkbutton(
                         r,
@@ -707,9 +807,10 @@ class Culture22Page(tk.Frame):
                         offvalue=0,
                         bg=bg,
                         anchor="w",
-                        padx=6
+                        padx=6,
+                        pady=4
                     )
-                    cb_skill.grid(row=0, column=2, sticky="w", padx=(0, 8), pady=2)
+                    cb_skill.grid(row=0, column=2, sticky="w", padx=(0, 16), pady=4)
 
                 # Only create interest checkbox if interest_statement exists
                 if has_interest:
@@ -721,9 +822,10 @@ class Culture22Page(tk.Frame):
                         offvalue=0,
                         bg=bg,
                         anchor="w",
-                        padx=6
+                        padx=6,
+                        pady=4
                     )
-                    cb_interest.grid(row=0, column=3, sticky="w", padx=(0, 10), pady=2)
+                    cb_interest.grid(row=0, column=3, sticky="w", padx=(0, 16), pady=4)
 
         # submit
         btn_row = tk.Frame(inner, bg=S["bg"])
