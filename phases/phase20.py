@@ -141,11 +141,11 @@ def build_career_anchors_page(parent_frame: tk.Frame, navigate_to) -> None:
     headers = [
         ("Nummer", 0),
         ("Stelling", 1),
-        ("Omhoog | V", 2),
-        ("Veilig | W", 3),
-        ("Vrij | X", 4),
-        ("Balans | Y", 5),
-        ("Uitdaging | Z", 6),
+        ("V", 2),
+        ("W", 3),
+        ("X", 4),
+        ("Y", 5),
+        ("Z", 6),
     ]
 
     for text, col in headers:
@@ -155,7 +155,7 @@ def build_career_anchors_page(parent_frame: tk.Frame, navigate_to) -> None:
             bg=header_bg,
             fg="white",
             font=S["f_b"],
-            padx=10,
+            padx=21, # space between text at teh navigation 
             anchor="w" if col <= 1 else "center",
         )
         lbl.grid(row=0, column=col, sticky="nsew")

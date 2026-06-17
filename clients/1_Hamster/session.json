@@ -195,14 +195,14 @@
         "50": 3
       },
       "timestamp": "2026-06-16T15:10:17.361272",
-      "completed_timestamp": "2026-06-17T09:02:08.363363"
+      "completed_timestamp": "2026-06-17T09:42:19.960243"
     },
     "phase2.0": {
-      "status": "completed",
+      "status": "in_progress",
       "last_question_index": 0,
       "total_questions": 30,
       "answers": {
-        "1": "W",
+        "1": "V",
         "2": "W",
         "3": "W",
         "4": "W",
@@ -233,8 +233,7 @@
         "29": "X",
         "30": "Y"
       },
-      "timestamp": "2026-06-15T12:47:25.590016",
-      "completed_timestamp": "2026-06-16T14:53:59.878677"
+      "timestamp": "2026-06-17T09:49:09.432829"
     },
     "phase2.1": {
       "status": "completed",
