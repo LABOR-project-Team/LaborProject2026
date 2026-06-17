@@ -6,25 +6,25 @@
       "total_questions": 46,
       "answers": {
         "q1": [
-          "Vrouw"
+          "Man"
         ],
         "q2": [
-          "46-65"
+          "25-45"
         ],
         "q3": [
           "Westers"
         ],
         "q4": [
-          "Utrecht"
+          "Gelderland"
         ],
         "q5": [
-          "Migratieachtergrond: Autochtoon"
+          "Migratieachtergrond: Niet Westers"
         ],
         "q6": [
-          "Consciëntieusheid"
+          "Neuroticisme"
         ],
         "q7": [
-          "Gekleed Informeel"
+          "Gekleed Formeel"
         ],
         "q8": [
           "Psychisch"
@@ -77,17 +77,15 @@
         "q26": [
           "Samenwonend/gehuwd zonder kind(eren)"
         ],
-        "q27": [
-          "Samenwonend/gehuwd met kind(eren) <9 jaar"
-        ],
+        "q27": [],
         "q28": [
-          "Hoogste inkomenklasse"
+          "Laagste inkomenklasse"
         ],
         "q29": [
           "Hoger onderwijsniveau (HBO/WO)"
         ],
         "q30": [
-          "6 jaar"
+          "5 jaar"
         ],
         "q31": [
           "Gemiddeld (25-50 pers.)"
@@ -107,7 +105,9 @@
         "q36": [
           "Gedeeltelijk beperkt(OV)"
         ],
-        "q37": [],
+        "q37": [
+          "III: Zorg/Huishouden naarbetaalde arbeid"
+        ],
         "q38": [
           "Vanuit volledige arbeidsongeschiktheid"
         ],
@@ -136,10 +136,10 @@
           "Apr-Jun"
         ]
       },
-      "timestamp": "2026-06-15T13:28:10.345852"
+      "timestamp": "2026-06-16T15:47:19.818395"
     },
     "phase1.1": {
-      "status": "completed",
+      "status": "in_progress",
       "last_question_index": 0,
       "total_questions": 50,
       "answers": {
@@ -194,8 +194,7 @@
         "49": 4,
         "50": 3
       },
-      "timestamp": "2026-06-15T12:09:05.711249",
-      "completed_timestamp": "2026-06-16T13:42:11.051514"
+      "timestamp": "2026-06-16T15:10:17.361272"
     },
     "phase2.0": {
       "status": "completed",
@@ -234,7 +233,7 @@
         "30": "Y"
       },
       "timestamp": "2026-06-15T12:47:25.590016",
-      "completed_timestamp": "2026-06-16T13:42:14.411797"
+      "completed_timestamp": "2026-06-16T14:53:59.878677"
     },
     "phase2.1": {
       "status": "completed",
@@ -803,7 +802,46 @@
         ]
       },
       "timestamp": "2026-06-16T13:03:59.596559",
-      "completed_timestamp": "2026-06-16T13:42:19.955677"
+      "completed_timestamp": "2026-06-16T14:54:07.400689"
+    },
+    "phase2.2": {
+      "status": "completed",
+      "last_question_index": 0,
+      "total_questions": 16,
+      "answers": {
+        "(1, 1)": "2",
+        "(1, 2)": "3",
+        "(1, 3)": "4",
+        "(1, 4)": "4",
+        "(2, 1)": "4",
+        "(2, 2)": "3",
+        "(2, 3)": "2",
+        "(2, 4)": "1",
+        "(3, 1)": "1",
+        "(3, 2)": "2",
+        "(3, 3)": "3",
+        "(3, 4)": "4",
+        "(4, 1)": "4",
+        "(4, 2)": "3",
+        "(4, 3)": "2",
+        "(4, 4)": "1"
+      },
+      "timestamp": "2026-06-16T14:54:20.543266",
+      "completed_timestamp": "2026-06-16T14:54:23.078869"
+    },
+    "phase2.3": {
+      "status": "completed",
+      "last_question_index": 0,
+      "total_questions": 5,
+      "answers": {
+        "1": "ds",
+        "2": "dwd",
+        "3": "wdd",
+        "4": "wdwad",
+        "5": "wdada"
+      },
+      "timestamp": "2026-06-16T14:54:33.625367",
+      "completed_timestamp": "2026-06-16T14:54:35.590492"
     }
   }
 }

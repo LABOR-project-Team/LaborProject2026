@@ -220,10 +220,23 @@ def build_prognosis_page(parent, client=None, go_back=None):
                 if number in [1, 43]:
                     print(f"[Q{number}] trace_add attached to '{opt}'")
                 vars_dict[opt] = var
+            
+            # Create mutual exclusion callbacks for checkboxes
+            def make_checkbox_callback(checkbox_var, all_vars_dict):
+                def on_checkbox_change(*args):
+                    if checkbox_var.get():  # If this checkbox is checked
+                        # Uncheck all other checkboxes in this question
+                        for other_opt, other_var in all_vars_dict.items():
+                            if other_var != checkbox_var:
+                                other_var.set(False)
+                return on_checkbox_change
+            
+            for opt in options:
+                vars_dict[opt].trace_add("write", make_checkbox_callback(vars_dict[opt], vars_dict))
                 tk.Checkbutton(
                     opts_frame,
                     text=opt,
-                    variable=var,
+                    variable=vars_dict[opt],
                     bg=bg,
                     fg="#111111",
                     selectcolor="#FFFFFF",
@@ -302,17 +315,17 @@ def build_prognosis_page(parent, client=None, go_back=None):
     # SECTIE 6
     make_section_header("6. Onderwijs")
     make_column_header()
-    all_vars.append(make_question_row(content, 22, "Wat is uw hoogst behaalde opleiding?", ["Onderwijsniveau: Laag", "Onderwijsniveau: Middelbaar", "Onderwijsniveau: Hoog"]))
-    all_vars.append(make_question_row(content, 23, "Indien u MBO bent afgestudeerd, welke opleiding(en) heeft u gevolgd?", ["Matig-slechte perspectieven", "Redelijke perspectieven", "Goede perspectieven"]))
-    all_vars.append(make_question_row(content, 24, "Indien u HBO bent afgestudeerd, welke opleiding(en) heeft u gevolgd?", ["Matig-slechte perspectieven", "Redelijke perspectieven", "Goede perspectieven"]))
-    all_vars.append(make_question_row(content, 25, "Indien u WO bent afgestudeerd, welke opleiding(en) heeft u gevolgd?", ["Matig-slechte perspectieven", "Redelijke perspectieven", "Goede perspectieven"]))
+    all_vars.append(make_question_row(content, 22, "Wat is uw hoogst behaalde opleiding?(Onderwijsniveau)", ["Onderwijsniveau: Laag", "Onderwijsniveau: Middelbaar", "Onderwijsniveau: Hoog"]))
+    all_vars.append(make_question_row(content, 23, "Indien u MBO bent afgestudeerd, welke opleiding(en) heeft u gevolgd?(Perspectief op de arbeidsmarkt)", ["Matig-slechte perspectieven", "Redelijke perspectieven", "Goede perspectieven"]))
+    all_vars.append(make_question_row(content, 24, "Indien u HBO bent afgestudeerd, welke opleiding(en) heeft u gevolgd?(Perspectief op de arbeidsmarkt)", ["Matig-slechte perspectieven", "Redelijke perspectieven", "Goede perspectieven"]))
+    all_vars.append(make_question_row(content, 25, "Indien u WO bent afgestudeerd, welke opleiding(en) heeft u gevolgd?(Perspectief op de arbeidsmarkt)", ["Matig-slechte perspectieven", "Redelijke perspectieven", "Goede perspectieven"]))
 
     # SECTIE 7
     make_section_header("7. Persoonlijke Situatie")
     make_column_header()
     all_vars.append(make_question_row(content, 26, "Beschrijf uw huidige leefsituatie. [Leefsituatie Man]", ["Alleenstaand", "Samenwonend/gehuwd zonder kind(eren)", "Samenwonend/gehuwd met kind(eren) <9 jaar", "Samenwonend/gehuwd met kind(eren) >9 jaar"]))
     all_vars.append(make_question_row(content, 27, "Beschrijf uw huidige leefsituatie. [Leefsituatie Vrouw]", ["Alleenstaand", "Samenwonend/gehuwd zonder kind(eren)", "Samenwonend/gehuwd met kind(eren) <9 jaar", "Samenwonend/gehuwd met kind(eren) >9 jaar"]))
-    all_vars.append(make_question_row(content, 28, "Wat is de hoogte van uw reguliere jaarinkomen?", ["Laagste inkomenklasse", "Laag midden inkomensklasse", "Midden inkomensklasse","Hoog midden inkomensklasse", "Hoogste inkomenklasse"]))
+    all_vars.append(make_question_row(content, 28, "Wat is de hoogte van uw reguliere jaarinkomen?(Socio-economische status)", ["Laagste inkomenklasse(EUR 27,5-28,8)", "Laag midden inkomensklasse(EUR 28,8-30,1)", "Midden inkomensklasse(EUR 30,1-31,4)","Hoog midden inkomensklasse(EUR 31,4-32,7)", "Hoogste inkomenklasse(> EUR 32,7)"]))
     all_vars.append(make_question_row(content, 29, "Wat is uw hoogst behaalde onderwijsniveau?", ["Laag onderwijsniveau(LBO)", "Middelbaar onderwijsniveau (MBO)", "Hoger onderwijsniveau (HBO/WO)"]))
     all_vars.append(make_question_row(content, 30, "Hoelang bevindt u zich reeds in het naturalisatieproces?", ["1-3 jaar", "4 jaar", "5 jaar", "6 jaar", "7 jaar", "8-10 jaar"]))
     all_vars.append(make_question_row(content, 31, "Hoe groot is de omvang van uw netwerk? Beschikt u over LinkedIn? Indien, beschrijf de frequentie en de intensiteit van uw gebruik.", ["Klein (< 25 pers.)", "Gemiddeld (25-50 pers.)", "Groot (> 50 pers.)"]))
@@ -325,8 +338,8 @@ def build_prognosis_page(parent, client=None, go_back=None):
     # SECTIE 8
     make_section_header("8. Arbeidsmarkt & Re-integratie")
     make_column_header()
-    all_vars.append(make_question_row(content, 37, "Beschrijf uw arbeidsmarkttransitie.", ["I: Betaalde arbeid", "II: Scholing naar betaalde arbeid", "III: Zorg/Huishouden naarbetaalde arbeid", "IV: Uittreding naar bet.Arbeid"]))
-    all_vars.append(make_question_row(content, 38, "Beschrijf uw arbeidsmarkttransitie.", ["Vanuit volledige arbeidsongeschiktheid", "Vanuit gedeeltelijke arbeidsongeschiktheid", "Vanuit ziekte", "Vanuit ontslag/ Vanuit startpositie"]))
+    all_vars.append(make_question_row(content, 37, "Beschrijf uw arbeidsmarkttransitie.(TAM Transitie)", ["I: Betaalde arbeid naar betaalde arbeid", "II: Scholing naar betaalde arbeid", "III: Zorg/Huishouden naarbetaalde arbeid", "IV: Uittreding naar bet.Arbeid"]))
+    all_vars.append(make_question_row(content, 38, "Beschrijf uw arbeidsmarkttransitie.[Transitie II: Werkloosheid naar betaalde arbeid]", ["Vanuit volledige arbeidsongeschiktheid", "Vanuit gedeeltelijke arbeidsongeschiktheid", "Vanuit ziekte", "Vanuit ontslag/ Vanuit startpositie"]))
     all_vars.append(make_question_row(content, 39, "Wilt u solliciteren in een gelijkwaardige of een ongelijkwaardige sector als voorheen?", ["Homogene transitie", "Heterogene transitie"]))
     all_vars.append(make_question_row(content, 40, "Bent u geheel of slechts gedeeltelijk werkloos? Heeft u bijvoorbeeld een deeltijdbaan?", ["Volledig werkloos", "Gedeeltelijk werkloos"]))
     all_vars.append(make_question_row(content, 41, "Verricht u momenteel vrijwilligerswerk?", ["Vrijwilligerwerk", "Geen vrijwilligerswerk"]))
