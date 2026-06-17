@@ -139,7 +139,7 @@
       "timestamp": "2026-06-16T15:47:19.818395"
     },
     "phase1.1": {
-      "status": "in_progress",
+      "status": "completed",
       "last_question_index": 0,
       "total_questions": 50,
       "answers": {
@@ -194,7 +194,8 @@
         "49": 4,
         "50": 3
       },
-      "timestamp": "2026-06-16T15:10:17.361272"
+      "timestamp": "2026-06-16T15:10:17.361272",
+      "completed_timestamp": "2026-06-17T09:02:08.363363"
     },
     "phase2.0": {
       "status": "completed",

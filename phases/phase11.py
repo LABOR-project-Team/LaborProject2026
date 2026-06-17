@@ -185,6 +185,10 @@ def build_assessments_page(parent_frame: tk.Frame, navigate) -> None:
         messagebox.showerror("Fout", "Geen actieve client gevonden. Keer terug naar het dashboard en selecteer een client.")
         return
 
+    # ---------- fixed header (non-scrolling) ----------
+    header_frame = tk.Frame(parent_frame, bg="white")
+    header_frame.pack(fill="x")
+
     # ---------- scrollable container ----------
     container = tk.Frame(parent_frame, bg="white")
     container.pack(fill="both", expand=True)
@@ -214,9 +218,9 @@ def build_assessments_page(parent_frame: tk.Frame, navigate) -> None:
 
     canvas.bind_all("<MouseWheel>", on_mousewheel)
 
-    # ---------- title & explanation ----------
+    # ---------- title & explanation (fixed) ----------
     title = tk.Label(
-        scroll_frame,
+        header_frame,
         text="Fase 1.1 – Big Five persoonlijkheidsdimensies",
         bg="white",
         fg="black",
@@ -226,7 +230,7 @@ def build_assessments_page(parent_frame: tk.Frame, navigate) -> None:
     title.pack(fill="x", padx=20, pady=(15, 5))
 
     subtitle = tk.Label(
-        scroll_frame,
+        header_frame,
         text=(
             "Beoordeel elke stelling in het algemeen voor jezelf.\n"
             "1 = oneens · 2 = deels oneens · 3 = neutraal · 4 = deels eens · 5 = volledig eens."
@@ -239,8 +243,8 @@ def build_assessments_page(parent_frame: tk.Frame, navigate) -> None:
     )
     subtitle.pack(fill="x", padx=20, pady=(0, 15))
 
-    # ---------- column headings ----------
-    header = tk.Frame(scroll_frame, bg=DARK_GREY)
+    # ---------- column headings (fixed) ----------
+    header = tk.Frame(header_frame, bg=DARK_GREY)
     header.pack(fill="x")
 
     tk.Label(
