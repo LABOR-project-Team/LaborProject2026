@@ -232,6 +232,7 @@ def build_assessments_page(parent_frame: tk.Frame, navigate) -> None:
     subtitle = tk.Label(
         header_frame,
         text=(
+            "Wie is de cliënt? | Identificatie van de Big Five Persoonlijkheidskarakteristieken\n\n"
             "Beoordeel elke stelling in het algemeen voor jezelf.\n"
             "1 = oneens · 2 = deels oneens · 3 = neutraal · 4 = deels eens · 5 = volledig eens."
         ),
