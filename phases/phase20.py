@@ -15,62 +15,91 @@ from ui.ui_styles import (
 CAREER_STATEMENTS = [
     (1, "V", "V | Graag wil ik het voor mezelf en voor anderen dusdanig regelen dat succes verzekerd is."),
     (1, "X", "X | Ik houd me binnen een werksituatie het liefst bezig met mijn eigen zaken."),
+
     (2, "Y", "Y | Binnen het werk moet er tijd zijn voor zaken die jezelf belangrijk vindt en moet er gelegenheid zijn om zinvolle relaties te cultiveren."),
     (2, "V", "V | Vooruitkomen is voor mij belangrijker dan persoonlijke behoeften."),
+
     (3, "W", "W | Ik werk graag in een omgeving waar hard werken, loyaliteit en toewijding gewaardeerd wordt."),
     (3, "X", "X | Ik houd van een werksituatie waar ik mijn eigen doelen kan stellen en ze kan bereiken op mijn eigen manier en op mijn eigen tempo."),
+
     (4, "V", "V | Ik ben strijdlustig, kan goed analyseren en met mensen omgaan."),
     (4, "Y", "Y | Ik kan goed mijn evenwicht bewaren tussen de eisen van mijn werk en die van mijn privé-leven."),
+
     (5, "X", "X | Ik wil onafhankelijk werken."),
     (5, "W", "W | Ik houd ervan me een vertegenwoordiger te voelen van een groter geheel."),
+
     (6, "Z", "Z | Ik houd ervan als consultant of probleemoplosser te werken en me dusdanig te profileren door middel van een opwindend project."),
     (6, "V", "V | Ik houd ervan in een situatie te werken waarin ik de leiding heb en verantwoordelijk ben voor het bereiken van bepaalde doelen."),
+
     (7, "Y", "Y | Mijn echtgenoot/partner is net zo belangrijk voor mij als mijn loopbaan."),
     (7, "Z", "Z | Mijn echtgenoot/partner verdwijnt naar de achtergrond als ik midden in een zeer opwindend project zit."),
+
     (8, "X", "X | Het allerbelangrijkst voor mij is vrijheid."),
     (8, "Y", "Y | Het allerbelangrijkst voor mij is een doel in mijn leven."),
+
     (9, "W", "W | Ik ben bekwaam, loyaal, betrouwbaar en ik werk hard."),
-    (9, "Z", "Z | Ik ben sociaal en in de omgang, een goede leider en een goede organisator."),
+    (9, "V", "V | Ik ben sociaal en in de omgang, een goede leider en een goede organisator."), 
+
     (10, "X", "X | Ik ben onafhankelijk."),
     (10, "Y", "Y | Ik ben evenwichtig."),
+
     (11, "Z", "Z | Ik ben iemand die in actie komt door opwindende projecten."),
-    (11, "Y", "Y | Ik ben iemand die graag met anderen werkt."),
-    (12, "X", "X | Ik ben ambitieus en iemand die graag met anderen wedijvert."),
-    (12, "W", "W | Ik ben iemand die een medewerker zijn met wie men kan rekenen."),
-    (13, "Z", "Z | Ik voel zelfvertrouwen en ben in staat mezelf te redden."),
-    (13, "V", "V | Ik heb veel fantasie en enthousiasme."),
+    (11, "V", "V | Ik ben iemand die graag met anderen wedijvert."), 
+
+    (12, "Y", "Y | Ik ben iemand die genuanceerd over zaken nadenkt."), 
+    (12, "V", "V | Ik ben ambitieus en iemand die graag met anderen wedijvert."), 
+
+    (13, "X", "X | X: Ik heb veel zelfvertrouwen en ben in staat mezelf te redden."),
+    (13, "Z", "Z | Ik heb veel fantasie en enthousiasme."),#
+
     (14, "W", "W | Ik ben stabiel en vasthoudend."),
     (14, "X", "X | Ik ben onafhankelijk en in staat een eigen koers te bepalen."),
-    (15, "Y", "Y | Ik ben iemand die goed kan plannen en coördineren."),
+
+    (15, "V", "V | Ik ben iemand die goed kan plannen en organiseren."), 
     (15, "Z", "Z | Ik ben iemand die situaties analyseert en creatieve, nieuwe oplossingen ontwikkelt."),
-    (16, "V", "V | Ik ben een expert op mijn terrein."),
-    (16, "W", "W | Ik ben een betrouwbare en degelijk persoon."),
-    (17, "Y", "Y | Ik ben iemand die wil werken volgens vaststaande procedures."),
-    (17, "X", "X | Ik ben iemand die probeert de doelen in het werk in overeenstemming te brengen met het persoonlijk nastreven."),
-    (18, "Z", "Z | Een persoonlijk doel is om mijn eigen lot te bepalen."),
+
+    (16, "Z", "Z | Ik ben een expert op mijn terrein."),
+    (16, "W", "W | Ik ben een betrouwbaar en degelijk persoon."),
+
+    (17, "W", "W | Ik ben iemand die wil werken volgens vaststaande procedures."),
+    (17, "Y", "Y | Ik ben iemand die probeert de doelen in het werk in overeenstemming te brengen met wat ik persoonlijk nastreef."),
+
+    (18, "X", "X | Een persoonlijk doel is om mijn eigen lot te bepalen."),
     (18, "Y", "Y | Een persoonlijk doel is om mijn werk te verweven met mijn privé-leven."),
+
     (19, "W", "W | Ik vind het belangrijk een veilige baan te hebben en het gevoel te hebben erbij te horen."),
-    (19, "X", "X | Ik vind het belangrijk om tijd te kunnen besteden aan mijn privé-leven en hobby’s."),
+    (19, "Y", "Y | Ik vind het belangrijk om tijd te kunnen besteden aan mijn privé-leven en hobby’s."),
+
     (20, "V", "V | Ik geef de voorkeur aan een carrière waarin veel promotiekansen voorhanden zijn."),
     (20, "Z", "Z | Ik geef de voorkeur aan om in staat gesteld te worden uitdagende problemen en taken aan te pakken."),
-    (21, "Y", "Y | Ik ben graag in een werksituatie waar invloed uitgeoefend kan worden."),
+
+    (21, "V", "V | Ik ben graag in een werksituatie waar invloed uitgeoefend kan worden."),
     (21, "W", "W | Ik waardeer een baan waar je langere tijd kunt blijven werken en waar je gewaardeerd en geaccepteerd wordt."),
-    (22, "V", "V | Ik denk dat de juiste mensen en goede vrienden maken belangrijk is om vooruit te komen."),
-    (22, "Z", "Z | Ik denk dat het essentieel is om interessesgebieden te ontwikkelen."),
+
+    (22, "V", "V | Ik denk dat de juiste mensen kennen en goede vrienden maken belangrijk is om vooruit te komen."),
+    (22, "Y", "Y | Ik denk dat het essentieel is om interessesgebieden te ontwikkelen."),
+
     (23, "Y", "Y | Voor mij geldt als basis het scheppen van een evenwicht tussen mijn privé-leven en mijn werk."),
     (23, "W", "W | Voor mij geldt als basis stabiliteit, waardering en een veilige plaats binnen mijn werksituatie."),
+
     (24, "X", "X | Ik denk dat ik graag een positie zou willen hebben met een maximum aan zelfstandigheid."),
     (24, "V", "V | Ik denk dat ik graag tot \"de kring van ingewijden\" zou willen behoren."),
+
     (25, "W", "W | Voor mij geldt als basis stabiliteit, waardering en een veilige plaats op het werk."),
     (25, "V", "V | Als basis geldt voor mij dat ik vooruit wil komen in de werkomgeving."),
+
     (26, "V", "V | Ik denk dat geld, macht en aanzien een belangrijke maatstaf zijn van een succesvolle loopbaan."),
     (26, "Y", "Y | Ik denk dat een loopbaan succesvol is als je evenveel tijd hebt voor het werk, het gezin en je eigen ontwikkeling."),
+
     (27, "Z", "Z | Ik wil liever uitblinken op mijn gebied."),
     (27, "W", "W | Ik wil liever beschouwd worden als betrouwbaar en loyaal."),
+
     (28, "W", "W | Ik geef de voorkeur aan het werken met een team op lange termijn en een hechte basis."),
     (28, "Z", "Z | Ik geef de voorkeur aan het werken met een taakgerichte of projectgroep op korte termijn basis en in een hoog tempo."),
+
     (29, "Z", "Z | Ik geef de voorkeur aan professionele ontwikkeling en permanente training."),
     (29, "X", "X | Ik geef de voorkeur aan professionele ontwikkeling om een expert te worden en om meer flexibiliteit en onafhankelijkheid te verkrijgen."),
+
     (30, "Y", "Y | Ik geef de voorkeur aan een werksituatie die een evenwicht garandeert tussen mijn privé-leven en mijn werk."),
     (30, "Z", "Z | Ik geef de voorkeur aan een werksituatie die opwindend is en mij stimuleert."),
 ]

@@ -198,7 +198,7 @@
       "completed_timestamp": "2026-06-17T09:42:19.960243"
     },
     "phase2.0": {
-      "status": "in_progress",
+      "status": "completed",
       "last_question_index": 0,
       "total_questions": 30,
       "answers": {
@@ -233,7 +233,8 @@
         "29": "X",
         "30": "Y"
       },
-      "timestamp": "2026-06-17T09:49:09.432829"
+      "timestamp": "2026-06-17T09:49:09.432829",
+      "completed_timestamp": "2026-06-17T12:57:16.524541"
     },
     "phase2.1": {
       "status": "completed",
@@ -802,7 +803,7 @@
         ]
       },
       "timestamp": "2026-06-16T13:03:59.596559",
-      "completed_timestamp": "2026-06-16T14:54:07.400689"
+      "completed_timestamp": "2026-06-17T12:57:23.772743"
     },
     "phase2.2": {
       "status": "completed",
@@ -827,7 +828,7 @@
         "(4, 4)": "1"
       },
       "timestamp": "2026-06-16T14:54:20.543266",
-      "completed_timestamp": "2026-06-16T14:54:23.078869"
+      "completed_timestamp": "2026-06-17T12:57:28.530295"
     },
     "phase2.3": {
       "status": "completed",
@@ -841,7 +842,7 @@
         "5": "wdada"
       },
       "timestamp": "2026-06-16T14:54:33.625367",
-      "completed_timestamp": "2026-06-16T14:54:35.590492"
+      "completed_timestamp": "2026-06-17T12:57:32.053176"
     }
   }
 }
