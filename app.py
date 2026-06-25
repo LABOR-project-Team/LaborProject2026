@@ -10,22 +10,38 @@ from xmlrpc import client
 from flask import app
 import phases.phase11
 from PIL import Image, ImageTk
+
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
+# Example usage:
+# instead of: open("data.csv")
+# use: open(resource_path("data.csv"))
+
 _USE_PILLOW = True
 from tkinter import simpledialog, messagebox
 from ui.ui_styles import *
 from phases.phase11 import build_assessments_page
 
+
 def resource_path(relative_path: str) -> str:
     """Get absolute path to resource, works for dev and PyInstaller."""
     base_path = getattr(sys, "_MEIPASS", os.path.abspath("."))
     return os.path.join(base_path, relative_path)
+
+
 from phases.phase20 import build_career_anchors_page
 from phases.phase21 import build_carriereclusters_page
 from phases.phase22 import build_cultuur_page
 from phases.phase23 import build_job_characteristics_models_page
 from utils.session_manager import has_incomplete_session, get_incomplete_phases, load_session
 from prognosis_model import build_prognosis_page
-
 
 root = tk.Tk()
 root.title("LABOR - Applicatie")
@@ -64,21 +80,23 @@ logo_label = add_logo_to_sidebar(
     bg=COLOR_PRIMARY
 )
 
+
 def push_history(page_type, page_data):
     """Push a page to the navigation history."""
     navigation_history.append((page_type, page_data))
     print(f"[DEBUG] Pushed to history: {page_type}, Stack size: {len(navigation_history)}")
 
+
 def go_back():
     """Go back to the previous page. If no history, return to home (client list)."""
     global current_assessment_client
-    
+
     if len(navigation_history) == 0:
         # Empty history, go to home
         push_history("client_list", {})
         show_client_list(push_to_history=False)
         return
-    
+
     if len(navigation_history) == 1:
         # Only one page in history, just reload it
         page_type, page_data = navigation_history[0]
@@ -88,14 +106,14 @@ def go_back():
             # Go to home as default
             show_client_list(push_to_history=False)
         return
-    
+
     # Pop current page
     navigation_history.pop()
     print(f"[DEBUG] Popped from history, Stack size: {len(navigation_history)}")
-    
+
     # Load previous page from history
     page_type, page_data = navigation_history[-1]
-    
+
     if page_type == "client_list":
         top_frame.pack(side="top", fill="x", padx=20, pady=15, before=content_frame)
         clear_content_frame()
@@ -112,6 +130,7 @@ def go_back():
     else:
         show_client_list(push_to_history=False)
 
+
 back_button = tk.Button(
     sidebar,
     text="← Terug",
@@ -125,9 +144,57 @@ back_button = tk.Button(
 back_button.pack(pady=50, padx=50, anchor="w")
 
 
+# ========= Format function ================================================================
+def run_format(client):
+    """Generate a formatted report from the client's Excel file."""
+    try:
+        safe_name = "_".join(client["name"].split())
+        folder_name = f"{client['id']}_{safe_name}"
+        client_dir = os.path.join("clients", folder_name)
 
-# ========= prognosis button ding ==========================================================
+        excel_path = None
+
+        # Look for Excel file in client directory
+        if os.path.exists(client_dir):
+            for file in os.listdir(client_dir):
+                if file.endswith(".xlsx"):
+                    excel_path = os.path.join(client_dir, file)
+                    break
+
+        if not excel_path:
+            messagebox.showerror(
+                "Fout",
+                f"Geen Excel bestand gevonden in {client_dir}"
+            )
+            return
+
+        # Import and use format_report
+        from format_report import generate_report
+
+        # Call the generate_report function
+        generate_report(excel_path)
+
+        messagebox.showinfo(
+            "Succes",
+            f"Rapport succesvol gegenereerd voor {client['name']}\n"
+            f"Bestand: {os.path.basename(excel_path)}"
+        )
+
+    except ImportError as e:
+        messagebox.showerror(
+            "Fout",
+            f"Kan format_report module niet vinden: {str(e)}"
+        )
+    except Exception as e:
+        messagebox.showerror(
+            "Fout",
+            f"Er is een fout opgetreden bij het genereren van het rapport: {str(e)}"
+        )
+
+
+# ========= Prognosis function ============================================================
 def run_prognosis(client):
+    """Run the prognosis questionnaire for a client."""
     print(f"run_prognosis aangeroepen met client={client}")  # debug
 
     def go_back_to_dashboard(c=None):
@@ -138,7 +205,7 @@ def run_prognosis(client):
         content_frame.pack_forget()
         top_frame.pack(fill="x", padx=20, pady=15)
         content_frame.pack(fill="both", expand=True)
-        open_client_dashboard(c)
+        open_client_dashboard(c if c else client)
 
     top_frame.pack_forget()
     for w in content_frame.winfo_children():
@@ -150,7 +217,7 @@ def run_prognosis(client):
         client=client,
         go_back=go_back_to_dashboard
     )
-# ==============================================================================================
+
 
 # --------- Data Storage ---------
 
@@ -171,10 +238,12 @@ def load_clients():
                     print(f"Error reading {info_path}: {e}")
     return clients
 
+
 def search_clients(query):
     """Filter clients by name/ID."""
     clients = load_clients()
     return [c for c in clients if query.lower() in c.get("name", "").lower()]
+
 
 def show_create_client_form(push_to_history=True):
     """Display form to create a new client with all fields."""
@@ -252,8 +321,6 @@ def show_create_client_form(push_to_history=True):
             "prognosis": []
         }
 
-
-
         # Create client folder and info.json
         import os, json
         safe_name = "_".join(name.split())
@@ -278,22 +345,24 @@ def show_create_client_form(push_to_history=True):
         pady=10
     ).pack(pady=20)
 
+
 def clear_content_frame():
     """Clear the content area."""
     for widget in content_frame.winfo_children():
         widget.destroy()
 
+
 def refresh_client_list(query=""):
     """Refresh the client list display."""
     clear_content_frame()
-    
+
     # Client list container
     list_container = tk.Frame(content_frame, bg=COLOR_BG)
     list_container.pack(fill="both", expand=True, padx=20, pady=(0, 20))
-    
+
     # Populate list
     clients = search_clients(query) if query else load_clients()
-    
+
     # Create listbox
     client_listbox = tk.Listbox(
         list_container,
@@ -307,29 +376,31 @@ def refresh_client_list(query=""):
         selectmode="single"
     )
     client_listbox.pack(fill="both", expand=True, side="left")
-    
+
     # Scrollbar
     scrollbar = ttk.Scrollbar(list_container, orient="vertical", command=client_listbox.yview)
     scrollbar.pack(side="right", fill="y")
     client_listbox.config(yscrollcommand=scrollbar.set)
-    
+
     # Add clients to listbox
     for i, client in enumerate(clients):
         client_listbox.insert(tk.END, f"{client['name']}")
-    
+
     # Bind click to open dashboard
     def on_select(event):
         sel = client_listbox.curselection()
         if sel:
             open_client_dashboard(clients[sel[0]])
-    
+
     client_listbox.bind("<Double-Button-1>", on_select)
+
 
 def open_phase11_assessment(client):
     """Start the assessment questionnaire for a client."""
     global current_assessment_client
     current_assessment_client = client
     navigate_phase("phase1.1")
+
 
 def show_client_list(query="", push_to_history=True):
     """Display the client list view."""
@@ -338,6 +409,7 @@ def show_client_list(query="", push_to_history=True):
     top_frame.pack(side="top", fill="x", padx=20, pady=15, before=content_frame)
     search_entry.delete(0, tk.END)
     refresh_client_list(query)
+
 
 def run_assessment(client):
     """Launch assessment questionnaire for the client."""
@@ -348,19 +420,19 @@ def run_assessment(client):
         content_frame.current_assessment_client = client
     except Exception:
         pass
-    
+
     # Check for incomplete sessions
     incomplete_phases = get_incomplete_phases(str(client["id"]), client["name"])
-    
+
     if incomplete_phases:
         # Sort phases in logical order
         phase_order = ["phase1.1", "phase2.0", "phase2.1", "phase2.2", "phase2.3"]
         incomplete_phases_sorted = [p for p in phase_order if p in incomplete_phases]
-        
+
         if incomplete_phases_sorted:
             # Get the last incomplete phase (most recent progress)
             last_incomplete_phase = incomplete_phases_sorted[-1]
-            
+
             phase_labels = {
                 "phase1.1": "Fase 1.1 - Big Five",
                 "phase2.0": "Fase 2.0 - Loopbaanwaarden",
@@ -376,17 +448,20 @@ def run_assessment(client):
                 # Navigate directly to the last incomplete phase
                 navigate_phase(last_incomplete_phase)
             return
-    
+
     # No incomplete sessions, start fresh
     open_phase11_assessment(client)
+
 
 def view_client_results(client):
     """View results for this client."""
     # TODO: Show results
 
+
 def delete_client(client):
     """Delete a client and their data folder."""
-    response = messagebox.askyesno("Klant verwijderen", f"Weet je zeker dat je {client['name']} wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.")
+    response = messagebox.askyesno("Klant verwijderen",
+                                   f"Weet je zeker dat je {client['name']} wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.")
     if response:
         # Delete client folder
         safe_name = "_".join(client["name"].split())
@@ -396,14 +471,15 @@ def delete_client(client):
             if os.path.exists(client_dir):
                 import shutil
                 shutil.rmtree(client_dir)
-            
+
             # Clear navigation history to prevent returning to deleted client
             navigation_history.clear()
-            
+
             messagebox.showinfo("Verwijderd", f"Klant '{client['name']}' is verwijderd.")
             show_client_list()
         except Exception as e:
             messagebox.showerror("Fout", f"Kon klant niet verwijderen: {e}")
+
 
 def open_client_dashboard(client, push_to_history=True):
     """Open the dashboard for this client with assessment and prognosis buttons."""
@@ -420,7 +496,6 @@ def open_client_dashboard(client, push_to_history=True):
     header_frame = tk.Frame(content_frame, bg=COLOR_PRIMARY)
     header_frame.pack(fill="x", padx=20, pady=(10, 30))
 
-
     # Back button (Terug button)
     back_btn = tk.Button(
         content_frame,
@@ -435,7 +510,6 @@ def open_client_dashboard(client, push_to_history=True):
         cursor="hand2"
     )
     back_btn.pack(anchor="w", padx=20, pady=10)
-
 
     # --- Name and Edit Button Row ---
     name_edit_frame = tk.Frame(header_frame, bg=COLOR_PRIMARY)
@@ -624,7 +698,20 @@ def open_client_dashboard(client, push_to_history=True):
         activebackground="#c0392b"
     ).pack(pady=10, fill="x")
 
-
+    # Format Button - Now properly defined at the top level
+    tk.Button(
+        buttons_frame,
+        text="📄 Format Rapport",
+        command=lambda: run_format(client),
+        bg="#6c3483",  # Purple color
+        fg="white",
+        font=("Segoe UI", 12, "bold"),
+        padx=30,
+        pady=20,
+        relief="flat",
+        cursor="hand2",
+        activebackground="#4a235a"
+    ).pack(pady=10, fill="x")
 
 
 # --------- UI Layout ---------
@@ -716,15 +803,16 @@ PHASES = {
     "phase2.3": build_job_characteristics_models_page,
 }
 
+
 def navigate_phase(phase_name, push_to_history=True):
     """Navigate to a specific phase or handle special navigation."""
     global current_assessment_client
-    
+
     # Handle special navigation
     if phase_name == "go_back":
         go_back()
         return
-    
+
     # Handle direct return to client dashboard (used after final phases)
     if phase_name == "client_dashboard":
         top_frame.pack(side="top", fill="x", padx=20, pady=15, before=content_frame)
@@ -732,31 +820,32 @@ def navigate_phase(phase_name, push_to_history=True):
             # Don't push to history - this closes out the phase chain
             open_client_dashboard(current_assessment_client, push_to_history=False)
         return
-    
+
     if phase_name not in PHASES:
         messagebox.showerror("Error", f"Unknown phase: {phase_name}")
         return
-    
+
     # Push to history
     if push_to_history:
         push_history("phase", {"phase_name": phase_name})
-    
+
     # Hide header when entering a phase
     top_frame.pack_forget()
-    
+
     build_func = PHASES[phase_name]
-    
+
     # Set up phase context (excel path, client, etc.)
     # Make sure client is always available to phases
     if current_assessment_client:
         content_frame.current_assessment_client = current_assessment_client
-    
+
     if phase_name == "phase1.1":
         if current_assessment_client:
-            print(f"[DEBUG] Passing client to phase1.1: {current_assessment_client.get('name', 'UNKNOWN')} (ID: {current_assessment_client.get('id', 'UNKNOWN')})")
+            print(
+                f"[DEBUG] Passing client to phase1.1: {current_assessment_client.get('name', 'UNKNOWN')} (ID: {current_assessment_client.get('id', 'UNKNOWN')})")
         else:
             print("[DEBUG] No active client to pass to phase1.1!")
-    
+
     # Set results_excel_path for all phases if client context is available
     if hasattr(content_frame, "current_assessment_client"):
         client = content_frame.current_assessment_client
@@ -774,8 +863,9 @@ def navigate_phase(phase_name, push_to_history=True):
         # Set on both content_frame and root so all phases can access it
         content_frame.results_excel_path = excel_path
         root.results_excel_path = excel_path
-    
+
     build_func(content_frame, navigate_phase)
+
 
 def open_phase11_assessment(client):
     """Start the assessment questionnaire for a client."""
@@ -787,5 +877,6 @@ def open_phase11_assessment(client):
     except Exception:
         pass
     navigate_phase("phase1.1")
+
 
 root.mainloop()
