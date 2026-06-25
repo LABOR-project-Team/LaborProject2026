@@ -7,7 +7,7 @@ import os
 import ctypes
 from xmlrpc import client
 
-from flask import app
+
 import phases.phase11
 from PIL import Image, ImageTk
 
@@ -142,6 +142,22 @@ back_button = tk.Button(
     cursor="hand2"
 )
 back_button.pack(pady=50, padx=50, anchor="w")
+
+
+def open_klanten_folder():
+        """Open the clients folder in the file explorer."""
+        clients_dir = os.path.abspath("clients")
+        if not os.path.exists(clients_dir):
+            os.makedirs(clients_dir)
+        try:
+            if sys.platform == "win32":
+                os.startfile(clients_dir)
+            elif sys.platform == "darwin":
+                subprocess.Popen(["open", clients_dir])
+            else:
+                subprocess.Popen(["xdg-open", clients_dir])
+        except Exception as e:
+            messagebox.showerror("Fout", f"Kon map niet openen: {e}")
 
 
 # ========= Format function ================================================================
@@ -294,6 +310,8 @@ def show_create_client_form(push_to_history=True):
         entry.pack(side="left", fill="x", expand=True)
 
         entries[key] = entry
+
+
 
     # Save button
     def save_client():
@@ -479,6 +497,7 @@ def delete_client(client):
             show_client_list()
         except Exception as e:
             messagebox.showerror("Fout", f"Kon klant niet verwijderen: {e}")
+
 
 
 def open_client_dashboard(client, push_to_history=True):
@@ -769,6 +788,19 @@ tk.Button(
     top_frame,
     text="+ Nieuwe Klant",
     command=show_create_client_form,
+    bg=COLOR_TEXT_LIGHT,
+    fg="white",
+    font=("Segoe UI", 11, "bold"),
+    padx=20,
+    pady=8,
+    relief="flat",
+    cursor="hand2",
+    activebackground=COLOR_TEXT_LIGHT
+).pack(side="right", padx=15)
+tk.Button(
+    top_frame,
+    text="Open Klanten folder",
+    command=lambda: open_klanten_folder(),
     bg=COLOR_TEXT_LIGHT,
     fg="white",
     font=("Segoe UI", 11, "bold"),
