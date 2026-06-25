@@ -1,0 +1,400 @@
+{
+  "donald_super": [
+    {
+      "leeftijd": "15-24",
+      "fase": "Verkenning",
+      "omschrijving": "Het in kaart brengen van het zelf en de werkende wereld om het zelfbeeld te verduidelijken en de hierbij passende beroepen vast te stellen."
+    },
+    {
+      "leeftijd": "25-44",
+      "fase": "Keuze",
+      "omschrijving": "De persoon kiest, wellicht na een of twee valse starts, voor een bepaald beroep en probeert zichzelf hierin te bewijzen."
+    },
+    {
+      "leeftijd": "45-64",
+      "fase": "Onderhoud",
+      "omschrijving": "Belangrijk is om nu de gekozen niche vast te houden. Dit kan lastig zijn, met name in het licht van technologische ontwikkelingen en concurrentie van jongere collega's."
+    },
+    {
+      "leeftijd": "65 en ouder",
+      "fase": "Terugtrekking",
+      "omschrijving": "Deze fase wordt gekenmerkt door een steeds minder wordende betrokkenheid bij het werk en de neiging om een observerende positie in te nemen."
+    }
+  ],
+  "levinson": [
+    {
+      "leeftijd": "17-21",
+      "fase": "Overgang naar vroege volwassenheid",
+      "omschrijving": "Een periode waarin iemand zich een plekje in de wereld probeert te verwerven."
+    },
+    {
+      "leeftijd": "22-28",
+      "fase": "Toetreding tot volwassenheid",
+      "omschrijving": "De leeftijd van 22 tot 28 jaar is een cruciale periode waarin jonge volwassenen hun professionele identiteit vormen en belangrijke stappen zetten naar een stabiele en bevredigende carrière. Door verschillende rollen uit te proberen, vaardigheden te ontwikkelen, te netwerken en financiële en persoonlijke balans te vinden, legt men de basis voor de toekomstige loopbaan en het persoonlijke leven."
+    },
+    {
+      "leeftijd": "29-33",
+      "fase": "Overgang voor dertigers",
+      "omschrijving": "Ervaringen worden geëvalueerd en men gaat op zoek naar een voldoening schenkende levensstijl."
+    },
+    {
+      "leeftijd": "34-40",
+      "fase": "Settelen",
+      "omschrijving": "De begeerde levensstijl wordt ten uitvoer gebracht."
+    },
+    {
+      "leeftijd": "41-45",
+      "fase": "Overgang naar middelbare leeftijd",
+      "omschrijving": "De levensstijl wordt opnieuw geëvalueerd wat vaak met veel gevoel van urgentie en emoties gepaard gaat. Het betreft in dezen de zogenaamde 'Mid-life' crisis. Mensen beseffen dat ze zich op de helft van hun leven bevinden en gaan nadenken over wat ze met de andere helft van hun leven willen. In de ogen van hun kinderen zijn ze symbolen van de gevestigde orde en oud. De fysieke tekenen van ouderdom worden zichtbaar. Het is nu duidelijk of de gestelde loopbaandoelen ook echt gehaald gaan worden. Al deze zaken kunnen tot significante veranderingen leiden, bijvoorbeeld een nieuwe baan of partner. Het kan ook gebeuren dat de aanvankelijke loopbaankeuze wordt bevestigd, waarna men met hernieuwde energie weer aan het werk gaat."
+    },
+    {
+      "leeftijd": "46-50",
+      "fase": "Toetreding tot middelbare volwassenheid",
+      "omschrijving": "Toepassen van en leren leven met gemaakte beslissingen."
+    },
+    {
+      "leeftijd": "51-55",
+      "fase": "Overgang voor vijftigers",
+      "omschrijving": ""
+    },
+    {
+      "leeftijd": "56-60",
+      "fase": "Hoogtepunt van middelbare volwassenheid",
+      "omschrijving": ""
+    },
+    {
+      "leeftijd": "61-65",
+      "fase": "Overgang naar late volwassenheid",
+      "omschrijving": ""
+    },
+    {
+      "leeftijd": "66 en ouder",
+      "fase": "Toetreding tot de late volwassenheid",
+      "omschrijving": "Deze fase wordt gekenmerkt door een steeds minder wordende betrokkenheid bij het werk en de neiging om een observerende positie in te nemen."
+    }
+  ],
+  "prognosis_questions": [
+    {
+      "id": 1,
+      "section": "Persoonlijk",
+      "question": "Bent u een man of vrouw?",
+      "type": "radio",
+      "options": ["Man", "Vrouw"]
+    },
+    {
+      "id": 2,
+      "section": "Persoonlijk",
+      "question": "Wat is uw leeftijd?",
+      "type": "radio",
+      "options": ["15-25", "25-45", "46-65", "65+"]
+    },
+    {
+      "id": 3,
+      "section": "Persoonlijk",
+      "question": "Wat is uw huidige nationaliteit?",
+      "type": "radio",
+      "options": ["Autochtoon", "Westers", "Niet-westers"]
+    },
+    {
+      "id": 4,
+      "section": "Persoonlijk",
+      "question": "In welke provincie bent u op zoek naar werk?",
+      "type": "select",
+      "options": ["Zeeland", "Utrecht", "Noord-Brabant", "Gelderland", "Noord-Holland", "Overijssel", "Limburg", "Drenthe", "Friesland", "Flevoland", "Zuid-Holland", "Groningen"]
+    },
+    {
+      "id": 5,
+      "section": "Persoonlijk",
+      "question": "Wat is uw migratieachtergrond?",
+      "type": "radio",
+      "options": ["Autochtoon", "Westers", "Niet Westers"]
+    },
+    {
+      "id": 6,
+      "section": "Persoonlijkheid & Representativiteit",
+      "question": "Wat zijn uw meest dominante persoonlijkheidskenmerken?",
+      "type": "checkbox",
+      "options": ["Openheid", "Consciëntieusheid", "Extraversie", "Altruïstisch", "Neuroticisme"]
+    },
+    {
+      "id": 7,
+      "section": "Persoonlijkheid & Representativiteit",
+      "question": "Mate van representativiteit (Beoordeling door consulent)",
+      "type": "radio",
+      "options": ["Informeel", "Gekleed Informeel", "Zakelijk Informeel", "Zakelijk Formeel", "Gekleed Formeel"]
+    },
+    {
+      "id": 8,
+      "section": "Gezondheid & Vitaliteit",
+      "question": "Ervaart u psychische en/of lichamelijke problemen?",
+      "type": "radio",
+      "options": ["Geen", "Psychisch", "Somatisch", "Psychisch & Somatisch"]
+    },
+    {
+      "id": 9,
+      "section": "Gezondheid & Vitaliteit",
+      "question": "Vormen uw gezondheidsbeperkingen een belemmering voor uw integratie?",
+      "type": "radio",
+      "options": ["Volledige en duurzaam arbeidsongeschikt", "Gedeeltelijk arbeidsgeschikt", "Arbeidsgehandicapt", "Minder dan goed ervaren gezondheid", "Geen gezondheidsbeperkingen"]
+    },
+    {
+      "id": 10,
+      "section": "Gezondheid & Vitaliteit",
+      "question": "Beoefent u een sport?",
+      "type": "radio",
+      "options": ["Sedentair", "Recreatief", "Actief"]
+    },
+    {
+      "id": 11,
+      "section": "Financiën & Uitkering",
+      "question": "Ontvangt u een uitkering?",
+      "type": "radio",
+      "options": ["WW", "Bijstand", "Geen"]
+    },
+    {
+      "id": 12,
+      "section": "Financiën & Uitkering",
+      "question": "Hoelang ontvangt u reeds uw WW uitkering?",
+      "type": "radio",
+      "options": ["< 3 maanden", "3 - 6 maanden", "6 - 12 maanden", "> 12 - 18 maanden", "18 - 24 maanden"]
+    },
+    {
+      "id": 13,
+      "section": "Financiën & Uitkering",
+      "question": "Hoelang ontvangt u reeds uw Bijstandsuitkering?",
+      "type": "radio",
+      "options": ["< 1 jaar", "1 - 2 jaar", "2 - 3 jaar", "3 - 4 jaar", "4 - 5 jaar"]
+    },
+    {
+      "id": 14,
+      "section": "Financiën & Uitkering",
+      "question": "Ervaart u schuldenproblematiek?",
+      "type": "radio",
+      "options": ["Schuldsanering", "Schuldhulpverlening", "Geen schuldenproblematiek"]
+    },
+    {
+      "id": 15,
+      "section": "Financiën & Uitkering",
+      "question": "Ontvangt u naast uw uitkering nog overige inkomsten?",
+      "type": "radio",
+      "options": ["Overige inkomsten zonder invloed op uitkering", "Overige inkomsten met invloed op uitkering", "Geen overige inkomsten"]
+    },
+    {
+      "id": 16,
+      "section": "Financiën & Uitkering",
+      "question": "Ontvangt u financiële steun vanuit uw omgeving?",
+      "type": "radio",
+      "options": ["Beschikbaar", "Niet beschikbaar"]
+    },
+    {
+      "id": 17,
+      "section": "Cognitie & Taal",
+      "question": "Wat is de hoogte van uw IQ?",
+      "type": "radio",
+      "options": ["Zwak begaafd (IQ 70-85)", "Normaal (IQ 85-115)", "Meer begaafd (IQ 115-130)", "Hoog begaafd (IQ > 130)"]
+    },
+    {
+      "id": 18,
+      "section": "Cognitie & Taal",
+      "question": "Beschrijf uw mate van Nederlandse taalvaardigheid.",
+      "type": "radio",
+      "options": ["Basisgebruiker (A1-A2)", "Onafhankelijke gebruiker (B1-B2)", "Vaardige gebruiker (C1-C2)"]
+    },
+    {
+      "id": 19,
+      "section": "Cognitie & Taal",
+      "question": "Spreekt u nog vreemde talen?",
+      "type": "radio",
+      "options": ["Geen", "1 vreemde taal", "2 of meer vreemde talen"]
+    },
+    {
+      "id": 20,
+      "section": "Cognitie & Taal",
+      "question": "Beschrijf uw mate van buitenlandse taalvaardigheid.",
+      "type": "radio",
+      "options": ["Basisgebruiker (A1-A2)", "Onafhankelijke gebruiker (B1-B2)", "Vaardige gebruiker (C1-C2)"]
+    },
+    {
+      "id": 21,
+      "section": "Cognitie & Taal",
+      "question": "Beschrijf uw ICT-competenties en het niveau waarop u deze kunt uitdragen.",
+      "type": "radio",
+      "options": ["Geen", "Basis", "Gevorderd (MBO 3-4)", "Expert (HBO/WO)"]
+    },
+    {
+      "id": 22,
+      "section": "Onderwijs",
+      "question": "Wat is uw hoogst behaalde onderwijsniveau?",
+      "type": "radio",
+      "options": ["Laag", "Middelbaar", "Hoog"]
+    },
+    {
+      "id": 23,
+      "section": "Onderwijs",
+      "question": "Indien u MBO bent afgestudeerd, welke perspectieven heeft uw opleiding?",
+      "type": "radio",
+      "options": ["Matig-slechte perspectieven", "Redelijke perspectieven", "Goede perspectieven"]
+    },
+    {
+      "id": 24,
+      "section": "Onderwijs",
+      "question": "Indien u HBO bent afgestudeerd, welke perspectieven heeft uw opleiding?",
+      "type": "radio",
+      "options": ["Matig-slechte perspectieven", "Redelijke perspectieven", "Goede perspectieven"]
+    },
+    {
+      "id": 25,
+      "section": "Onderwijs",
+      "question": "Indien u WO bent afgestudeerd, welke perspectieven heeft uw opleiding?",
+      "type": "radio",
+      "options": ["Matig-slechte perspectieven", "Redelijke perspectieven", "Goede perspectieven"]
+    },
+    {
+      "id": 26,
+      "section": "Persoonlijke Situatie",
+      "question": "Beschrijf uw huidige leefsituatie.",
+      "type": "radio",
+      "options": ["Alleenstaand", "Samenwonend/gehuwd zonder kind(eren)", "Samenwonend/gehuwd met kind(eren) < 9 jaar", "Samenwonend/gehuwd met kind(eren) > 9 jaar"]
+    },
+    {
+      "id": 27,
+      "section": "Persoonlijke Situatie",
+      "question": "Beschrijf uw huidige leefsituatie (vrouw).",
+      "type": "radio",
+      "options": ["Alleenstaand", "Samenwonend/gehuwd zonder kind(eren)", "Samenwonend/gehuwd met kind(eren) < 9 jaar", "Samenwonend/gehuwd met kind(eren) > 9 jaar"]
+    },
+    {
+      "id": 28,
+      "section": "Persoonlijke Situatie",
+      "question": "Wat is de hoogte van uw reguliere jaarinkomen?",
+      "type": "radio",
+      "options": ["Laagste inkomensklasse", "Laag midden inkomensklasse", "Midden inkomensklasse", "Hoog midden inkomensklasse", "Hoogste inkomensklasse"]
+    },
+    {
+      "id": 29,
+      "section": "Persoonlijke Situatie",
+      "question": "Wat is uw hoogst behaalde onderwijsniveau?",
+      "type": "radio",
+      "options": ["Laag onderwijsniveau (LBO)", "Middelbaar onderwijsniveau (MBO)", "Hoger onderwijsniveau (HBO/WO)"]
+    },
+    {
+      "id": 30,
+      "section": "Persoonlijke Situatie",
+      "question": "Hoelang bevindt u zich reeds in het naturalisatieproces?",
+      "type": "radio",
+      "options": ["1-3 jaar", "4 jaar", "5 jaar", "6 jaar", "7 jaar", "8-10 jaar"]
+    },
+    {
+      "id": 31,
+      "section": "Persoonlijke Situatie",
+      "question": "Hoe groot is de omvang van uw netwerk? Beschikt u over LinkedIn?",
+      "type": "radio",
+      "options": ["Klein (< 25 pers.)", "Gemiddeld (25-50 pers.)", "Groot (> 50 pers.)"]
+    },
+    {
+      "id": 32,
+      "section": "Persoonlijke Situatie",
+      "question": "Ervaart u problemen met justitie?",
+      "type": "radio",
+      "options": ["Problemen met justitie - Belemmering voor werk", "Problemen met justitie - Geen belemmering", "Geen problemen met justitie"]
+    },
+    {
+      "id": 33,
+      "section": "Persoonlijke Situatie",
+      "question": "Ervaart u problemen in uw thuissituatie?",
+      "type": "radio",
+      "options": ["Problemen in thuissituatie - Belemmering voor werk", "Problemen in thuissituatie - Geen belemmering", "Geen problemen in thuissituatie"]
+    },
+    {
+      "id": 34,
+      "section": "Verslaving & Vervoer",
+      "question": "Ervaart u verslavingsproblematiek?",
+      "type": "radio",
+      "options": ["Verslavingsproblematiek - Belemmering voor werk", "Verslavingsproblematiek - Geen belemmering", "Geen verslavingsproblematiek"]
+    },
+    {
+      "id": 35,
+      "section": "Verslaving & Vervoer",
+      "question": "Bent u in het bezit van een rijbewijs?",
+      "type": "radio",
+      "options": ["Nee", "Ik volg lessen", "Ja"]
+    },
+    {
+      "id": 36,
+      "section": "Verslaving & Vervoer",
+      "question": "Beschikt u over eigen vervoer en bent u in staat om zelfstandig naar uw werkplek te reizen?",
+      "type": "radio",
+      "options": ["Beperkt (OV)", "Gedeeltelijk beperkt (OV)", "Onbeperkt (OV/EV)"]
+    },
+    {
+      "id": 37,
+      "section": "Arbeidsmarkt & Re-integratie",
+      "question": "Beschrijf uw arbeidsmarkttransitie.",
+      "type": "radio",
+      "options": ["I: Betaalde arbeid", "II: Scholing naar betaalde arbeid", "III: Zorg/Huishouden naar betaalde arbeid", "IV: Uittreding naar betaalde arbeid"]
+    },
+    {
+      "id": 38,
+      "section": "Arbeidsmarkt & Re-integratie",
+      "question": "Vanuit welke situatie komt u?",
+      "type": "radio",
+      "options": ["Volledige arbeidsongeschiktheid", "Gedeeltelijke arbeidsongeschiktheid", "Vanuit ziekte", "Vanuit ontslag", "Vanuit startpositie"]
+    },
+    {
+      "id": 39,
+      "section": "Arbeidsmarkt & Re-integratie",
+      "question": "Wilt u solliciteren in een gelijkwaardige of een ongelijkwaardige sector als voorheen?",
+      "type": "radio",
+      "options": ["Homogene transitie", "Heterogene transitie"]
+    },
+    {
+      "id": 40,
+      "section": "Arbeidsmarkt & Re-integratie",
+      "question": "Bent u geheel of slechts gedeeltelijk werkloos?",
+      "type": "radio",
+      "options": ["Volledig werkloos", "Gedeeltelijk werkloos"]
+    },
+    {
+      "id": 41,
+      "section": "Arbeidsmarkt & Re-integratie",
+      "question": "Verricht u momenteel vrijwilligerswerk?",
+      "type": "radio",
+      "options": ["Vrijwilligerswerk", "Geen vrijwilligerswerk"]
+    },
+    {
+      "id": 42,
+      "section": "Arbeidsmarkt & Re-integratie",
+      "question": "Hoelang bent u reeds werkloos?",
+      "type": "radio",
+      "options": ["0-3 mnd", "3-6 mnd", "6-12 mnd", "> 12 mnd"]
+    },
+    {
+      "id": 43,
+      "section": "Arbeidsmarkt & Re-integratie",
+      "question": "Bent u op zoek naar structureel (vast) werk of seizoenswerk?",
+      "type": "radio",
+      "options": ["Structureel", "Seizoen"]
+    },
+    {
+      "id": 44,
+      "section": "Arbeidsmarkt & Re-integratie",
+      "question": "Hoeveel jaar aan relevante werkervaring heeft u?",
+      "type": "radio",
+      "options": ["1-5 jaar (Starter)", "6-10 jaar", "11-15 jaar", "> 15 jaar"]
+    },
+    {
+      "id": 45,
+      "section": "Arbeidsmarkt & Re-integratie",
+      "question": "Hoeveel sollicitaties verricht u per maand?",
+      "type": "radio",
+      "options": ["1-4", "5-10", "> 10"]
+    },
+    {
+      "id": 46,
+      "section": "Arbeidsmarkt & Re-integratie",
+      "question": "In welke periode solliciteert men momenteel? (Beoordeling door consulent)",
+      "type": "radio",
+      "options": ["Jan-Mrt", "Apr-Jun", "Jul-Sept", "Okt-Dec"]
+    }
+  ]
+}

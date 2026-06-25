@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultaten - J.C.M.</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Resultaten - J.C.M.</h1>
+            <a href="/" class="btn-back">← Home</a>
+        </div>
+        <div class="results-card">
+            <div class="success-message">
+                <div class="icon">✅</div>
+                <h3>Vragenlijst Voltooid!</h3>
+                <p>Alle antwoorden zijn opgeslagen.</p>
+            </div>
+
+            {% set component_names = {
+                '1': 'Taakvaardigheid',
+                '2': 'Taakidentiteit',
+                '3': 'Taakbetekenis',
+                '4': 'Autonomie',
+                '5': 'Feedback'
+            } %}
+            {% set component_letters = {
+                '1': 'a',
+                '2': 'b',
+                '3': 'c',
+                '4': 'd',
+                '5': 'e'
+            } %}
+
+            {% for comp_id, answer in answers.items() %}
+            <div class="result-item">
+                <div class="result-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <span class="result-name" style="font-size: 18px; font-weight: 700; color: #1a1a2e;">{{ component_names.get(comp_id, 'Component ' + comp_id) }}</span>
+                    <span class="result-letter" style="font-size: 14px; color: #9b59b6; background: #f0e6f6; padding: 2px 10px; border-radius: 12px; font-weight: 600;">{{ component_letters.get(comp_id, '') }}</span>
+                </div>
+                <div class="result-answer" style="background: #f8f9fa; padding: 15px 20px; border-radius: 8px; border-left: 4px solid #9b59b6; font-size: 15px; line-height: 1.6; color: #333; white-space: pre-wrap;">
+                    {{ answer if answer else 'Geen antwoord ingevuld' }}
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="btn-group">
+                <a href="/" class="btn-primary">🏠 Terug naar Home</a>
+                <a href="/phase/2.3?client_id={{ client_id }}" class="btn-back">↻ Opnieuw</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

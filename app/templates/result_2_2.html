@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultaten - Cultuur Analyse</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Resultaten - Cultuur Analyse</h1>
+            <a href="/" class="btn-back">← Home</a>
+        </div>
+        <div class="results-card">
+            <div class="top-results">
+                <h3>🏆 Je beste organisatieculturen</h3>
+                <div class="top-item">1. {{ culture_names.get(top1[0], 'Onbekend') }} ({{ top1[1] }} punten)</div>
+                <div class="top-item">2. {{ culture_names.get(top2[0], 'Onbekend') }} ({{ top2[1] }} punten)</div>
+                <p style="margin-top: 10px; color: #555; font-size: 14px;">{{ culture_descriptions.get(top1[0], '') }}</p>
+            </div>
+
+            {% set colors = ['#4a6cf7', '#27ae60', '#e67e22', '#e74c3c'] %}
+            {% for cid, score in sorted_cultures %}
+            <div class="result-item">
+                <div class="label">
+                    <span>{{ culture_names.get(cid, 'Cultuur ' + cid) }}</span>
+                    <span>{{ score }}/20</span>
+                </div>
+                <div class="bar">
+                    <div class="fill" style="width: {{ (score / 20) * 100 }}%; background: {{ colors[loop.index0 % 4] }};"></div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="btn-group">
+                <a href="{{ next_url }}" class="btn-primary">📋 Ga naar Fase 2.3</a>
+                <a href="{{ retry_url }}" class="btn-back">↻ Opnieuw</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fase 1.1 - Big Five</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>📋 Fase 1.0 - Big Five Persoonlijkheidstest</h1>
+                <div class="subtitle">Beoordeel elke stelling van 1 (Oneens) tot 5 (Volledig eens)</div>
+            </div>
+            <a href="/" class="btn-back">← Terug</a>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-info">
+                <span id="answeredCount">0</span>
+                <span id="totalQuestions">{{ total_questions }}</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill blue" id="progressFill"></div>
+            </div>
+        </div>
+
+        <form method="post" action="/phase/1.1/submit">
+            <input type="hidden" name="client_id" value="{{ client_id }}">
+            {% for dim_key, dim_data in dimensions.items() %}
+            <div class="dimension-section">
+                <div class="dimension-header">
+                    <span class="name">{{ dim_data.label }}</span>
+                    <span class="count">{{ dim_data.questions|length }} vragen</span>
+                    <span class="status" id="status-{{ dim_key }}">⏳ 0/{{ dim_data.questions|length }}</span>
+                </div>
+                {% for q in dim_data.questions %}
+                <div class="question" data-question="{{ q.id }}">
+                    <span class="question-number">{{ q.id }}.</span>
+                    <span class="question-text">{{ q.text }}</span>
+                    <div class="stars">
+                        <input type="radio" id="q{{ q.id }}-5" name="q{{ q.id }}" value="5" onchange="updateProgress()">
+                        <label for="q{{ q.id }}-5" title="5: Volledig eens">★</label>
+                        <input type="radio" id="q{{ q.id }}-4" name="q{{ q.id }}" value="4" onchange="updateProgress()">
+                        <label for="q{{ q.id }}-4" title="4: Deels eens">★</label>
+                        <input type="radio" id="q{{ q.id }}-3" name="q{{ q.id }}" value="3" onchange="updateProgress()">
+                        <label for="q{{ q.id }}-3" title="3: Neutraal">★</label>
+                        <input type="radio" id="q{{ q.id }}-2" name="q{{ q.id }}" value="2" onchange="updateProgress()">
+                        <label for="q{{ q.id }}-2" title="2: Deels oneens">★</label>
+                        <input type="radio" id="q{{ q.id }}-1" name="q{{ q.id }}" value="1" onchange="updateProgress()" required>
+                        <label for="q{{ q.id }}-1" title="1: Oneens">★</label>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+            <div class="footer">
+                <div class="info">
+                    <strong id="answeredDisplay">0</strong> van de <strong>{{ total_questions }}</strong> vragen beantwoord
+                </div>
+                <button type="submit" class="btn-primary">💾 Opslaan & Volgende</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function updateProgress() {
+            const questions = document.querySelectorAll('.question');
+            let answered = 0;
+            const total = questions.length;
+
+            questions.forEach(q => {
+                const radio = q.querySelector('input[type="radio"]:checked');
+                if (radio) answered++;
+            });
+
+            document.getElementById('progressFill').style.width = (answered / total) * 100 + '%';
+            document.getElementById('answeredCount').textContent = answered;
+            document.getElementById('answeredDisplay').textContent = answered;
+
+            const sections = document.querySelectorAll('.dimension-section');
+            sections.forEach(section => {
+                const qs = section.querySelectorAll('.question');
+                let sectionAnswered = 0;
+                qs.forEach(q => {
+                    const radio = q.querySelector('input[type="radio"]:checked');
+                    if (radio) sectionAnswered++;
+                });
+
+                const status = section.querySelector('.status');
+                if (sectionAnswered === qs.length) {
+                    status.textContent = '✅ Voltooid';
+                    status.style.color = '#27ae60';
+                } else {
+                    status.textContent = '⏳ ' + sectionAnswered + '/' + qs.length;
+                    status.style.color = '#f39c12';
+                }
+            });
+        }
+        document.addEventListener('DOMContentLoaded', updateProgress);
+    </script>
+</body>
+</html>

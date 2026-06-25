@@ -1,0 +1,340 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "text": "Ik ben het middelpunt van het feest.",
+      "dimension": "extraversie",
+      "reverse_scored": false
+    },
+    {
+      "id": 2,
+      "text": "Ik voel me weinig bezorgd om anderen.",
+      "dimension": "altruïsme",
+      "reverse_scored": true
+    },
+    {
+      "id": 3,
+      "text": "Ik ben altijd voorbereid.",
+      "dimension": "conciëntieusheid",
+      "reverse_scored": false
+    },
+    {
+      "id": 4,
+      "text": "Ik raak niet snel gestrest.",
+      "dimension": "neuroticisme",
+      "reverse_scored": true
+    },
+    {
+      "id": 5,
+      "text": "Ik heb een rijk vocabulaire.",
+      "dimension": "openheid",
+      "reverse_scored": false
+    },
+    {
+      "id": 6,
+      "text": "Ik praat niet veel.",
+      "dimension": "extraversie",
+      "reverse_scored": true
+    },
+    {
+      "id": 7,
+      "text": "Ik ben oprecht geïnteresseerd in anderen.",
+      "dimension": "altruïsme",
+      "reverse_scored": false
+    },
+    {
+      "id": 8,
+      "text": "Ik vergeet met regelmaat mijn spullen.",
+      "dimension": "conciëntieusheid",
+      "reverse_scored": true
+    },
+    {
+      "id": 9,
+      "text": "Ik ben meestal ontspannen.",
+      "dimension": "neuroticisme",
+      "reverse_scored": true
+    },
+    {
+      "id": 10,
+      "text": "Ik heb moeite om abstracte ideeën te begrijpen.",
+      "dimension": "openheid",
+      "reverse_scored": true
+    },
+    {
+      "id": 11,
+      "text": "Ik voel me comfortabel bij mensen.",
+      "dimension": "extraversie",
+      "reverse_scored": false
+    },
+    {
+      "id": 12,
+      "text": "Ik beledig mensen.",
+      "dimension": "altruïsme",
+      "reverse_scored": true
+    },
+    {
+      "id": 13,
+      "text": "Ik besteed aandacht aan details.",
+      "dimension": "conciëntieusheid",
+      "reverse_scored": false
+    },
+    {
+      "id": 14,
+      "text": "Ik maak me niet vaak zorgen.",
+      "dimension": "neuroticisme",
+      "reverse_scored": true
+    },
+    {
+      "id": 15,
+      "text": "Ik heb een levendige verbeelding.",
+      "dimension": "openheid",
+      "reverse_scored": false
+    },
+    {
+      "id": 16,
+      "text": "Ik blijf liever op de achtergrond.",
+      "dimension": "extraversie",
+      "reverse_scored": true
+    },
+    {
+      "id": 17,
+      "text": "Ik sympathiseer met de gevoelens van anderen.",
+      "dimension": "altruïsme",
+      "reverse_scored": false
+    },
+    {
+      "id": 18,
+      "text": "Ik maak al snel een chaos van een situatie.",
+      "dimension": "conciëntieusheid",
+      "reverse_scored": true
+    },
+    {
+      "id": 19,
+      "text": "Ik voel me vaak droevig.",
+      "dimension": "neuroticisme",
+      "reverse_scored": false
+    },
+    {
+      "id": 20,
+      "text": "Ik ben niet geïnteresseerd in abstracte ideeën.",
+      "dimension": "openheid",
+      "reverse_scored": true
+    },
+    {
+      "id": 21,
+      "text": "Ik begin gesprekken.",
+      "dimension": "extraversie",
+      "reverse_scored": false
+    },
+    {
+      "id": 22,
+      "text": "Ik ben niet geïnteresseerd in de problemen van anderen.",
+      "dimension": "altruïsme",
+      "reverse_scored": true
+    },
+    {
+      "id": 23,
+      "text": "Ik krijg een klus meteen gedaan.",
+      "dimension": "conciëntieusheid",
+      "reverse_scored": false
+    },
+    {
+      "id": 24,
+      "text": "Ik raak niet snel afgeleid.",
+      "dimension": "neuroticisme",
+      "reverse_scored": true
+    },
+    {
+      "id": 25,
+      "text": "Ik heb uitstekende ideeën.",
+      "dimension": "openheid",
+      "reverse_scored": false
+    },
+    {
+      "id": 26,
+      "text": "Ik heb over het algemeen weinig te zeggen.",
+      "dimension": "extraversie",
+      "reverse_scored": true
+    },
+    {
+      "id": 27,
+      "text": "Ik heb een zacht hart.",
+      "dimension": "altruïsme",
+      "reverse_scored": false
+    },
+    {
+      "id": 28,
+      "text": "Ik vergeet vaak om objecten op de juiste plaats terug te zetten.",
+      "dimension": "conciëntieusheid",
+      "reverse_scored": true
+    },
+    {
+      "id": 29,
+      "text": "Ik raak niet gemakkelijk overstuur.",
+      "dimension": "neuroticisme",
+      "reverse_scored": true
+    },
+    {
+      "id": 30,
+      "text": "Ik heb geen goede verbeelding.",
+      "dimension": "openheid",
+      "reverse_scored": true
+    },
+    {
+      "id": 31,
+      "text": "Ik praat met veel verschillende mensen op een feest.",
+      "dimension": "extraversie",
+      "reverse_scored": false
+    },
+    {
+      "id": 32,
+      "text": "Ik ben niet echt geïnteresseerd in anderen.",
+      "dimension": "altruïsme",
+      "reverse_scored": true
+    },
+    {
+      "id": 33,
+      "text": "Ik ben gesteld op orde.",
+      "dimension": "conciëntieusheid",
+      "reverse_scored": false
+    },
+    {
+      "id": 34,
+      "text": "Mijn humeur verandert niet vaak.",
+      "dimension": "neuroticisme",
+      "reverse_scored": true
+    },
+    {
+      "id": 35,
+      "text": "Ik begrijp zaken snel.",
+      "dimension": "openheid",
+      "reverse_scored": false
+    },
+    {
+      "id": 36,
+      "text": "Ik houd er niet van de aandacht op mezelf te vestigen.",
+      "dimension": "extraversie",
+      "reverse_scored": true
+    },
+    {
+      "id": 37,
+      "text": "Ik neem de tijd voor anderen.",
+      "dimension": "altruïsme",
+      "reverse_scored": false
+    },
+    {
+      "id": 38,
+      "text": "Ik onttrek me van mijn plichten.",
+      "dimension": "conciëntieusheid",
+      "reverse_scored": true
+    },
+    {
+      "id": 39,
+      "text": "Ik ervaar vrijwel geen stemmingswisselingen.",
+      "dimension": "neuroticisme",
+      "reverse_scored": true
+    },
+    {
+      "id": 40,
+      "text": "Ik gebruik moeilijke woorden.",
+      "dimension": "openheid",
+      "reverse_scored": false
+    },
+    {
+      "id": 41,
+      "text": "Ik heb er geen probleem mee om het centrum van aandacht te zijn.",
+      "dimension": "extraversie",
+      "reverse_scored": false
+    },
+    {
+      "id": 42,
+      "text": "Ik voel de emoties van anderen.",
+      "dimension": "altruïsme",
+      "reverse_scored": false
+    },
+    {
+      "id": 43,
+      "text": "Ik volg graag schema's.",
+      "dimension": "conciëntieusheid",
+      "reverse_scored": false
+    },
+    {
+      "id": 44,
+      "text": "Ik raak niet snel geïrriteerd.",
+      "dimension": "neuroticisme",
+      "reverse_scored": true
+    },
+    {
+      "id": 45,
+      "text": "Ik besteed tijd aan het reflecteren op zaken.",
+      "dimension": "openheid",
+      "reverse_scored": false
+    },
+    {
+      "id": 46,
+      "text": "Ik ben stil rondom vreemden.",
+      "dimension": "extraversie",
+      "reverse_scored": true
+    },
+    {
+      "id": 47,
+      "text": "Ik laat mensen zich op hun gemak voelen.",
+      "dimension": "altruïsme",
+      "reverse_scored": false
+    },
+    {
+      "id": 48,
+      "text": "Ik stel hoge eisen aan de kwaliteit van mijn werk.",
+      "dimension": "conciëntieusheid",
+      "reverse_scored": false
+    },
+    {
+      "id": 49,
+      "text": "Ik voel me zelden droevig.",
+      "dimension": "neuroticisme",
+      "reverse_scored": true
+    },
+    {
+      "id": 50,
+      "text": "Ik zit vol met ideeën.",
+      "dimension": "openheid",
+      "reverse_scored": false
+    }
+  ],
+  "scoring_formulas": {
+    "categories": [
+      {
+        "min_score": 1,
+        "max_score": 8,
+        "label": "Zwak"
+      },
+      {
+        "min_score": 9,
+        "max_score": 17,
+        "label": "Matig"
+      },
+      {
+        "min_score": 18,
+        "max_score": 26,
+        "label": "Neutraal"
+      },
+      {
+        "min_score": 27,
+        "max_score": 35,
+        "label": "Sterk"
+      },
+      {
+        "min_score": 36,
+        "max_score": 40,
+        "label": "Zeer sterk"
+      }
+    ],
+    "dimension_descriptions": {
+      "extraversie": "Mensen die hoog scoren op extraversie ervaren de behoefte om het gezelschap en de stimulering van anderen op te zoeken. Binnen groepsverband wil men veelal het middelpunt van aandacht zijn. De aandacht is dan ook extern gericht. Ze houden van opwinding, spanning en zijn energiek van aard. Ze zijn doorgaans enthousiast, assertief en optimistisch.",
+      "altruïsme": "Altruïsme is de mate waarin iemand het belang van anderen boven zijn eigen belang stelt. Bij mensen die hoog scoren op altruïsme is de ander het onderwerp in de relatie. De relatie wordt dan ook vaak vanuit de ander beleefd. Ze verplaatsen zich daardoor makkelijk in een ander en bezien situaties vaak vanuit het doel van de ander. Altruïstische mensen zijn hulpvaardig, bescheiden, vriendelijk en geneigd tot samenwerken.",
+      "conciëntieusheid": "Consciëntieusheid weerspiegelt de neiging om verantwoordelijk, georganiseerd, hardwerkend en doelgericht te zijn en zich te conformeren aan normen en regels. Mensen die hoog scoren op consciëntieusheid houden zich tevens vaak aan bepaalde levensrichtlijnen. Ze zullen bijvoorbeeld volharden bij een uitdaging en verantwoordelijkheid nemen voor problemen waarmee men geconfronteerd wordt.",
+      "neuroticisme": "Personen die hoog scoren op neuroticisme ervaren meer dan gemiddeld gevoelens zoals angst, woede, frustratie, afgunst, jaloezie, schuld, depressiviteit en eenzaamheid. Mensen die neurotisch zijn, reageren dan ook slechter op stressoren, interpreteren gewone situaties eerder als bedreigend en ervaren kleine frustraties als uiterst ontmoedigend.",
+      "openheid": "Personen met een hoge mate aan openheid hebben een versterkte waardering voor ongewone ideeën en het esthetische zoals kunst, architectuur en mode. Ze zijn meestal fantasierijk in plaats van praktisch. Veelal is men creatief, staat men open voor nieuwe en abstracte ideeën en staat men beter in contact met de eigen emotie."
+    }
+  }
+}

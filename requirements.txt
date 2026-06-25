@@ -1,5 +1,8 @@
-pandas>=2.0.0
-openpyxl>=3.1.0
-pywin32>=306; platform_system == "Windows"
-xlrd>=2.0.1
-pillow>=9.0.0
+pip install fastapi uvicorn
+pip install pandas openpyxl
+pip install python-docx
+pip install jinja2
+pip install sqlalchemy
+pip install python-multipart
+pip install app(duno which one let the IDE get it for u)?
+pip install config(the new hotness)?

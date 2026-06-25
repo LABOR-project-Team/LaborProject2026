@@ -1,0 +1,194 @@
+{
+  "id": "0565b594",
+  "name": "Luuk Koolmoes",
+  "geboortedatum": "1992-07-22",
+  "email": "Luukboy88@gmail.com",
+  "telefoonnummer": "0687272723",
+  "adres": "Hengelostraat 47",
+  "opleidingen": "MBO2",
+  "land_van_herkomst": "Nederland",
+  "leef_situatie": "Alleenstaand",
+  "toelichting": "",
+  "created_at": "2026-06-25T20:32:35.835846",
+  "updated_at": "2026-06-25T23:55:52.406025",
+  "questionnaire_completed": true,
+  "excel_created": true,
+  "word_created": true,
+  "big_five": {
+    "completed": true,
+    "scores": {
+      "extraversie": 30,
+      "altruïsme": 28,
+      "conciëntieusheid": 28,
+      "neuroticisme": 28,
+      "openheid": 27
+    },
+    "labels": {
+      "extraversie": "Sterk",
+      "altruïsme": "Sterk",
+      "conciëntieusheid": "Sterk",
+      "neuroticisme": "Sterk",
+      "openheid": "Sterk"
+    },
+    "percentages": {
+      "extraversie": 60.0,
+      "altruïsme": 56.00000000000001,
+      "conciëntieusheid": 56.00000000000001,
+      "neuroticisme": 56.00000000000001,
+      "openheid": 54.0
+    },
+    "extraversie": {
+      "label": "Extraversie",
+      "score": 30,
+      "percentage": 60.0,
+      "level": "Sterk",
+      "color": "#4a6cf7"
+    },
+    "altruïsme": {
+      "label": "Altruïsme",
+      "score": 28,
+      "percentage": 56.00000000000001,
+      "level": "Sterk",
+      "color": "#27ae60"
+    },
+    "conciëntieusheid": {
+      "label": "Conciëntieusheid",
+      "score": 28,
+      "percentage": 56.00000000000001,
+      "level": "Sterk",
+      "color": "#e67e22"
+    },
+    "neuroticisme": {
+      "label": "Neuroticisme",
+      "score": 28,
+      "percentage": 56.00000000000001,
+      "level": "Sterk",
+      "color": "#e74c3c"
+    },
+    "openheid": {
+      "label": "Openheid",
+      "score": 27,
+      "percentage": 54.0,
+      "level": "Sterk",
+      "color": "#9b59b6"
+    }
+  },
+  "career_anchors": {
+    "completed": true,
+    "scores": {
+      "V": 23,
+      "W": 14,
+      "X": 23,
+      "Y": 20,
+      "Z": 18
+    },
+    "top1": "V",
+    "top1_name": "Omhoog komen",
+    "top1_score": 23,
+    "top2": "X",
+    "top2_name": "Vrij zijn",
+    "top2_score": 23
+  },
+  "career_clusters": {
+    "completed": true,
+    "scores": {
+      "1": 1,
+      "2": 1,
+      "3": 1,
+      "4": 3,
+      "5": 3,
+      "6": 3,
+      "7": 3,
+      "8": 3,
+      "9": 3,
+      "10": 3,
+      "11": 3,
+      "12": 1,
+      "13": 3
+    },
+    "top1": "4",
+    "top1_name": "Business Management en administratie",
+    "top1_score": 3,
+    "top2": "5",
+    "top2_name": "Educatie en training",
+    "top2_score": 3
+  },
+  "culture": {
+    "completed": true,
+    "scores": {
+      "1": 14,
+      "2": 15,
+      "3": 13,
+      "4": 13
+    },
+    "top1": "2",
+    "top1_name": "Innovatieve cultuur",
+    "top1_score": 15,
+    "top2": "1",
+    "top2_name": "Mensgerichte cultuur",
+    "top2_score": 14
+  },
+  "jcm": {
+    "completed": true,
+    "answers": {
+      "1": "sadasdsadas",
+      "2": "asdasdsadsa",
+      "3": "asdasdasda",
+      "4": "asdasdasdsa",
+      "5": "asdasdasdas"
+    },
+    "1": "sadasdsadas",
+    "2": "asdasdsadsa",
+    "3": "asdasdasda",
+    "4": "asdasdasdsa",
+    "5": "asdasdasdas"
+  },
+  "folder_name": "Luuk_Koolmoes",
+  "prognosis": {
+    "completed": true,
+    "answers": {
+      "q1": "Man",
+      "q2": "25-45",
+      "q3": "Westers",
+      "q4": "Limburg",
+      "q5": "Westers",
+      "q6": "Openheid",
+      "q7": "Gekleed Formeel",
+      "q8": "Psychisch & Somatisch",
+      "q9": "Arbeidsgehandicapt",
+      "q10": "Recreatief",
+      "q11": "Bijstand",
+      "q12": "< 3 maanden",
+      "q13": "< 1 jaar",
+      "q14": "Geen schuldenproblematiek",
+      "q15": "Geen overige inkomsten",
+      "q16": "Niet beschikbaar",
+      "q17": "Meer begaafd (IQ 115-130)",
+      "q18": "Onafhankelijke gebruiker (B1-B2)",
+      "q19": "2 of meer vreemde talen",
+      "q20": "Onafhankelijke gebruiker (B1-B2)",
+      "q21": "Gevorderd (MBO 3-4)",
+      "q22": "Hoog",
+      "q23": "Redelijke perspectieven",
+      "q26": "Alleenstaand",
+      "q27": "Alleenstaand",
+      "q28": "Laagste inkomensklasse",
+      "q29": "Laag onderwijsniveau (LBO)",
+      "q31": "Klein (< 25 pers.)",
+      "q32": "Problemen met justitie - Geen belemmering",
+      "q33": "Problemen in thuissituatie - Belemmering voor werk",
+      "q34": "Verslavingsproblematiek - Belemmering voor werk",
+      "q35": "Ik volg lessen",
+      "q36": "Gedeeltelijk beperkt (OV)",
+      "q37": "I: Betaalde arbeid",
+      "q38": "Gedeeltelijke arbeidsongeschiktheid",
+      "q39": "Homogene transitie",
+      "q40": "Volledig werkloos",
+      "q41": "Vrijwilligerswerk",
+      "q42": "0-3 mnd",
+      "q44": "6-10 jaar",
+      "q45": "1-4",
+      "q46": "Jan-Mrt"
+    }
+  }
+}

@@ -1,0 +1,381 @@
+{
+  "clusters": [
+    {
+      "id": 1,
+      "name": "Landbouw, voeding en natuurlijke grondstoffen",
+      "segment": "Landbouw, voeding en natuurlijke grondstoffen",
+      "description": "De productie, verwerking, marketing, distributie, financiering en ontwikkeling van agrarische grondstoffen en hulpbronnen waaronder voedsel, vezels, houtproducten, natuurlijke hulpbronnen, tuinbouw, en andere plantaardige en dierlijke producten cq. hulpbronnen.",
+      "activities": [
+        "Leren hoe flora en fauna groeit en in leven blijft.",
+        "Het zo optimaal mogelijk gebruik maken van de natuurlijke grondstoffen van de aarde.",
+        "Jagen en/of vissen.",
+        "Het beschermen van het milieu.",
+        "Buiten zijn in allerlei weersomstandigheden.",
+        "Plannen, budgetteren en registraties bijhouden.",
+        "Het bedienen van machines en deze in goede conditie houden."
+      ],
+      "competencies": [
+        "Zelfredzaam",
+        "Natuurliefhebber",
+        "Fysiek actief",
+        "Planner",
+        "Creatieve probleemoplosser"
+      ],
+      "educational_topics": [
+        "Wiskunde",
+        "Beheer van natuurlijke grondstoffen",
+        "Aardrijkskunde",
+        "Scheikunde",
+        "Landbouw"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Architectuur en constructie",
+      "segment": "Architectuur en constructie",
+      "description": "Carrières bij het ontwerpen, plannen, beheren, bouwen en behoud van de gebouwde omgeving.",
+      "activities": [
+        "Het lezen en volgen van blauwdrukken en/of instructies.",
+        "Inbeelden hoe een afgewerkt product eruit zal zien.",
+        "Werken met de handen.",
+        "Het uitvoeren van werkzaamheden die nauwkeurige resultaten vereisen.",
+        "Het oplossen van technische problemen.",
+        "Het bezoeken en onderzoeken van mooie, historische en/of interessante gebouwen.",
+        "Het opvolgen van logische en stapsgewijze procedures."
+      ],
+      "competencies": [
+        "Nieuwsgierig",
+        "Het verstrekken van duidelijke instructies",
+        "Aandacht besteden aan details",
+        "Goed in het visualiseren van mogelijkheden",
+        "Geduldig en persistent"
+      ],
+      "educational_topics": [
+        "Calculeren",
+        "Technisch tekenen",
+        "Exacte wetenschappen",
+        "Architectuur",
+        "Elektrische warmtebronnen, Airconditioning en koeltechniek"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Kunst, audio-visuele technologie en communicatie",
+      "segment": "Kunst, audio-visuele technologie en communicatie",
+      "description": "Ontwerpen, produceren, vertonen, uitvoeren, schrijven en publiceren van multimedia-inhoud waaronder visuele en podiumkunsten, design, journalistiek en entertainmentdiensten.",
+      "activities": [
+        "Het gebruik van verbeeldingskracht om informatie naar anderen te communiceren.",
+        "Klaar staan voor anderen.",
+        "Lezen en schrijven.",
+        "Het bespelen van een muziekinstrument.",
+        "Het uitvoeren van creatieve en/of artistieke activiteiten.",
+        "Het gebruik van video- en opnametechnologie.",
+        "Het ontwerpen van brochures en posters."
+      ],
+      "competencies": [
+        "Creatief en fantasierijk",
+        "Goede communicator",
+        "Benieuwd naar nieuwe technologie",
+        "Sympathiek en empathisch",
+        "Bepalend en vasthoudend"
+      ],
+      "educational_topics": [
+        "Kunst en grafisch ontwerp",
+        "Muziek",
+        "Spraak en drama",
+        "Journalistiek en literatuur",
+        "Audiovisuele technologie"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Business Management en administratie",
+      "segment": "Business Management en administratie",
+      "description": "Business Management en administratie loopbaan omvatten het plannen, organiseren, leiden en evalueren van zakelijke functies essentieel voor efficiënte en productieve bedrijfsactiviteiten. Management en administratie carrièremogelijkheden zijn beschikbaar in elke sector van de economie.",
+      "activities": [
+        "Het uitvoeren van routine en/of georganiseerde activiteiten maar ook flexibel kunnen zijn.",
+        "Werken met getallen en gedetailleerde informatie.",
+        "Een leider zijn in een groep.",
+        "Zakelijk contact maken met mensen.",
+        "Werken met computerprogramma's.",
+        "Het maken van rapporten en het communiceren van ideeën.",
+        "Het plannen van werk en het volgen van instructies."
+      ],
+      "competencies": [
+        "Georganiseerd",
+        "Praktisch en logisch",
+        "Geduldig",
+        "Tactvol",
+        "Verantwoordelijk"
+      ],
+      "educational_topics": [
+        "ICT",
+        "Boekhouding",
+        "Kostprijs berekeningen",
+        "Engels",
+        "Economie"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Educatie en training",
+      "segment": "Educatie en training",
+      "description": "Planning, beheer en verstrekking van onderwijs- en opleidingsdiensten en gerelateerde ondersteuningsdiensten.",
+      "activities": [
+        "Communiceren met verschillende soorten mensen.",
+        "Anderen helpen met hun huiswerk of met het leren beheersen van nieuwe onderwerpen.",
+        "Naar school gaan.",
+        "Het leiden en plannen van activiteiten voor anderen.",
+        "Het uitdragen van meerdere verantwoordelijkheden tegelijk.",
+        "Het verkrijgen van nieuwe informatie.",
+        "Mensen helpen om hun uitdagingen te overwinnen."
+      ],
+      "competencies": [
+        "Vriendelijk",
+        "Beslisser",
+        "Nuttig",
+        "Innovatief en nieuwsgierig",
+        "Goede luisteraar"
+      ],
+      "educational_topics": [
+        "Taalvaardigheid",
+        "Sociale studies",
+        "Pedagogiek",
+        "Wetenschap",
+        "Psychologie"
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Financiën",
+      "segment": "Financiën",
+      "description": "Planning, services voor financiële en investeringsplanning, bankieren, verzekeringen en bedrijfsfinancieel beheer.",
+      "activities": [
+        "Werken met cijfers.",
+        "Werken om een deadline te halen.",
+        "Het maken van voorspellingen op basis van bestaande feiten.",
+        "Zorgen voor een kader van regels en procedures.",
+        "Het analyseren en interpreteren van financiële informatie voor anderen.",
+        "Het met nauwkeurigheid en betrouwbaarheid behandelen van financiën.",
+        "Trots zijn op de manier waarop je je kleedt en presenteert."
+      ],
+      "competencies": [
+        "Betrouwbaar",
+        "Orderlijk",
+        "Zelfverzekerd",
+        "Logisch",
+        "Methodisch en efficiënt"
+      ],
+      "educational_topics": [
+        "Belastingen",
+        "Wiskunde",
+        "Economie",
+        "Financiële administratie",
+        "Ondernemingsrecht"
+      ]
+    },
+    {
+      "id": 7,
+      "name": "Overheid en publieke administratie",
+      "segment": "Overheid en publieke administratie",
+      "description": "Het uitvoeren van overheidsfuncties om governance op te nemen. Denkende aan nationale veiligheid, buitenlandse dienst, planning, inkomsten en belastingen, regulatie en beheer en administratie bij de lokale staat en federale niveaus.",
+      "activities": [
+        "Betrokken zijn in de politiek.",
+        "Het onderhandelen, verdedigen en/of bespreken van ideeën en onderwerpen.",
+        "Het plannen van activiteiten en samenwerken met anderen.",
+        "Werken met details.",
+        "Het uitvoeren van taken die vaak kunnen veranderen.",
+        "Het analyseren en interpreteren van informatie voor anderen.",
+        "Reizen en nieuwe dingen ontdekken."
+      ],
+      "competencies": [
+        "Goede communicator",
+        "Concurrerend",
+        "Service georiënteerd",
+        "Goed georganiseerd",
+        "Probleemoplosser"
+      ],
+      "educational_topics": [
+        "Politiek",
+        "Taalvaardigheid",
+        "Nederlandse geschiedenis",
+        "Calculeren",
+        "Vreemde talen"
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Gezondheidswetenschappen",
+      "segment": "Gezondheidswetenschappen",
+      "description": "Planning, beheer en levering van therapeutische diensten, diagnostisch diensten, medische informatica, ondersteunende diensten en biotechnologie onderzoek en ontwikkeling.",
+      "activities": [
+        "Werken onder druk.",
+        "Het helpen van zieke mensen en/of dieren.",
+        "Beslissingen nemen op basis van logica en informatie.",
+        "Deelnemen aan gezondheid- en wetenschapslessen.",
+        "Snel reageren en rustig blijven in noodsituaties.",
+        "Werken als lid van een team.",
+        "Het nauwkeurig volgen van richtlijnen en het voldoen aan strikte normen voor nauwkeurigheid."
+      ],
+      "competencies": [
+        "Empathisch en zorgzaam",
+        "Het verstrekken van duidelijke instructies",
+        "Zorgvuldig en voorzichtig",
+        "Geduldig",
+        "Goede luisteraar"
+      ],
+      "educational_topics": [
+        "Biologische wetenschappen",
+        "Chemie",
+        "Biometrie",
+        "Gezondheid op het werk",
+        "Spelling en grammatica"
+      ]
+    },
+    {
+      "id": 9,
+      "name": "Hospitality en toerisme",
+      "segment": "Hospitality en toerisme",
+      "description": "Hospitality en toerisme omvat het management, marketing en activiteiten van restaurants en andere eetgelegenheden, logies, attracties en recreatie-evenementen en reisgerelateerde diensten.",
+      "activities": [
+        "Onderzoek doen naar nieuwe plaatsen en activiteiten.",
+        "Werken met alle leeftijden en alle soorten mensen.",
+        "Het organiseren van activiteiten waarbij andere mensen zich amuseren.",
+        "Het hanteren van een flexibel schema.",
+        "Mensen helpen om besluiten te nemen.",
+        "Eenvoudig, tactvol en hoffelijk communiceren.",
+        "Informatie verzamelen over andere culturen."
+      ],
+      "competencies": [
+        "Tactvol",
+        "Zelfgemotiveerd",
+        "Samenwerkend",
+        "Ondernemend",
+        "Tolerant"
+      ],
+      "educational_topics": [
+        "Nederlands",
+        "Vreemde talen",
+        "Sociale wetenschappen",
+        "Marketing",
+        "Voeding"
+      ]
+    },
+    {
+      "id": 10,
+      "name": "Humanitaire dienstverlening",
+      "segment": "Humanitaire dienstverlening",
+      "description": "Individuen voorbereiden op een baan in loopbaantrajecten en betrekking hebben op gezinnen en menselijke behoeften.",
+      "activities": [
+        "Zorgen voor mensen, hun behoeften en hun problemen.",
+        "Deelnemen aan gemeenschapsdiensten en/of vrijwilligerswerk.",
+        "Luisteren naar de perspectieven van anderen.",
+        "Mensen helpen op hun best te zijn.",
+        "Werken met mensen van jong tot oud.",
+        "Denken aan nieuwe manieren om dingen te doen.",
+        "Vrienden maken met verschillende soorten mensen."
+      ],
+      "competencies": [
+        "Goede communicator",
+        "Zorgzaam",
+        "Non-materialistisch",
+        "Gebruik van intuïtie en logica",
+        "Niet-oordelend"
+      ],
+      "educational_topics": [
+        "Taalvaardigheid",
+        "Psychologie en sociologie",
+        "Familie- en consumentenwetenschap",
+        "Financiën",
+        "Vreemde talen"
+      ]
+    },
+    {
+      "id": 11,
+      "name": "ICT",
+      "segment": "ICT",
+      "description": "Verbanden leggen in een IT-beroepskader voor instapniveau, technische en professionele loopbanen gerelateerd aan het ontwerp, ontwikkeling, ondersteuning en beheer van hardware, software, multimedia- en systeemintegratiediensten.",
+      "activities": [
+        "Werken met computers.",
+        "Logisch redeneren om complexe problemen op te lossen.",
+        "Het gebruiken van machines, technieken en processen.",
+        "Het lezen van technische handleidingen en diagrammen en het oplossen van technische problemen.",
+        "Aanpassen aan verandering.",
+        "Het spelen van videogames en uitzoeken hoe deze werken.",
+        "Gedurende lange perioden concentreren zonder te zijn afgeleid."
+      ],
+      "competencies": [
+        "Logische en analytische denker",
+        "Helicopter view",
+        "Persistent",
+        "Goede concentratievaardigheden",
+        "Nauwkeurig"
+      ],
+      "educational_topics": [
+        "Wiskunde",
+        "Wetenschap",
+        "Computertechnologie",
+        "Communicatie",
+        "Grafisch ontwerp"
+      ]
+    },
+    {
+      "id": 12,
+      "name": "Publieke veiligheid en zekerheid",
+      "segment": "Publieke veiligheid en zekerheid",
+      "description": "Planning, beheer en verstrekking van wettelijke, openbare veiligheid, beschermende diensten en binnenlandse veiligheid inclusief professionele en technische ondersteuningsdiensten.",
+      "activities": [
+        "Werken onder druk of in de aanwezigheid van gevaar.",
+        "Beslissingen maken op basis van observaties.",
+        "Communiceren met andere mensen.",
+        "Een positie van autoriteit hebben.",
+        "Het respecteren van regels en voorschriften.",
+        "Debatteren en het winnen van argumenten.",
+        "Het observeren en analyseren van het gedrag van mensen."
+      ],
+      "competencies": [
+        "Avontuurlijk",
+        "Betrouwbaar",
+        "Gemeenschapsgericht",
+        "Doorslaggevend",
+        "Optimistisch"
+      ],
+      "educational_topics": [
+        "Taalvaardigheid",
+        "Psychologie en sociologie",
+        "Overheid en geschiedenis",
+        "Rechtshandhaving",
+        "EHBO"
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Fabricage",
+      "segment": "Fabricage",
+      "description": "Planning, beheer en uitvoering van de verwerking van materialen in tussentijdse of eindproducten en aanverwante professionele en technische ondersteuningsactiviteiten zoals productieplanning en controle, onderhoud en productie / procestechniek.",
+      "activities": [
+        "Werken met de handen en op de manier leren.",
+        "Concepten samenvoegen.",
+        "Het uitvoeren van routinematig, georganiseerd en nauwkeurig werk.",
+        "Het uitvoeren van activiteiten die tastbare producten opleveren.",
+        "Wiskunde toepassen om oplossingen uit te werken.",
+        "Het gebruiken van hand- en elektrisch gereedschap, werkuitrusting en machines.",
+        "Het visualiseren van objecten in drie dimensies vanuit een vlakke tekening."
+      ],
+      "competencies": [
+        "Praktisch",
+        "Observerend",
+        "Fysiek actief",
+        "Stapsgewijze denker",
+        "Gecoördineerd"
+      ],
+      "educational_topics": [
+        "Wiskunde en geometrie",
+        "Chemie",
+        "Handel en industrie",
+        "Natuurkunde",
+        "Taalvaardigheid"
+      ]
+    }
+  ]
+}

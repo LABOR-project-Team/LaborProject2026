@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klantenbeheer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #1a1a2e;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: #f0f2f5;
+            border-radius: 8px;
+            padding: 8px 15px;
+            gap: 10px;
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            padding: 5px 0;
+            font-size: 14px;
+            outline: none;
+            width: 200px;
+        }
+
+        .search-box .icon {
+            color: #666;
+            font-size: 18px;
+        }
+
+        .btn-primary {
+            background: #4a6cf7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary:hover {
+            background: #3a56d4;
+        }
+
+        .btn-secondary {
+            background: #e8eaed;
+            color: #333;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-secondary:hover {
+            background: #d5d8dd;
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.3s;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+
+        /* Stats */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 32px;
+            font-weight: 700;
+            color: #4a6cf7;
+        }
+
+        .stat-card .label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Client Grid */
+        .client-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .client-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .client-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        }
+
+        .client-card .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #4a6cf7;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .client-card .name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .client-card .details {
+            font-size: 14px;
+            color: #666;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        .client-card .details .item {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .client-card .badge {
+            display: inline-block;
+            background: #e8eaed;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .client-card .actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            border-top: 1px solid #eee;
+            padding-top: 12px;
+        }
+
+        .client-card .actions form {
+            display: inline;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-state .icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        .empty-state h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .empty-state p {
+            font-size: 16px;
+            max-width: 400px;
+            margin: 0 auto 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+
+            .header-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+
+            .client-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>👥 Klantenbeheer</h1>
+            <div class="header-actions">
+                <div class="search-box">
+                    <span class="icon">🔍</span>
+                    <input type="text" id="searchInput" placeholder="Zoeken..." onkeyup="filterClients()">
+                </div>
+                <a href="/clients/new" class="btn-primary">
+                    <span>+</span> Nieuwe Klant
+                </a>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="number">{{ total_clients }}</div>
+                <div class="label">Totaal Klanten</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">{{ clients|selectattr('questionnaire_completed', 'equalto', true)|list|length }}</div>
+                <div class="label">Vragenlijst Voltooid</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">{{ clients|selectattr('questionnaire_completed', 'equalto', false)|list|length }}</div>
+                <div class="label">In Behandeling</div>
+            </div>
+        </div>
+
+        <!-- Client Grid -->
+        {% if clients %}
+        <div class="client-grid" id="clientGrid">
+            {% for client in clients %}
+            <a href="/clients/{{ client.id }}" class="client-card" data-name="{{ client.name|lower }}">
+                <div class="avatar">{{ client.name[0]|upper }}</div>
+                <div class="name">{{ client.name }}</div>
+                <div class="details">
+                    {% if client.email %}
+                    <div class="item">📧 {{ client.email }}</div>
+                    {% endif %}
+                    {% if client.telefoonnummer %}
+                    <div class="item">📱 {{ client.telefoonnummer }}</div>
+                    {% endif %}
+                    {% if client.land_van_herkomst %}
+                    <div class="item">🌍 {{ client.land_van_herkomst }}</div>
+                    {% endif %}
+                </div>
+                <div class="badge">
+                    {% if client.questionnaire_completed %}
+                    ✅ Vragenlijst voltooid
+                    {% else %}
+                    ⏳ Vragenlijst gestart
+                    {% endif %}
+                </div>
+                <div class="actions">
+                    <a href="/clients/{{ client.id }}/edit" class="btn-secondary" onclick="event.stopPropagation();">✏️ Bewerken</a>
+                    <form method="post" action="/clients/{{ client.id }}/delete" onsubmit="return confirm('Weet je zeker dat je {{ client.name }} wilt verwijderen?');">
+                        <button type="submit" class="btn-danger" onclick="event.stopPropagation();">🗑️ Verwijder</button>
+                    </form>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <div class="icon">👤</div>
+            <h2>Geen klanten gevonden</h2>
+            <p>Voeg je eerste klant toe om te beginnen met het loopbaanonderzoek.</p>
+            <a href="/clients/new" class="btn-primary">+ Nieuwe Klant Toevoegen</a>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function filterClients() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const grid = document.getElementById('clientGrid');
+            const cards = grid.getElementsByClassName('client-card');
+
+            for (let i = 0; i < cards.length; i++) {
+                const card = cards[i];
+                const name = card.getAttribute('data-name');
+                if (name.includes(filter)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultaten - Loopbaanankers</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Resultaten - Loopbaanankers</h1>
+            <a href="/" class="btn-back">← Home</a>
+        </div>
+        <div class="results-card">
+            <div class="top-results">
+                <h3>🏆 Je sterkste loopbaanankers</h3>
+                <div class="top-item">1. {{ anchor_names.get(top1[0], 'Onbekend') }} ({{ top1[1] }} punten)</div>
+                <div class="top-item">2. {{ anchor_names.get(top2[0], 'Onbekend') }} ({{ top2[1] }} punten)</div>
+            </div>
+
+            {% for anchor, score in sorted_anchors %}
+            <div class="result-item">
+                <div class="label">
+                    <span>{{ anchor_names.get(anchor, anchor) }}</span>
+                    <span>{{ score }}/30</span>
+                </div>
+                <div class="bar">
+                    <div class="fill" style="width: {{ (score / 30) * 100 }}%; background: {{ colors.get(anchor, '#4a6cf7') }};"></div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="btn-group">
+                <a href="{{ next_url }}" class="btn-primary">📋 Ga naar Fase 2.1</a>
+                <a href="{{ retry_url }}" class="btn-back">↻ Opnieuw</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

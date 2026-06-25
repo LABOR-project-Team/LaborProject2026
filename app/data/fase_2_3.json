@@ -1,0 +1,39 @@
+{
+  "components": [
+    {
+      "id": 1,
+      "name": "Taakvaardigheid",
+      "description": "De mate waarin een baan verschillende activiteiten vereist, waarbij de werknemer een verscheidenheid aan vaardigheden en talenten moet ontwikkelen. Werknemers kunnen meer betekenis ervaren in banen die verschillende vaardigheden en capaciteiten vereisen dan wanneer de banen elementair en routinematig zijn.",
+      "question": "Hoe belangrijk vind je het dat je werk bestaat uit verschillende soorten activiteiten waarbij je diverse vaardigheden en talenten kunt inzetten en/of ontwikkelen? En wat zou voor jou een ideale verhouding zijn tussen afwisselende taken en meer routinematige werkzaamheden?",
+      "letter": "a"
+    },
+    {
+      "id": 2,
+      "name": "Taakidentiteit",
+      "description": "De mate waarin de functie vereist dat de functiehouders een werkstuk identificeren en voltooien met een zichtbaar resultaat. Werknemers ervaren meer zingeving in een baan wanneer ze betrokken zijn bij het hele proces in plaats van alleen verantwoordelijk te zijn voor een deel van het werk.",
+      "question": "Hoe belangrijk vind je het om in je werk betrokken te zijn bij een volledig proces of werkstuk, van begin tot eind, met een duidelijk zichtbaar resultaat? En in hoeverre zou je idealiter verantwoordelijk willen zijn voor het hele werkproces versus alleen een deel ervan?",
+      "letter": "b"
+    },
+    {
+      "id": 3,
+      "name": "Taakbetekenis",
+      "description": "De mate waarin de baan het leven van anderen beïnvloedt. De invloed kan zowel in de directe organisatie als in de externe omgeving zijn. Werknemers ervaren meer zingeving in een baan die het psychisch of fysiek welzijn van anderen aanzienlijk verbetert, dan een baan die een beperkt effect heeft op iemand anders.",
+      "question": "Hoe belangrijk vind je het dat je werk een merkbare invloed heeft op het leven of welzijn van anderen, binnen en/of buiten de organisatie? En in welke mate zou je idealiter willen dat jouw werk impact heeft op anderen?",
+      "letter": "c"
+    },
+    {
+      "id": 4,
+      "name": "Autonomie",
+      "description": "De mate waarin de baan de werknemer aanzienlijke vrijheid, onafhankelijkheid en discretie biedt om het werk te plannen en de procedures in de baan te bepalen. Voor banen met een hoge mate van autonomie hangen de resultaten van het werk af van de eigen inspanningen, initiatieven en beslissingen van de werknemers. In plaats van in opdracht van een manager of een handleiding met werkprocedures. In dergelijke gevallen ervaren de werknemers een grotere persoonlijke verantwoordelijkheid voor hun eigen successen en mislukkingen op het werk.",
+      "question": "Hoe belangrijk vind je het om in je werk zelf te kunnen bepalen hoe en wanneer je taken uitvoert, zonder dat alles strak voorgeschreven is? En hoeveel vrijheid zou je idealiter willen hebben in het plannen en uitvoeren van je werk?",
+      "letter": "d"
+    },
+    {
+      "id": 5,
+      "name": "Feedback",
+      "description": "De mate waarin de werknemer kennis heeft van resultaten. Dit is duidelijke, specifieke, gedetailleerde, bruikbare informatie over de effectiviteit van zijn of haar werkprestaties. Wanneer werknemers duidelijke, bruikbare informatie over hun werkprestaties ontvangen, hebben ze een betere algemene kennis van het effect van hun werkactiviteiten en welke specifieke acties ze moeten ondernemen (indien aanwezig) om hun productiviteit te verbeteren. ",
+      "question": "Hoe belangrijk vind je het om duidelijke en bruikbare feedback te krijgen over hoe goed je je werk doet? En in welke mate zou je idealiter op de hoogte willen zijn van het effect van je werk en van punten waarop je jezelf kunt verbeteren?",
+      "letter": "e"
+    }
+  ]
+}

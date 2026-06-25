@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fase 2.2 - Cultuur Analyse</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>📋 Fase 2.2 - Cultuur Analyse</h1>
+                <div class="subtitle">Beoordeel elke stelling van 1 (Oneens) tot 5 (Volledig eens)</div>
+            </div>
+            <a href="/" class="btn-back">← Terug</a>
+        </div>
+
+        <form method="post" action="/phase/2.2/submit">
+            <input type="hidden" name="client_id" value="{{ client_id }}">
+            {% for culture in cultures %}
+            <div class="culture-card" data-culture="{{ culture.id }}">
+                <div class="culture-header">
+                    <span class="culture-name">{{ culture.name }} {{ culture.subtitle }}</span>
+                </div>
+                <div class="culture-description">{{ culture.description }}</div>
+                <div class="culture-questions">
+                    {% for q_text in culture.questions %}
+                    <div class="question-item">
+                        <span class="q-text">{{ loop.index }}. {{ q_text }}</span>
+                        <div class="stars">
+                            <input type="radio" id="cq{{ culture.id }}_{{ loop.index }}-5" name="cq{{ culture.id }}_{{ loop.index }}" value="5" onchange="updateScore({{ culture.id }})">
+                            <label for="cq{{ culture.id }}_{{ loop.index }}-5" title="5: Volledig eens">★</label>
+                            <input type="radio" id="cq{{ culture.id }}_{{ loop.index }}-4" name="cq{{ culture.id }}_{{ loop.index }}" value="4" onchange="updateScore({{ culture.id }})">
+                            <label for="cq{{ culture.id }}_{{ loop.index }}-4" title="4: Deels eens">★</label>
+                            <input type="radio" id="cq{{ culture.id }}_{{ loop.index }}-3" name="cq{{ culture.id }}_{{ loop.index }}" value="3" onchange="updateScore({{ culture.id }})">
+                            <label for="cq{{ culture.id }}_{{ loop.index }}-3" title="3: Neutraal">★</label>
+                            <input type="radio" id="cq{{ culture.id }}_{{ loop.index }}-2" name="cq{{ culture.id }}_{{ loop.index }}" value="2" onchange="updateScore({{ culture.id }})">
+                            <label for="cq{{ culture.id }}_{{ loop.index }}-2" title="2: Deels oneens">★</label>
+                            <input type="radio" id="cq{{ culture.id }}_{{ loop.index }}-1" name="cq{{ culture.id }}_{{ loop.index }}" value="1" onchange="updateScore({{ culture.id }})" required>
+                            <label for="cq{{ culture.id }}_{{ loop.index }}-1" title="1: Oneens">★</label>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="culture-score">
+                    <span class="score-label">Totaal score:</span>
+                    <span class="score-value" id="score-{{ culture.id }}">0</span>
+                    <span style="font-size: 14px; color: #666;">/ 20</span>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="footer">
+                <div class="info">
+                    <span>Alle vragen moeten beantwoord worden</span>
+                </div>
+                <button type="submit" class="btn-primary">💾 Opslaan & Afronden</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function updateScore(cultureId) {
+            const card = document.querySelector(`.culture-card[data-culture="${cultureId}"]`);
+            const radios = card.querySelectorAll('input[type="radio"]');
+            const questions = {};
+            radios.forEach(radio => {
+                const name = radio.getAttribute('name');
+                if (!questions[name]) questions[name] = [];
+                questions[name].push(radio);
+            });
+
+            let score = 0;
+            for (const [name, radioGroup] of Object.entries(questions)) {
+                radioGroup.forEach(radio => {
+                    if (radio.checked) {
+                        score += parseInt(radio.value);
+                    }
+                });
+            }
+            document.getElementById(`score-${cultureId}`).textContent = score;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.culture-card').forEach(card => {
+                const id = card.getAttribute('data-culture');
+                updateScore(id);
+            });
+        });
+    </script>
+</body>
+</html>

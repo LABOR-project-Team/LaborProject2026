@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultaten - Carrière Clusters</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Resultaten - Carrière Clusters</h1>
+            <a href="/" class="btn-back">← Home</a>
+        </div>
+        <div class="results-card">
+            <div class="top-results">
+                <h3>🏆 Je beste carrière clusters</h3>
+                <div class="top-item">1. {{ cluster_names.get(top1[0], 'Onbekend') }} ({{ top1[1] }} matches)</div>
+                <div class="top-item">2. {{ cluster_names.get(top2[0], 'Onbekend') }} ({{ top2[1] }} matches)</div>
+            </div>
+
+            {% for cid, score in sorted_clusters %}
+            <div class="result-item">
+                <div class="label">
+                    <span>{{ cluster_names.get(cid, 'Cluster ' + cid) }}</span>
+                    <span>{{ score }} matches</span>
+                </div>
+                <div class="bar">
+                    {% set max_val = max_possible.get(cid, 17) %}
+                    <div class="fill" style="width: {{ (score / max_val) * 100 }}%; background: #4a6cf7;"></div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="btn-group">
+                <a href="{{ next_url }}" class="btn-primary">📋 Ga naar Fase 2.2</a>
+                <a href="{{ retry_url }}" class="btn-back">↻ Opnieuw</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

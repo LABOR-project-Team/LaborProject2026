@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if is_edit %}Klant Bewerken{% else %}Nieuwe Klant{% endif %}</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #1a1a2e;
+        }
+
+        .btn-back {
+            background: #e8eaed;
+            color: #333;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back:hover {
+            background: #d5d8dd;
+        }
+
+        .form-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4a6cf7;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-primary {
+            background: #4a6cf7;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #3a56d4;
+        }
+
+        .btn-secondary {
+            background: #e8eaed;
+            color: #333;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-secondary:hover {
+            background: #d5d8dd;
+        }
+
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: stretch;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>{% if is_edit %}✏️ Klant Bewerken{% else %}➕ Nieuwe Klant Toevoegen{% endif %}</h1>
+            <a href="/clients/" class="btn-back">← Terug naar overzicht</a>
+        </div>
+
+        <div class="form-card">
+            <form method="post" action="{% if is_edit %}/clients/{{ client.id }}/edit{% else %}/clients/new{% endif %}">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Naam *</label>
+                        <input type="text" id="name" name="name" required value="{{ client.name if client else '' }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="geboortedatum">Geboortedatum</label>
+                        <input type="date" id="geboortedatum" name="geboortedatum" value="{{ client.geboortedatum if client else '' }}">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" value="{{ client.email if client else '' }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefoonnummer">Telefoonnummer</label>
+                        <input type="tel" id="telefoonnummer" name="telefoonnummer" value="{{ client.telefoonnummer if client else '' }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="adres">Adres</label>
+                    <input type="text" id="adres" name="adres" value="{{ client.adres if client else '' }}">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="opleidingen">Opleidingen</label>
+                        <input type="text" id="opleidingen" name="opleidingen" value="{{ client.opleidingen if client else '' }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="land_van_herkomst">Land van herkomst</label>
+                        <input type="text" id="land_van_herkomst" name="land_van_herkomst" value="{{ client.land_van_herkomst if client else '' }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="leef_situatie">Leef situatie</label>
+                    <select id="leef_situatie" name="leef_situatie">
+                        <option value="">Selecteer...</option>
+                        <option value="Alleenstaand" {% if client and client.leef_situatie == 'Alleenstaand' %}selected{% endif %}>Alleenstaand</option>
+                        <option value="Samenwonend" {% if client and client.leef_situatie == 'Samenwonend' %}selected{% endif %}>Samenwonend</option>
+                        <option value="Getrouwd" {% if client and client.leef_situatie == 'Getrouwd' %}selected{% endif %}>Getrouwd</option>
+                        <option value="Gescheiden" {% if client and client.leef_situatie == 'Gescheiden' %}selected{% endif %}>Gescheiden</option>
+                        <option value="Weduwe/weduwnaar" {% if client and client.leef_situatie == 'Weduwe/weduwnaar' %}selected{% endif %}>Weduwe/weduwnaar</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="toelichting">Toelichting (optioneel)</label>
+                    <textarea id="toelichting" name="toelichting" rows="4">{{ client.toelichting if client else '' }}</textarea>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">{% if is_edit %}💾 Opslaan{% else %}➕ Toevoegen{% endif %}</button>
+                    <a href="/clients/" class="btn-secondary">Annuleren</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

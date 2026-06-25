@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fase 2.0 - Loopbaanankers</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>📋 Fase 2.0 - Loopbaanankers</h1>
+                <div class="subtitle">Beoordeel elke stelling van 1 (Oneens) tot 5 (Volledig eens)</div>
+            </div>
+            <a href="/" class="btn-back">← Terug</a>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-info">
+                <span id="answeredCount">0</span>
+                <span id="totalQuestions">{{ total_questions }}</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill green" id="progressFill"></div>
+            </div>
+        </div>
+
+        <form method="post" action="/phase/2.0/submit">
+            <input type="hidden" name="client_id" value="{{ client_id }}">
+            {% for sid, statements in grouped.items() %}
+            <div class="statement-group">
+                <div class="group-header">
+                    <span class="group-num">Stelling {{ sid }}</span>
+                    <span id="status-{{ sid }}">⏳</span>
+                </div>
+                {% for s in statements %}
+                <div class="statement-item" data-question="{{ s.id }}">
+                    <span class="anchor-letter">{{ s.anchor }}</span>
+                    <span class="statement-text">{{ s.text }}</span>
+                    <div class="stars">
+                        <input type="radio" id="s{{ s.id }}-5" name="s{{ s.id }}" value="5" onchange="updateProgress()">
+                        <label for="s{{ s.id }}-5" title="5: Volledig eens">★</label>
+                        <input type="radio" id="s{{ s.id }}-4" name="s{{ s.id }}" value="4" onchange="updateProgress()">
+                        <label for="s{{ s.id }}-4" title="4: Deels eens">★</label>
+                        <input type="radio" id="s{{ s.id }}-3" name="s{{ s.id }}" value="3" onchange="updateProgress()">
+                        <label for="s{{ s.id }}-3" title="3: Neutraal">★</label>
+                        <input type="radio" id="s{{ s.id }}-2" name="s{{ s.id }}" value="2" onchange="updateProgress()">
+                        <label for="s{{ s.id }}-2" title="2: Deels oneens">★</label>
+                        <input type="radio" id="s{{ s.id }}-1" name="s{{ s.id }}" value="1" onchange="updateProgress()" required>
+                        <label for="s{{ s.id }}-1" title="1: Oneens">★</label>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endfor %}
+
+            <div class="anchor-descriptions">
+                <h3>📖 Loopbaanankers - Omschrijving</h3>
+                {% for key, desc in descriptions.items() %}
+                <div class="anchor-desc">
+                    <span class="anchor-name">{{ key }}</span>
+                    <p>{{ desc }}</p>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="footer">
+                <div class="info">
+                    <strong id="answeredDisplay">0</strong> van de <strong>{{ total_questions }}</strong> vragen beantwoord
+                </div>
+                <button type="submit" class="btn-primary">💾 Opslaan & Volgende</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function updateProgress() {
+            const items = document.querySelectorAll('.statement-item');
+            let answered = 0;
+            const total = items.length;
+
+            items.forEach(item => {
+                const radio = item.querySelector('input[type="radio"]:checked');
+                if (radio) answered++;
+            });
+
+            document.getElementById('progressFill').style.width = (answered / total) * 100 + '%';
+            document.getElementById('answeredCount').textContent = answered;
+            document.getElementById('answeredDisplay').textContent = answered;
+
+            const groups = document.querySelectorAll('.statement-group');
+            groups.forEach(group => {
+                const items = group.querySelectorAll('.statement-item');
+                let groupAnswered = 0;
+                items.forEach(item => {
+                    const radio = item.querySelector('input[type="radio"]:checked');
+                    if (radio) groupAnswered++;
+                });
+
+                const status = group.querySelector('.group-header .status');
+                if (groupAnswered === items.length) {
+                    status.textContent = '✅ Voltooid';
+                    status.style.color = '#27ae60';
+                } else {
+                    status.textContent = '⏳ ' + groupAnswered + '/' + items.length;
+                    status.style.color = '#f39c12';
+                }
+            });
+        }
+        document.addEventListener('DOMContentLoaded', updateProgress);
+    </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fase {{ phase }} - Loopbaan Onderzoek</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .header {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .header h1 {
+            font-size: 24px;
+            color: #1a1a2e;
+        }
+        .btn-back {
+            background: #e8eaed;
+            color: #333;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        .btn-back:hover {
+            background: #d5d8dd;
+        }
+        /* Style for the button you are adding */
+        .btn-primary {
+            display: inline-block;
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 20px;
+        }
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+        .content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .phase-info {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .coming-soon {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+        .coming-soon .icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        .coming-soon h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Fase {{ phase }}</h1>
+            <a href="/?client_id={{ client_id }}" class="btn-back">← Terug</a>
+        </div>
+
+        <div class="content">
+            <div class="phase-info">
+                Loopbaanonderzoek - Fase {{ phase }}
+            </div>
+
+            <div class="coming-soon">
+                <div class="icon">🚧</div>
+                <h2>Vragenlijst komt binnenkort</h2>
+                <p>Deze fase is nog in ontwikkeling.</p>
+
+                <a href="/phase/2.0?client_id={{ client_id }}" class="btn-primary">📋 Ga naar Fase 2.0</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

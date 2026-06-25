@@ -1,0 +1,161 @@
+{
+  "statements": [
+    {
+      "id": 1,
+      "text": "Graag wil ik het voor mezelf en voor anderen dusdanig regelen dat succes verzekerd is.",
+      "anchor": "V"
+    },
+    {
+      "id": 2,
+      "text": "Ik houd me binnen een werksituatie het liefst bezig met mijn eigen zaken.",
+      "anchor": "X"
+    },
+    {
+      "id": 3,
+      "text": "Binnen het werk moet er tijd zijn voor zaken die jezelf belangrijk vindt en moet er gelegenheid zijn om zinvolle relaties te cultiveren.",
+      "anchor": "Y"
+    },
+    {
+      "id": 4,
+      "text": "Vooruitkomen is voor mij belangrijker dan persoonlijke behoeften.",
+      "anchor": "V"
+    },
+    {
+      "id": 5,
+      "text": "Ik werk graag in een omgeving waar hard werken, loyaliteit en toewijding gewaardeerd wordt.",
+      "anchor": "W"
+    },
+    {
+      "id": 6,
+      "text": "Ik houd van een werksituatie waar ik mijn eigen doelen kan bepalen, ze kan bereiken op mijn eigen manier en op mijn eigen tempo.",
+      "anchor": "X"
+    },
+    {
+      "id": 7,
+      "text": "Ik ben strijdlustig, kan goed analyseren en met mensen omgaan.",
+      "anchor": "V"
+    },
+    {
+      "id": 8,
+      "text": "Ik kan goed mijn evenwicht bewaren tussen de eisen van mijn werk en die van mijn privé-leven.",
+      "anchor": "Y"
+    },
+    {
+      "id": 9,
+      "text": "Ik wil onafhankelijk werken.",
+      "anchor": "X"
+    },
+    {
+      "id": 10,
+      "text": "Ik houd ervan me een vertegenwoordiger te voelen van een groter geheel.",
+      "anchor": "W"
+    },
+    {
+      "id": 11,
+      "text": "Ik houd ervan als consultant of probleemoplosser te werken en me dusdanig te profileren door middel van een opwindend project.",
+      "anchor": "Z"
+    },
+    {
+      "id": 12,
+      "text": "Ik houd ervan in een situatie te werken waarin ik de leiding heb en verantwoordelijk ben voor het bereiken van bepaalde doelen.",
+      "anchor": "V"
+    },
+    {
+      "id": 13,
+      "text": "Mijn echtgenoot/partner is net zo belangrijk voor mij als mijn loopbaan.",
+      "anchor": "Y"
+    },
+    {
+      "id": 14,
+      "text": "Mijn echtgenoot/partner verdwijnt naar de achtergrond als ik midden in een zeer opwindend project zit.",
+      "anchor": "Z"
+    },
+    {
+      "id": 15,
+      "text": "Het allerbelangrijkst voor mij is vrijheid.",
+      "anchor": "X"
+    },
+    {
+      "id": 16,
+      "text": "Het allerbelangrijkst voor mij is een doel in mijn leven.",
+      "anchor": "Y"
+    },
+    {
+      "id": 17,
+      "text": "Ik ben bekwaam, loyaal, betrouwbaar en ik werk hard.",
+      "anchor": "W"
+    },
+    {
+      "id": 18,
+      "text": "Ik ben sociaal in de omgang, een goede leider en een goede organisator.",
+      "anchor": "V"
+    },
+    {
+      "id": 19,
+      "text": "Ik ben onafhankelijk.",
+      "anchor": "X"
+    },
+    {
+      "id": 20,
+      "text": "Ik ben evenwichtig.",
+      "anchor": "Y"
+    },
+    {
+      "id": 21,
+      "text": "Ik ben iemand die in actie komt door opwindende projecten.",
+      "anchor": "Z"
+    },
+    {
+      "id": 22,
+      "text": "Ik ben iemand die graag met anderen wedijvert.",
+      "anchor": "V"
+    },
+    {
+      "id": 23,
+      "text": "Ik ben iemand die genuanceerd over zaken nadenkt.",
+      "anchor": "Y"
+    },
+    {
+      "id": 24,
+      "text": "Ik ben ambitieus en iemand die graag met anderen wedijvert.",
+      "anchor": "V"
+    },
+    {
+      "id": 25,
+      "text": "Ik heb veel zelfvertrouwen en ben in staat mezelf te redden.",
+      "anchor": "X"
+    },
+    {
+      "id": 26,
+      "text": "Ik heb veel fantasie en enthousiasme.",
+      "anchor": "Z"
+    },
+    {
+      "id": 27,
+      "text": "Ik ben stabiel en vasthoudend.",
+      "anchor": "W"
+    },
+    {
+      "id": 28,
+      "text": "Ik ben onafhankelijk en in staat een eigen koers te bepalen.",
+      "anchor": "X"
+    },
+    {
+      "id": 29,
+      "text": "Ik ben iemand die goed kan plannen en organiseren.",
+      "anchor": "V"
+    },
+    {
+      "id": 30,
+      "text": "Ik ben iemand die situaties analyseert en creatieve, nieuwe oplossingen ontwikkelt.",
+      "anchor": "Z"
+    }
+  ],
+  "anchors": {
+    "Omhoog": "De loopbaanoriëntatie 'Omhoog komen' is gericht op jouw streven naar vooruitgang binnen een organisatie, waarbij het beklimmen van de hiërarchische ladder en het verkrijgen van meer status en invloed centraal staan.",
+    "Veilig": "De loopbaanoriëntatie 'Veilig voelen' richt zich op jouw streven naar een stabiele baan binnen een goed georganiseerde en rustige werkomgeving. Jij verlangt naar langdurige en vaste dienstverbanden, waarin je erkend en gewaardeerd wordt.",
+    "Vrij": "De loopbaanoriëntatie 'Vrij zijn' draait om jouw streven naar persoonlijke zelfstandigheid, ruimte en verantwoordelijkheid in het bereiken van resultaten, boven gebondenheid aan zekerheid en vaste regels.",
+    "Balans": "De loopbaanoriëntatie 'Balans vinden' richt zich op jouw streven naar een optimaal evenwicht tussen werk, privé-leven en zelfontwikkeling. Voor jou is werk slechts een deel van je totale levensvervulling.",
+    "Uitdaging": "De loopbaanoriëntatie 'Uitdaging zoeken' wordt gekenmerkt door jouw behoefte aan opwinding, avontuur en sterke betrokkenheid bij het werk. Jij wilt dicht bij de actie en creativiteit zijn."
+  }
+}

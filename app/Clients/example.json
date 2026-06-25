@@ -1,0 +1,15 @@
+{
+  "id": "example1",
+  "name": "Hamster Human Resource",
+  "geboortedatum": "1985-03-15",
+  "email": "info@hamsterhr.nl",
+  "telefoonnummer": "06-12345678",
+  "adres": "Voorbeeldstraat 123, 1000 AA Amsterdam",
+  "opleidingen": "HBO Bedrijfskunde",
+  "land_van_herkomst": "Nederland",
+  "leef_situatie": "Samenwonend",
+  "toelichting": "HR consultancy specialist",
+  "created_at": "2024-01-01T10:00:00",
+  "updated_at": "2024-01-15T14:30:00",
+  "questionnaire_completed": false
+}

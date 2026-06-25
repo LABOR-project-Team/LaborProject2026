@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fase 2.1 - Carrière Clusters</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>📋 Fase 2.1 - Carrière Clusters</h1>
+                <div class="subtitle">Klik op de activiteiten, competenties en onderwerpen die bij je passen</div>
+            </div>
+            <a href="/" class="btn-back">← Terug</a>
+        </div>
+
+        <form method="post" action="/phase/2.1/submit" id="clusterForm">
+            <input type="hidden" name="client_id" value="{{ client_id }}">
+            {% for cluster in clusters %}
+            <div class="cluster-card" data-cluster="{{ cluster.id }}">
+                <div class="cluster-header">
+                    <span class="cluster-name">#{{ cluster.id }} {{ cluster.name }}</span>
+                    <span class="cluster-segment">{{ cluster.segment }}</span>
+                </div>
+                <div class="cluster-description">{{ cluster.description }}</div>
+                <div class="cluster-items">
+                    <div class="item-group">
+                        <h4>🎯 Activiteiten</h4>
+                        {% for activity in cluster.activities[:7] %}
+                        <div class="item">
+                            <input type="checkbox" name="c{{ cluster.id }}_a" value="1" onchange="updateScore({{ cluster.id }})">
+                            <span>{{ activity }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="item-group">
+                        <h4>💪 Competenties</h4>
+                        {% for comp in cluster.competencies[:5] %}
+                        <div class="item">
+                            <input type="checkbox" name="c{{ cluster.id }}_c" value="1" onchange="updateScore({{ cluster.id }})">
+                            <span>{{ comp }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="item-group">
+                        <h4>📚 Educatieve onderwerpen</h4>
+                        {% for topic in cluster.educational_topics[:5] %}
+                        <div class="item">
+                            <input type="checkbox" name="c{{ cluster.id }}_t" value="1" onchange="updateScore({{ cluster.id }})">
+                            <span>{{ topic }}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="cluster-score">
+                    <span class="score-label">Score:</span>
+                    <span class="score-value" id="score-{{ cluster.id }}">0</span>
+                    <span style="font-size: 14px; color: #666;">/ <span id="max-{{ cluster.id }}">{{ cluster.activities[:7]|length + cluster.competencies[:5]|length + cluster.educational_topics[:5]|length }}</span></span>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="footer">
+                <div class="info">
+                    <span>Selecteer alle items die bij jou passen</span>
+                </div>
+                <button type="submit" class="btn-primary">💾 Opslaan & Volgende</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function updateScore(clusterId) {
+            const card = document.querySelector(`.cluster-card[data-cluster="${clusterId}"]`);
+            const checkboxes = card.querySelectorAll('input[type="checkbox"]');
+            let count = 0;
+            checkboxes.forEach(cb => { if (cb.checked) count++; });
+            const maxSpan = document.getElementById(`max-${clusterId}`);
+            const max = maxSpan ? parseInt(maxSpan.textContent) : 0;
+            document.getElementById(`score-${clusterId}`).textContent = count;
+        }
+    </script>
+</body>
+</html>

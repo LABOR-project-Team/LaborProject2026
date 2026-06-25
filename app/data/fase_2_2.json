@@ -1,0 +1,48 @@
+{
+  "cultures": [
+    {
+      "id": 1,
+      "questions": [
+        "1. Hoe belangrijk vind je het dat er binnen een organisatie duidelijke, gedeelde waarden en doelstellingen aanwezig zijn?",
+        "2. Hoe belangrijk is voor jou een sterke onderlinge samenhang en teamwork binnen een organisatie?",
+        "3. Hoe belangrijk vind je het dat klanten worden gezien en behandeld als partners?",
+        "4. Hoe belangrijk is het voor jou dat teamgevoel belangrijker is dan regels en procedures?"
+      ],
+      "culture": "",
+      "description": "Deze cultuur is typerend voor zorginstellingen en service gerichte organisaties."
+    },
+    {
+      "id": 2,
+      "questions": [
+        "1. Hoe belangrijk vind je het dat een organisatie snel kan reageren op veranderingen?",
+        "2. Hoe belangrijk is het dat innovatie en vernieuwing (bijv. nieuwe diensten/producten) centraal staan?",
+        "3. Hoe belangrijk vind je het dat medewerkers worden gestimuleerd om creatief en flexibel te zijn?",
+        "4. Hoe belangrijk is het voor jou dat een organisatie flexibel is en zich snel kan aanpassen aan verandering?"
+      ],
+      "culture": "",
+      "description": "Deze cultuur is typerend voor softwarebedrijven, luchtvaart, ruimtevaart e.d."
+    },
+    {
+      "id": 3,
+      "questions": [
+        "1. Hoe belangrijk vind je het dat procedures en regels een prominente rol spelen in een organisatie?",
+        "2. Hoe belangrijk is het dat vooral leidinggevenden coördineren en organiseren?",
+        "3. Hoe belangrijk vind je lange-termijnstabiliteit, efficiëntie en voorspelbaarheid in een organisatie?",
+        "4. Hoe belangrijk is het voor jou dat besluitvorming gestructureerd verloopt, ook als dat meer tijd kost?"
+      ],
+      "culture": "",
+      "description": "Deze cultuur is typerend voor overheids- of onderwijsinstellingen."
+    },
+    {
+      "id": 4,
+      "questions": [
+        "1. Hoe belangrijk vind je het dat productiviteit, resultaten en winst centraal staan in een organisatie?",
+        "2. Hoe belangrijk is het dat een organisatie sterk gericht is op externe positionering en concurrentiekracht?",
+        "3. Hoe belangrijk vind je het dat een organisatie duidelijke en ambitieuze doelen heeft en een agressieve strategie volgt?",
+        "4. Hoe belangrijk is het voor jou dat leidinggevenden veeleisend zijn en een organisatie zich sterk op marktleiderschap focust?"
+      ],
+      "culture": "",
+      "description": "Deze cultuur is typerend voor organisaties die zich richten op externe transacties met belanghebbenden (klanten, leveranciers e.d.). De organisatie concurreert met gelijkaardige organisaties."
+    }
+  ]
+}

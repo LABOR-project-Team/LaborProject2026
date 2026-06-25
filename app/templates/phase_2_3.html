@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fase 2.3 - J.C.M.</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1>📋 Fase 2.3 - Werk Karakteristieken</h1>
+                <div class="subtitle">Beantwoord elke vraag in je eigen woorden</div>
+            </div>
+            <a href="/" class="btn-back">← Terug</a>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-info">
+                <span id="answeredCount">0</span>
+                <span id="totalQuestions">{{ components|length }}</span>
+            </div>
+            <div class="progress-track">
+                <div class="progress-fill purple" id="progressFill"></div>
+            </div>
+        </div>
+
+        <form method="post" action="/phase/2.3/submit">
+            <input type="hidden" name="client_id" value="{{ client_id }}">
+            {% for comp in components %}
+            <div class="jcm-card" data-component="{{ comp.id }}">
+                <div class="jcm-header">
+                    <span class="jcm-number">Component {{ comp.id }}</span>
+                    <span class="jcm-name">{{ comp.name }}</span>
+                    <span class="jcm-letter">{{ comp.letter }}</span>
+                </div>
+                <div class="jcm-description">{{ comp.description }}</div>
+                <div class="jcm-question">
+                    <label class="q-label" for="jcm_{{ comp.id }}">{{ comp.question }}</label>
+                    <textarea id="jcm_{{ comp.id }}" name="jcm_{{ comp.id }}" rows="4" placeholder="Typ hier je antwoord..." oninput="updateProgress()"></textarea>
+                    <div class="char-count">
+                        <span>Karakters: </span>
+                        <span class="count" id="count-jcm_{{ comp.id }}">0</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="footer">
+                <div class="info">
+                    <strong id="answeredDisplay">0</strong> van de <strong>{{ components|length }}</strong> vragen beantwoord
+                </div>
+                <button type="submit" class="btn-primary">💾 Opslaan & Afronden</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function updateProgress() {
+            const textareas = document.querySelectorAll('textarea');
+            let answered = 0;
+            const total = textareas.length;
+
+            textareas.forEach(ta => {
+                const id = ta.id;
+                const count = ta.value.length;
+                const countSpan = document.getElementById('count-' + id);
+                if (countSpan) {
+                    countSpan.textContent = count;
+                    countSpan.className = 'count';
+                    if (count > 0 && count < 20) {
+                        countSpan.classList.add('warning');
+                    } else if (count > 0) {
+                        countSpan.classList.add('completed');
+                    }
+                }
+
+                if (ta.value.trim().length >= 10) {
+                    answered++;
+                }
+            });
+
+            const progress = (answered / total) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('answeredCount').textContent = answered;
+            document.getElementById('answeredDisplay').textContent = answered;
+        }
+
+        document.addEventListener('DOMContentLoaded', updateProgress);
+
+        let formChanged = false;
+        document.querySelectorAll('textarea').forEach(ta => {
+            ta.addEventListener('input', () => { formChanged = true; });
+        });
+
+        window.addEventListener('beforeunload', function(e) {
+            const textareas = document.querySelectorAll('textarea');
+            let hasContent = false;
+            textareas.forEach(ta => {
+                if (ta.value.trim().length > 0) hasContent = true;
+            });
+
+            if (hasContent) {
+                e.preventDefault();
+                e.returnValue = 'Je hebt nog niet alle vragen beantwoord. Weet je zeker dat je wilt vertrekken?';
+            }
+        });
+    </script>
+</body>
+</html>
