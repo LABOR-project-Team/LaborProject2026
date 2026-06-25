@@ -4,9 +4,32 @@ from typing import Dict, Any, Optional
 import json
 import re
 import shutil
+import sys
+import os
 
-# Data directory
+
+def get_base_path():
+    """Get the base path for the application (supports .exe and script mode)"""
+    if getattr(sys, 'frozen', False):
+        # Running as .exe - use the temp folder where PyInstaller extracts files
+        return sys._MEIPASS
+    else:
+        # Running as script - use the current directory
+        return os.path.dirname(os.path.abspath(__file__))
+
+
+# Get base path
+BASE_PATH = get_base_path()
+
+# Data directory - try multiple paths for .exe support
 DATA_DIR = Path("data")
+if not DATA_DIR.exists():
+    # Try with base path for .exe
+    DATA_DIR = Path(BASE_PATH) / "data"
+    if not DATA_DIR.exists():
+        # Try one level up (if running from different location)
+        DATA_DIR = Path(os.path.dirname(BASE_PATH)) / "data"
+
 CLIENTS_DIR = DATA_DIR / "clients"
 CLIENTS_DIR.mkdir(parents=True, exist_ok=True)
 

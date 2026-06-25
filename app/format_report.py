@@ -11,9 +11,40 @@ import pandas as pd
 from openpyxl import load_workbook
 from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from typing import Dict, Any, Optional
+import sys
+import os
 
-# Import from utils instead of clients
+# Import from utils
 from app.utils import get_client, get_client_excel_path, get_client_word_path, save_client
+
+
+def get_base_path():
+    """Get the base path for the application (supports .exe and script mode)"""
+    if getattr(sys, 'frozen', False):
+        return sys._MEIPASS
+    else:
+        return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+BASE_PATH = get_base_path()
+
+# Excel template path - try multiple locations
+EXCEL_TEMPLATE = None
+possible_paths = [
+    Path("Loopbaan onderzoek 5.0.xlsx"),
+    Path(BASE_PATH) / "Loopbaan onderzoek 5.0.xlsx",
+    Path(os.path.dirname(BASE_PATH)) / "Loopbaan onderzoek 5.0.xlsx",
+    Path(os.path.join(BASE_PATH, "..", "Loopbaan onderzoek 5.0.xlsx")),
+]
+
+for path in possible_paths:
+    if path.exists():
+        EXCEL_TEMPLATE = path
+        break
+
+if EXCEL_TEMPLATE is None:
+    print(f"Warning: Excel template not found in any of the expected locations")
+    EXCEL_TEMPLATE = Path("Loopbaan onderzoek 5.0.xlsx")  # Fallback
 
 
 # ============================================================
@@ -26,8 +57,6 @@ def create_client_excel(client_id: str, client_data: Dict[str, Any]) -> bool:
     Returns True if successful, False otherwise.
     """
     try:
-        EXCEL_TEMPLATE = Path("Loopbaan onderzoek 5.0.xlsx")
-
         if not EXCEL_TEMPLATE.exists():
             print(f"Excel template not found: {EXCEL_TEMPLATE}")
             return False

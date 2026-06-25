@@ -1,11 +1,41 @@
 # app/main.py
+import sys
+import os
+from pathlib import Path
+from typing import Optional
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+
 from fastapi import FastAPI, Request, Form, BackgroundTasks
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 import json
-from pathlib import Path
-from typing import Optional
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+
+
+# ============================================================
+# PATH CONFIGURATION FOR .EXE SUPPORT
+# ============================================================
+
+def get_base_path():
+    """Get the base path for the application (supports .exe and script mode)"""
+    if getattr(sys, 'frozen', False):
+        # Running as .exe - use the temp folder where PyInstaller extracts files
+        return sys._MEIPASS
+    else:
+        # Running as script - use the current directory
+        return os.path.dirname(os.path.abspath(__file__))
+
+
+# Set up paths
+BASE_PATH = get_base_path()
+TEMPLATE_PATH = os.path.join(BASE_PATH, 'app', 'templates')
+STATIC_PATH = os.path.join(BASE_PATH, 'app', 'static')
+
+# Also set up data path (for JSON files)
+DATA_PATH = os.path.join(BASE_PATH, 'app', 'data')
+
+# ============================================================
+# IMPORTS
+# ============================================================
 
 # Import from app.clients
 from app.clients import router as clients_router
@@ -13,11 +43,15 @@ from app.clients import save_questionnaire_results
 from app.utils import get_client
 from app.prognosis_report import router as prognosis_router
 
+# ============================================================
+# FASTAPI APP SETUP
+# ============================================================
+
 # Create FastAPI app
 app = FastAPI(title="Loopbaan Onderzoek")
 
 # Mount static files
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
+app.mount("/static", StaticFiles(directory=STATIC_PATH), name="static")
 
 # Include client routes
 app.include_router(clients_router)
@@ -30,10 +64,19 @@ app.include_router(prognosis_router)
 
 def load_json(filename):
     """Load JSON data from app/data/"""
-    json_path = Path(f"app/data/{filename}")
-    if json_path.exists():
-        with open(json_path, 'r', encoding='utf-8') as f:
-            return json.load(f)
+    # Try multiple paths for .exe support
+    possible_paths = [
+        Path(f"app/data/{filename}"),  # Normal script mode
+        Path(DATA_PATH) / filename,  # .exe mode with base path
+        Path(f"{BASE_PATH}/app/data/{filename}"),  # Alternative .exe path
+    ]
+
+    for json_path in possible_paths:
+        if json_path.exists():
+            with open(json_path, 'r', encoding='utf-8') as f:
+                return json.load(f)
+
+    print(f"Warning: Could not find {filename} in any of the expected paths")
     return None
 
 
@@ -58,10 +101,9 @@ def render_template(template_name: str, context: dict = None) -> str:
     if context is None:
         context = {}
 
-    # Set up Jinja2 environment
-    template_dir = Path("app/templates")
+    # Set up Jinja2 environment with the correct path
     env = Environment(
-        loader=FileSystemLoader(str(template_dir)),
+        loader=FileSystemLoader(TEMPLATE_PATH),
         autoescape=select_autoescape(['html', 'xml'])
     )
 
@@ -96,7 +138,8 @@ async def phase_1_0(request: Request):
 async def big_five_questionnaire(request: Request, client_id: str = None):
     """Big Five Personality Questionnaire - Phase 1.1"""
     if not BIG_FIVE_QUESTIONS:
-        return HTMLResponse(content="<h1>Error: Questions not loaded</h1>")
+        return HTMLResponse(
+            content="<h1>Error: Questions not loaded</h1><p>Make sure fase_1_1.json exists in the data folder.</p>")
 
     if not client_id:
         client_id = request.query_params.get('client_id')
@@ -200,7 +243,6 @@ async def submit_big_five(request: Request, background_tasks: BackgroundTasks):
             "color": colors.get(dim, "#4a6cf7")
         }
 
-    # Add individual dimension results for easier access
     for dim in scores:
         results[dim] = results_data[dim]
 
@@ -227,7 +269,8 @@ async def submit_big_five(request: Request, background_tasks: BackgroundTasks):
 async def career_anchors_questionnaire(request: Request, client_id: str = None):
     """Career Anchors Questionnaire - Phase 2.0"""
     if not CAREER_ANCHOR_STATEMENTS:
-        return HTMLResponse(content="<h1>Error: Career anchors not loaded</h1>")
+        return HTMLResponse(
+            content="<h1>Error: Career anchors not loaded</h1><p>Make sure fase_2_0.json exists in the data folder.</p>")
 
     if not client_id:
         client_id = request.query_params.get('client_id')
@@ -322,7 +365,8 @@ async def submit_career_anchors(request: Request, background_tasks: BackgroundTa
 async def career_clusters_questionnaire(request: Request, client_id: str = None):
     """Career Clusters Questionnaire - Phase 2.1"""
     if not CAREER_CLUSTERS_DATA:
-        return HTMLResponse(content="<h1>Error: Career clusters not loaded</h1>")
+        return HTMLResponse(
+            content="<h1>Error: Career clusters not loaded</h1><p>Make sure fase_2_1.json exists in the data folder.</p>")
 
     if not client_id:
         client_id = request.query_params.get('client_id')
@@ -573,7 +617,3 @@ async def submit_jcm(request: Request, background_tasks: BackgroundTasks):
 # ============================================================
 # PROGNOSIS - Integrated via router from prognosis_report.py
 # ============================================================
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000, reload=True)
