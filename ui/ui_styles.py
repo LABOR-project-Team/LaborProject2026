@@ -82,7 +82,7 @@ S = {
     "header": "#807C7D",
     "odd": ROW_BG_1,
     "even": ROW_BG_2,
-    "yellow": "#f1c40f",
+    "yellow": "#000000", #dit is elke kleur geel in de hele site eerdere naam was *yellow*
     "btn": LIKERT_DEFAULT_BG,
     "btn_on": LIKERT_SELECTED_BG,
     "f_title": FONTS.get("title"),
@@ -127,8 +127,8 @@ TEXT_PRIMARY_COLOR = "#000000"
 TEXT_SECONDARY_COLOR = "#FFFFFF"
 
 # -- Accent colors --
-ACCENT_PRIMARY_COLOR = "#F1C40F"
-YELLOW_ACCENT = "#F1C40F"
+ACCENT_PRIMARY_COLOR = "#000000"
+YELLOW_ACCENT = "#000000"
 
 # -- Card/Background colors --
 CARD_LIGHT_BG = "#F5F5F5"

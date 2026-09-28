@@ -116,7 +116,7 @@ def make_likert_row(parent: tk.Frame, nummer: int, stelling: str, var: tk.String
         text=str(nummer),
         width=4,
         bg=ACCENT_PRIMARY_COLOR,
-        fg="black",
+        fg="white",
         font=FONTS["small_bold"],
         anchor="c",
     )

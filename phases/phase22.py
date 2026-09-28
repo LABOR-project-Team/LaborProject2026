@@ -173,9 +173,12 @@ class Culture22Page(tk.Frame):
         for g in GROUPS:
             grp = tk.Frame(body, bg=S["yellow"])
             grp.pack(fill="x", pady=(8, 2))
-            tk.Label(grp, text=str(g.id), bg=S["yellow"], font=S["f_b"], width=8)\
+            tk.Label(grp, text=str(g.id), bg=S["yellow"], fg="white",
+                     font=S["f_b"], width=8)\
                 .grid(row=0, column=0)
-            tk.Label(grp, text=g.name, bg=S["yellow"], font=S["f_b"], anchor="w", padx=10)\
+
+            tk.Label(grp, text=g.name, bg=S["yellow"], fg="white",
+                     font=S["f_b"], anchor="w", padx=10)\
                 .grid(row=0, column=1, sticky="w")
 
             for i, stmt in enumerate(g.stmts, start=1):
@@ -220,11 +223,14 @@ class Culture22Page(tk.Frame):
             sub.grid_columnconfigure(1, weight=1)
 
             tk.Label(sub, text="", bg=S["yellow"], width=8).grid(row=0, column=0)
-            tk.Label(sub, text="Totaal score (4 stellingen)", bg=S["yellow"], font=S["f_b"],
-                     anchor="w", padx=10).grid(row=0, column=1, sticky="w")
+            tk.Label(sub, text="Totaal score (4 stellingen)",
+                     bg=S["yellow"], fg="white", font=S["f_b"],
+                     anchor="w", padx=10)\
+                .grid(row=0, column=1, sticky="w")
             tk.Label(sub, text="", bg=S["yellow"], width=22).grid(row=0, column=2)
 
-            lbl = tk.Label(sub, text="0", bg=S["yellow"], font=S["f_b"], width=8, anchor="e", padx=10)
+            lbl = tk.Label(sub, text="0", bg=S["yellow"], fg="white",
+                           font=S["f_b"], width=8, anchor="e", padx=10)
             lbl.grid(row=0, column=3, sticky="e")
             self.sub_lbl[g.id] = lbl
             self.update_subtotal(g.id)
@@ -235,7 +241,8 @@ class Culture22Page(tk.Frame):
         for g in GROUPS:
             box = tk.Frame(right, bg="#f5f5f5", bd=1, relief="solid")
             box.pack(fill="x", pady=6)
-            tk.Label(box, text=g.name, bg=S["yellow"], font=S["f_b"], pady=6).pack(fill="x")
+            tk.Label(box, text=g.name, bg=S["yellow"], fg="white",
+                     font=S["f_b"], pady=6).pack(fill="x")
             tk.Label(
                 box,
                 text=g.desc,

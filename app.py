@@ -747,7 +747,7 @@ tk.Label(
     text="Klantenbeheer",
     font=("Segoe UI", 22, "bold"),
     bg=YELLOW_ACCENT,
-    fg=COLOR_PRIMARY
+    fg=COLOR_LIGHT,
 ).pack(side="left", padx=10, pady=10)
 
 # Search frame

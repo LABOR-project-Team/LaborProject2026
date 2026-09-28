@@ -716,13 +716,14 @@ class Culture22Page(tk.Frame):
             cluster_title = CLUSTER_INFO.get(cluster_id, {}).get("title") or f"Cluster {cluster_id}"
             cluster_description = CLUSTER_INFO.get(cluster_id, {}).get("description", "")
 
-            grp = tk.Frame(body, bg=S["yellow"])
+            grp = tk.Frame(body, bg=S["dark"])
             grp.pack(fill="x", pady=(8, 0))
-            tk.Label(grp, text=str(cluster_id), bg=S["yellow"], font=S["f_b"], width=8).grid(row=0, column=0)
+            tk.Label(grp, text=str(cluster_id), bg=S["dark"], font=S["f_b"], width=8).grid(row=0, column=0)
             tk.Label(
                 grp,
                 text=cluster_title,
-                bg=S["yellow"],
+                bg=S["dark"],
+                fg="white",
                 font=S["f_b"],
                 anchor="w",
                 padx=10,

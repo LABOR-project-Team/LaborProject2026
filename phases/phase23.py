@@ -113,7 +113,7 @@ def build_job_characteristics_models_page(parent_frame: tk.Frame, navigate=None)
             header_frame,
             text=f"{q_num}. {characteristic}",
             bg=S["yellow"],
-            fg="black",
+            fg="white",
             font=S["f_b"],
             anchor="w",
             wraplength=700,

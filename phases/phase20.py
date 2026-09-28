@@ -289,7 +289,7 @@ def build_career_anchors_page(parent_frame: tk.Frame, navigate_to) -> None:
             text=str(nummer),
             width=4,
             bg=S["yellow"],
-            fg="black",
+            fg="white",
             font=S["f_b"],
             anchor="c",
         )
@@ -373,7 +373,7 @@ def build_career_anchors_page(parent_frame: tk.Frame, navigate_to) -> None:
             box,
             text=naam,
             bg=S["yellow"],
-            fg="black",
+            fg="white",
             font=S["f_b"],
             width=16,
             anchor="center",
