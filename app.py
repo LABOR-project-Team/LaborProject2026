@@ -169,31 +169,32 @@ def run_format(client):
         client_dir = os.path.join("clients", folder_name)
 
         excel_path = None
-
-        # Look for Excel file in client directory
         if os.path.exists(client_dir):
-            for file in os.listdir(client_dir):
-                if file.endswith(".xlsx"):
-                    excel_path = os.path.join(client_dir, file)
-                    break
+            assessment_files = sorted(
+                file for file in os.listdir(client_dir)
+                if file.lower().endswith("_assessment_results.xlsx")
+            )
+            if assessment_files:
+                excel_path = os.path.join(client_dir, assessment_files[0])
 
         if not excel_path:
             messagebox.showerror(
                 "Fout",
-                f"Geen Excel bestand gevonden in {client_dir}"
+                f"Geen assessment-resultatenbestand gevonden in {client_dir}. Rond eerst de assessment af."
             )
             return
 
         # Import and use format_report
-        from format_report import generate_report
+        from format_report import generate_report, generate_word_report
 
-        # Call the generate_report function
-        generate_report(excel_path)
+        generate_report(excel_path, client)
+        word_path = generate_word_report(excel_path, client)
 
         messagebox.showinfo(
             "Succes",
             f"Rapport succesvol gegenereerd voor {client['name']}\n"
-            f"Bestand: {os.path.basename(excel_path)}"
+            f"Excel: {os.path.basename(excel_path)}\n"
+            f"Word: {os.path.basename(word_path)}"
         )
 
     except ImportError as e:

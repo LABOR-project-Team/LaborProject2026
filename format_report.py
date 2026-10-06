@@ -1,8 +1,147 @@
 from openpyxl import load_workbook
+from datetime import date, datetime
+from pathlib import Path
+from docx import Document
 
 
-def generate_report(excel_path):
+REQUIRED_SHEETS = {
+    "Fase 1.1 | Big Five Dimensies",
+    "Fase 2.0 | Loopbaanankers",
+    "Fase 2.1 | Carriere Clusters",
+    "Fase 2.2 | Cultuur analyse",
+    "Fase 2.3 | J.C.M.",
+    "Gegevens",
+    "Rapport",
+}
+
+BIG_FIVE_SCORE_FORMULAS = {
+    "Extraversie": (20, (("C4", 1), ("C9", -1), ("C14", 1), ("C19", -1), ("C24", 1), ("C29", -1), ("C34", 1), ("C39", -1), ("C44", 1), ("C49", -1))),
+    "Altruïsme": (14, (("D5", -1), ("D10", 1), ("D15", -1), ("D20", 1), ("D25", -1), ("D30", 1), ("D35", -1), ("D40", 1), ("D45", 1), ("D50", 1))),
+    "Consciëntieusheid": (14, (("E6", 1), ("E11", -1), ("E16", 1), ("E21", -1), ("E26", 1), ("E31", -1), ("E36", 1), ("E41", -1), ("E46", 1), ("E51", 1))),
+    "Neuroticisme": (38, (("F7", -1), ("F12", 1), ("F17", -1), ("F22", 1), ("F27", -1), ("F32", -1), ("F37", -1), ("F42", -1), ("F47", -1), ("F52", -1))),
+    "Openheid": (8, (("G8", 1), ("G13", -1), ("G18", 1), ("G23", -1), ("G28", 1), ("G33", -1), ("G38", 1), ("G43", 1), ("G48", 1), ("G53", 1))),
+}
+
+
+def _number(value):
+    if value is None or value == "":
+        return 0
+    if isinstance(value, (int, float)) and not isinstance(value, bool):
+        return value
+    raise ValueError(f"Expected a numeric assessment value, got {value!r}")
+
+
+def _get_big_five_scores(sheet):
+    return {
+        trait: base + sum(_number(sheet[cell].value) * factor for cell, factor in terms)
+        for trait, (base, terms) in BIG_FIVE_SCORE_FORMULAS.items()
+    }
+
+
+def _get_big_five_interpretations(scores, data_sheet):
+    description_rows = {
+        "Extraversie": 25,
+        "Altruïsme": 26,
+        "Consciëntieusheid": 27,
+        "Neuroticisme": 28,
+        "Openheid": 29,
+    }
+    interpretations = {}
+    for trait, score in scores.items():
+        description_column = "C" if score <= 17 else "B" if score <= 26 else "A"
+        description = data_sheet[f"{description_column}{description_rows[trait]}"].value
+        if not description:
+            raise ValueError(f"Geen score-interpretatie gevonden voor {trait}.")
+        interpretations[trait] = description
+    return interpretations
+
+
+def _get_highest_anchors(sheet):
+    anchor_names = {
+        "V": "Omhoog komen",
+        "W": "Veilig voelen",
+        "X": "Vrij zijn",
+        "Y": "Balans vinden",
+        "Z": "Uitdaging zoeken",
+    }
+    scores = {
+        code: sum(_number(sheet[f"{column}{row}"].value) for row in range(4, 100))
+        for code, column in zip(anchor_names, "CDEFG")
+    }
+    return [anchor_names[code] for code, score in sorted(scores.items(), key=lambda item: item[1], reverse=True) if score > 0][:2]
+
+
+def _get_highest_clusters(sheet):
+    scores = []
+    for cluster_id in range(1, 17):
+        first_row = 4 + (cluster_id - 1) * 8
+        name = sheet[f"I{first_row}"].value
+        score = sum(_number(sheet[f"C{row}"].value) for row in range(first_row, first_row + 7))
+        score += sum(_number(sheet[f"E{row}"].value) for row in range(first_row, first_row + 5))
+        score += sum(_number(sheet[f"G{row}"].value) for row in range(first_row, first_row + 5))
+        if name and score > 0:
+            scores.append((str(name).strip(), score))
+    return [name for name, _ in sorted(scores, key=lambda item: item[1], reverse=True)[:2]]
+
+
+def _get_highest_cultures(sheet):
+    scores = []
+    for first_row, name_row in zip((2, 7, 12, 17), (2, 8, 13, 18)):
+        name = sheet[f"E{name_row}"].value
+        score = sum(_number(sheet[f"C{row}"].value) for row in range(first_row, first_row + 4))
+        if name and score > 0:
+            scores.append((str(name).strip(), score))
+    return [name for name, _ in sorted(scores, key=lambda item: item[1], reverse=True)[:2]]
+
+
+def _get_client_career_phase(client):
+    value = client.get("Date of Birth")
+    if isinstance(value, date):
+        birth_date = value
+    else:
+        birth_date = None
+        for date_format in ("%d-%m-%Y", "%d-%m-%y", "%d/%m/%Y", "%Y-%m-%d"):
+            try:
+                birth_date = datetime.strptime(str(value), date_format).date()
+                break
+            except ValueError:
+                continue
+    if birth_date is None:
+        raise ValueError("De geboortedatum van de cliënt ontbreekt of heeft een ongeldig formaat.")
+
+    today = date.today()
+    age = today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
+    if 15 <= age <= 24:
+        return "Verkenning"
+    if 25 <= age <= 44:
+        return "Keuze"
+    if 45 <= age <= 64:
+        return "Onderhoud"
+    if age >= 65:
+        return "Terugtrekking"
+    raise ValueError("De cliënt moet minimaal 15 jaar oud zijn om een loopbaanfase te bepalen.")
+
+
+def _write_after_label(sheet, label, value, occurrence=1):
+    matches = [
+        cell
+        for row in sheet.iter_rows()
+        for cell in row
+        if cell.value is not None and str(cell.value).strip() == label
+    ]
+    if len(matches) < occurrence:
+        raise ValueError(f"Rapport-label niet gevonden: {label} (voorkomen {occurrence})")
+    cell = matches[occurrence - 1]
+    sheet.cell(row=cell.row, column=cell.column + 1, value=value)
+
+
+def generate_report(excel_path, client=None):
     wb = load_workbook(excel_path)
+
+    missing_sheets = REQUIRED_SHEETS.difference(wb.sheetnames)
+    if missing_sheets:
+        wb.close()
+        raise ValueError(f"Dit is geen resultatenbestand. Ontbrekende tabbladen: {', '.join(sorted(missing_sheets))}")
 
     # Get all sheets
     rapport = wb["Rapport"]
@@ -11,176 +150,29 @@ def generate_report(excel_path):
     fase21 = wb["Fase 2.1 | Carriere Clusters"]
     fase22 = wb["Fase 2.2 | Cultuur analyse"]
     fase23 = wb["Fase 2.3 | J.C.M."]
+    gegevens = wb["Gegevens"]
 
-    # ============================================
-    # 1. BIG FIVE SCORES
-    # ============================================
-    def get_score_from_sheet(sheet, score_name):
-        column_mapping = {
-            "Extraversie": 2,  # Column B
-            "Altruïsme": 3,  # Column C
-            "Consciëntieusheid": 4,  # Column D
-            "Neuroticisme": 5,  # Column E
-            "Openheid": 6  # Column F
-        }
-
-        col_idx = column_mapping.get(score_name)
-        if not col_idx:
-            return ""
-
-        for row in sheet.iter_rows(min_row=1, max_row=100, values_only=False):
-            if row[0].value == "Score":
-                score_cell = row[col_idx - 1]
-                return score_cell.value if score_cell.value is not None else ""
-
-        return ""
-
-    extraversie_score = get_score_from_sheet(fase11, "Extraversie")
-    altruisme_score = get_score_from_sheet(fase11, "Altruïsme")
-    conscientieusheid_score = get_score_from_sheet(fase11, "Consciëntieusheid")
-    neuroticisme_score = get_score_from_sheet(fase11, "Neuroticisme")
-    openheid_score = get_score_from_sheet(fase11, "Openheid")
+    big_five_scores = _get_big_five_scores(fase11)
+    big_five_interpretations = _get_big_five_interpretations(big_five_scores, gegevens)
 
     # ============================================
     # 2. LOOPBAANANKERS (Fase 2.0)
     # ============================================
-    def get_highest_anchors():
-        """Get the two highest scoring career anchors from Fase 2.0."""
-        anchor_names = {
-            "V": "Omhoog komen",
-            "W": "Veilig voelen",
-            "X": "Vrij zijn",
-            "Y": "Balans vinden",
-            "Z": "Uitdaging zoeken"
-        }
-
-        for row in fase20.iter_rows(min_row=1, max_row=150, values_only=False):
-            if row[0].value and "Totaal score" in str(row[0].value):
-                # The scores are in columns D, E, F, G, H (indices 3, 4, 5, 6, 7)
-                scores = {
-                    "V": row[3].value if len(row) > 3 and row[3].value is not None else 0,
-                    "W": row[4].value if len(row) > 4 and row[4].value is not None else 0,
-                    "X": row[5].value if len(row) > 5 and row[5].value is not None else 0,
-                    "Y": row[6].value if len(row) > 6 and row[6].value is not None else 0,
-                    "Z": row[7].value if len(row) > 7 and row[7].value is not None else 0
-                }
-
-                # Convert to int/float and sort
-                sorted_anchors = []
-                for anchor_key, score in scores.items():
-                    try:
-                        score_value = float(score) if score else 0
-                        sorted_anchors.append((anchor_key, score_value))
-                    except (ValueError, TypeError):
-                        sorted_anchors.append((anchor_key, 0))
-
-                # Sort by score (highest first)
-                sorted_anchors.sort(key=lambda x: x[1], reverse=True)
-
-                # Get top 2
-                top_2 = []
-                for anchor_key, score in sorted_anchors[:2]:
-                    if score > 0:
-                        top_2.append(anchor_names.get(anchor_key, anchor_key))
-
-                return top_2
-        return []
-
-    # Get top 2 anchors
-    top_anchors = get_highest_anchors()
+    top_anchors = _get_highest_anchors(fase20)
     anchor_1 = top_anchors[0] if len(top_anchors) > 0 else ""
     anchor_2 = top_anchors[1] if len(top_anchors) > 1 else ""
 
     # ============================================
     # 3. CARRIERE CLUSTERS (Fase 2.1)
     # ============================================
-    def get_highest_clusters():
-        """Get the two highest scoring career clusters from Fase 2.1."""
-        cluster_scores = {}
-        cluster_names = {
-            1: "Landbouw, voeding en natuurlijke grondstoffen",
-            2: "Architectuur en constructie",
-            3: "Kunst, audio-visuele technologie en communicatie",
-            4: "Business Management en administratie",
-            5: "Educatie en training",
-            6: "Financiën",
-            7: "Overheid en publieke administratie",
-            8: "Gezondheidswetenschappen",
-            9: "Hospitality en toerisme",
-            10: "Humanitaire dienstverlening",
-            11: "ICT",
-            12: "Publieke veiligheid en zekerheid",
-            13: "Fabricage",
-            14: "Marketing, sales en service",
-            15: "Wetenschap, technologie, engineering en mathematica",
-            16: "Transport, distributie en logistiek"
-        }
-
-        # Look for cluster scores in column I (index 8) - Totaal score
-        for row in fase21.iter_rows(min_row=10, max_row=200, values_only=False):
-            if row[0].value is not None:
-                try:
-                    cluster_num = int(row[0].value)
-                    if 1 <= cluster_num <= 16:
-                        if len(row) > 8 and row[8].value is not None:
-                            try:
-                                score = float(row[8].value)
-                                if score > 0:
-                                    cluster_scores[cluster_num] = score
-                            except (ValueError, TypeError):
-                                pass
-                except (ValueError, TypeError):
-                    pass
-
-        sorted_clusters = sorted(cluster_scores.items(), key=lambda x: x[1], reverse=True)
-
-        top_2 = []
-        for cluster_num, score in sorted_clusters[:2]:
-            top_2.append(cluster_names.get(cluster_num, f"Cluster {cluster_num}"))
-
-        return top_2
-
-    top_clusters = get_highest_clusters()
+    top_clusters = _get_highest_clusters(fase21)
     cluster_1 = top_clusters[0] if len(top_clusters) > 0 else ""
     cluster_2 = top_clusters[1] if len(top_clusters) > 1 else ""
 
     # ============================================
     # 4. CULTUUR ANALYSE (Fase 2.2)
     # ============================================
-    def get_highest_cultures():
-        """Get the two highest scoring cultures from Fase 2.2."""
-        culture_scores = {}
-        culture_names = {
-            1: "Mensgerichte cultuur",
-            2: "Innovatieve cultuur",
-            3: "Beheersgerichte cultuur",
-            4: "Resultaatgerichte cultuur"
-        }
-
-        for row in fase22.iter_rows(min_row=5, max_row=25, values_only=False):
-            if row[0].value is not None:
-                try:
-                    culture_num = int(row[0].value)
-                    if 1 <= culture_num <= 4:
-                        if len(row) > 4 and row[4].value is not None:
-                            try:
-                                score = float(row[4].value)
-                                if score > 0:
-                                    culture_scores[culture_num] = score
-                            except (ValueError, TypeError):
-                                pass
-                except (ValueError, TypeError):
-                    pass
-
-        sorted_cultures = sorted(culture_scores.items(), key=lambda x: x[1], reverse=True)
-
-        top_2 = []
-        for culture_num, score in sorted_cultures[:2]:
-            top_2.append(culture_names.get(culture_num, f"Cultuur {culture_num}"))
-
-        return top_2
-
-    top_cultures = get_highest_cultures()
+    top_cultures = _get_highest_cultures(fase22)
     culture_1 = top_cultures[0] if len(top_cultures) > 0 else ""
     culture_2 = top_cultures[1] if len(top_cultures) > 1 else ""
 
@@ -208,74 +200,72 @@ def generate_report(excel_path):
 
     jcm_scores = get_jcm_scores()
 
-    # ============================================
-    # WRITE TO RAPPORT SHEET
-    # ============================================
-    def write_after_label(label, value):
-        """Find a cell with the label and write the value in the cell to its right."""
-        for row in rapport.iter_rows():
-            for cell in row:
-                if cell.value and str(cell.value).strip() == label:
-                    rapport.cell(row=cell.row, column=cell.column + 1).value = value
-                    print(f"  Wrote '{value}' after label '{label}'")
-                    return
-        print(f"  Warning: Label '{label}' not found in Rapport sheet")
+    if client is not None:
+        _write_after_label(rapport, "Loopbaan fase *", _get_client_career_phase(client))
 
-    # Write Big Five scores
-    print("\nWriting Big Five scores...")
-    write_after_label("Extraversie *", extraversie_score)
-    write_after_label("Altruïsme *", altruisme_score)
-    write_after_label("Consciëntieusheid *", conscientieusheid_score)
-    write_after_label("Neuroticisme *", neuroticisme_score)
-    write_after_label("Openheid *", openheid_score)
+    for trait, interpretation in big_five_interpretations.items():
+        _write_after_label(rapport, f"{trait} *", interpretation)
 
-    # Write Loopbaanankers
-    print("\nWriting Loopbaanankers...")
-    write_after_label("Hoogste score 1 *", anchor_1)
-    write_after_label("Hoogste score 2 *", anchor_2)
+    for occurrence, value in enumerate((anchor_1, anchor_2), start=1):
+        _write_after_label(rapport, f"Hoogste score {occurrence} *", value)
+    for label, value in zip(("Hoogste score 1 *", "Hoogste score 2 *"), (cluster_1, cluster_2)):
+        _write_after_label(rapport, label, value, occurrence=2)
+    for label, value in zip(("Hoogste score 1 *", "Hoogste score 2 *"), (culture_1, culture_2)):
+        _write_after_label(rapport, label, value, occurrence=3)
 
-    # Write Carriere Clusters
-    print("\nWriting Carriere Clusters...")
-    cluster_labels_found = 0
-    for row in rapport.iter_rows():
-        for cell in row:
-            if cell.value and "Hoogste score" in str(cell.value):
-                cluster_labels_found += 1
-                if cluster_labels_found == 1:
-                    continue
-                elif cluster_labels_found == 2:
-                    rapport.cell(row=cell.row, column=cell.column + 1).value = cluster_1
-                    print(f"  Wrote cluster 1: '{cluster_1}'")
-                elif cluster_labels_found == 3:
-                    rapport.cell(row=cell.row, column=cell.column + 1).value = cluster_2
-                    print(f"  Wrote cluster 2: '{cluster_2}'")
-                    break
-
-    # Write Cultuur scores
-    print("\nWriting Cultuur scores...")
-    culture_labels_found = 0
-    for row in rapport.iter_rows():
-        for cell in row:
-            if cell.value and "Hoogste score" in str(cell.value):
-                culture_labels_found += 1
-                if culture_labels_found <= 3:
-                    continue
-                elif culture_labels_found == 4:
-                    rapport.cell(row=cell.row, column=cell.column + 1).value = culture_1
-                    print(f"  Wrote culture 1: '{culture_1}'")
-                elif culture_labels_found == 5:
-                    rapport.cell(row=cell.row, column=cell.column + 1).value = culture_2
-                    print(f"  Wrote culture 2: '{culture_2}'")
-                    break
-
-    # Write JCM scores
-    print("\nWriting JCM scores...")
     for component, value in jcm_scores.items():
-        write_after_label(component, value)
+        _write_after_label(rapport, component, value)
 
-    # Save the workbook
     wb.save(excel_path)
-    print(f"\n✅ Report successfully formatted and saved to {excel_path}")
+    wb.close()
+    return excel_path
+
+
+def generate_word_report(excel_path, client=None):
+    wb = load_workbook(excel_path, read_only=True, data_only=True)
+    try:
+        if "Rapport" not in wb.sheetnames:
+            raise ValueError("Het tabblad Rapport ontbreekt in het resultatenbestand.")
+        rapport = wb["Rapport"]
+        report_rows = [
+            [cell.value for cell in row if cell.value is not None]
+            for row in rapport.iter_rows()
+        ]
+    finally:
+        wb.close()
+
+    document = Document()
+    document.add_heading("Loopbaanrapport", level=0)
+    if client and client.get("name"):
+        document.add_paragraph(client["name"], style="Subtitle")
+
+    big_five_traits = set(BIG_FIVE_SCORE_FORMULAS)
+    for values in report_rows:
+        values = [str(value).strip() for value in values]
+        if not values or values == ["* Selecteer optie in uitvouwmenu"]:
+            continue
+
+        if len(values) == 1:
+            text = values[0]
+            if text.startswith("Fase "):
+                document.add_heading(text, level=1)
+            else:
+                document.add_paragraph(text)
+            continue
+
+        label, value = values[:2]
+        label = label.rstrip("*").strip()
+        if label in big_five_traits:
+            document.add_heading(label, level=2)
+            document.add_paragraph(value)
+        else:
+            paragraph = document.add_paragraph()
+            paragraph.add_run(f"{label}: ").bold = True
+            paragraph.add_run(value)
+
+    word_path = Path(excel_path).with_name(f"{Path(excel_path).stem}_report.docx")
+    document.save(word_path)
+    return str(word_path)
 
 
 # ============================================

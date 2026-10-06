@@ -3,3 +3,4 @@ openpyxl>=3.1.0
 pywin32>=306; platform_system == "Windows"
 xlrd>=2.0.1
 pillow>=9.0.0
+python-docx>=1.1.2

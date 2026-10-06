@@ -13,7 +13,7 @@ LABOR is een lokale Windows-applicatie voor carrièrebeoordeling en cliëntbehee
 - Assessmentvragenlijsten starten, pauzeren en hervatten
 - Prognosevragenlijst per cliënt
 - Automatische opslag van voortgang in JSON
-- Professionele export naar Excel
+- Professionele rapporten in Excel en Word
 - Offline werking zonder internetverbinding
 
 ## Hoe het programma werkt
@@ -53,7 +53,7 @@ Naast het reguliere assessment is er een prognosevragenlijst. Deze brengt de per
 - Elke cliënt heeft een eigen map in `clients/`
 - Cliëntgegevens worden opgeslagen in `info.json`
 - Onvoltooide sessies worden opgeslagen zodat je kunt hervatten
-- Excel-rapporten worden per cliënt opgeslagen in hun map
+- Excel- en Word-rapporten worden per cliënt opgeslagen in hun map
 
 ## Gebruik zonder Python
 
