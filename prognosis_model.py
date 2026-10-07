@@ -164,8 +164,8 @@ def build_prognosis_page(parent, client=None, go_back=None):
             row_frame,
             text=str(number),
             width=4,
-            bg="#F1C40F",
-            fg="#000000",
+            bg="#000000",
+            fg="#FAFAFA",
             font=("Segoe UI", 9, "bold"),
             pady=6,
             relief="flat"
@@ -178,7 +178,7 @@ def build_prognosis_page(parent, client=None, go_back=None):
             text_frame,
             text=question,
             bg=bg,
-            fg="#111111",
+            fg="#000000",
             font=("Segoe UI", 9),
             anchor="w",
             justify="left",
@@ -253,8 +253,8 @@ def build_prognosis_page(parent, client=None, go_back=None):
         tk.Label(
             content,
             text=text,
-            bg="#F1C40F",
-            fg="black",
+            bg="#000000",
+            fg="white",
             padx=10,
             pady=6,
             anchor="w",
@@ -262,11 +262,11 @@ def build_prognosis_page(parent, client=None, go_back=None):
         ).pack(fill="x", pady=(10, 0))
 
     def make_column_header():
-        bar = tk.Frame(content, bg="#E3B911")
+        bar = tk.Frame(content, bg="#000000")
         bar.pack(fill="x")
-        tk.Label(bar, text="Nr.", width=4, bg="#E3B911", fg="black",
+        tk.Label(bar, text="Nr.", width=4, bg="#000000", fg="white",
                  font=("Segoe UI", 8, "bold"), anchor="w", padx=8, pady=4).pack(side="left")
-        tk.Label(bar, text="Vraag", bg="#E3B911", fg="black",
+        tk.Label(bar, text="Vraag", bg="#000000", fg="white",
                  font=("Segoe UI", 8, "bold"), anchor="w", padx=2, pady=4).pack(side="left")
 
     # ===== VRAGEN =====
