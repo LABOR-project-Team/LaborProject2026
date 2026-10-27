@@ -273,7 +273,7 @@ def show_create_client_form(push_to_history=True):
 
     tk.Label(
         form_frame,
-        text="Nieuwe Klant Toevoegen",
+        text="Nieuwe Cliënt Toevoegen",
         font=("Segoe UI", 20, "bold"),
         bg=COLOR_BG,
         fg=COLOR_PRIMARY
@@ -519,7 +519,7 @@ def open_client_dashboard(client, push_to_history=True):
     # Back button (Terug button)
     back_btn = tk.Button(
         content_frame,
-        text="← Terug naar Klantenlijst",
+        text="← Terug naar Cliëntenlijst",
         command=show_client_list,
         bg=COLOR_TEXT_LIGHT,
         fg="white",
@@ -551,7 +551,7 @@ def open_client_dashboard(client, push_to_history=True):
 
         tk.Label(
             form_frame,
-            text="Klantinformatie Bewerken",
+            text="Cliënteninformatie Bewerken",
             font=("Segoe UI", 20, "bold"),
             bg=COLOR_BG,
             fg=COLOR_PRIMARY
@@ -745,7 +745,7 @@ top_frame.pack_propagate(False)
 
 tk.Label(
     top_frame,
-    text="Klantenbeheer",
+    text="Cliëntenbeheer",
     font=("Segoe UI", 22, "bold"),
     bg=YELLOW_ACCENT,
     fg=COLOR_LIGHT,
@@ -787,7 +787,7 @@ tk.Button(
 # New client button
 tk.Button(
     top_frame,
-    text="+ Nieuwe Klant",
+    text="+ Nieuwe Cliënt",
     command=show_create_client_form,
     bg=COLOR_TEXT_LIGHT,
     fg="white",
@@ -800,7 +800,7 @@ tk.Button(
 ).pack(side="right", padx=15)
 tk.Button(
     top_frame,
-    text="Open Klanten folder",
+    text="Open Cliënten folder",
     command=lambda: open_klanten_folder(),
     bg=COLOR_TEXT_LIGHT,
     fg="white",
