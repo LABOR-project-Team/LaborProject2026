@@ -2,9 +2,11 @@ from openpyxl import load_workbook
 from datetime import date, datetime
 from pathlib import Path
 from docx import Document
+from docx.enum.style import WD_STYLE_TYPE
 
 
 REQUIRED_SHEETS = {
+    "Fase 1.0 | Loopbaanfasen",
     "Fase 1.1 | Big Five Dimensies",
     "Fase 2.0 | Loopbaanankers",
     "Fase 2.1 | Carriere Clusters",
@@ -54,6 +56,55 @@ def _get_big_five_interpretations(scores, data_sheet):
             raise ValueError(f"Geen score-interpretatie gevonden voor {trait}.")
         interpretations[trait] = description
     return interpretations
+
+
+def _get_named_descriptions(data_sheet, first_row, last_row):
+    descriptions = {}
+    for row in data_sheet.iter_rows(
+        min_row=first_row,
+        max_row=last_row,
+        min_col=1,
+        max_col=1,
+        values_only=True,
+    ):
+        value = row[0]
+        if value and "|" in str(value):
+            name, description = str(value).split("|", 1)
+            descriptions[name.strip()] = description.strip()
+    return descriptions
+
+
+def _get_culture_descriptions(data_sheet):
+    descriptions = {}
+    for row in data_sheet.iter_rows(min_row=93, max_row=96, min_col=1, max_col=1, values_only=True):
+        value = row[0]
+        if not value:
+            continue
+        lines = str(value).strip().splitlines()
+        name = lines[0].strip()
+        if name.startswith("De "):
+            name = name[3:]
+        description = "\n".join(line.strip() for line in lines[1:] if line.strip())
+        if name and description:
+            descriptions[name] = description
+    return descriptions
+
+
+def _get_career_phase_descriptions(sheet):
+    return {
+        str(sheet.cell(row=row, column=2).value).strip():
+            str(sheet.cell(row=row, column=3).value).strip()
+        for row in range(3, sheet.max_row + 1)
+        if sheet.cell(row=row, column=2).value and sheet.cell(row=row, column=3).value
+    }
+
+
+def _with_description(name, descriptions, section, aliases=()):
+    for candidate in (name, *aliases):
+        description = descriptions.get(candidate)
+        if description:
+            return f"{name}\n{description}"
+    raise ValueError(f"Geen omschrijving gevonden voor {name!r} in {section}.")
 
 
 def _get_highest_anchors(sheet):
@@ -150,10 +201,15 @@ def generate_report(excel_path, client=None):
     fase21 = wb["Fase 2.1 | Carriere Clusters"]
     fase22 = wb["Fase 2.2 | Cultuur analyse"]
     fase23 = wb["Fase 2.3 | J.C.M."]
+    fase10 = wb["Fase 1.0 | Loopbaanfasen"]
     gegevens = wb["Gegevens"]
 
     big_five_scores = _get_big_five_scores(fase11)
     big_five_interpretations = _get_big_five_interpretations(big_five_scores, gegevens)
+    anchor_descriptions = _get_named_descriptions(gegevens, 31, 35)
+    cluster_descriptions = _get_named_descriptions(gegevens, 37, 52)
+    culture_descriptions = _get_culture_descriptions(gegevens)
+    career_phase_descriptions = _get_career_phase_descriptions(fase10)
 
     # ============================================
     # 2. LOOPBAANANKERS (Fase 2.0)
@@ -201,17 +257,43 @@ def generate_report(excel_path, client=None):
     jcm_scores = get_jcm_scores()
 
     if client is not None:
-        _write_after_label(rapport, "Loopbaan fase *", _get_client_career_phase(client))
+        career_phase = _get_client_career_phase(client)
+        phase_value = _with_description(
+            career_phase,
+            career_phase_descriptions,
+            "Fase 1.0",
+        )
+        _write_after_label(rapport, "Loopbaan fase *", phase_value)
 
     for trait, interpretation in big_five_interpretations.items():
         _write_after_label(rapport, f"{trait} *", interpretation)
 
     for occurrence, value in enumerate((anchor_1, anchor_2), start=1):
-        _write_after_label(rapport, f"Hoogste score {occurrence} *", value)
+        described_value = (
+            _with_description(value, anchor_descriptions, "Gegevens")
+            if value
+            else value
+        )
+        _write_after_label(rapport, f"Hoogste score {occurrence} *", described_value)
     for label, value in zip(("Hoogste score 1 *", "Hoogste score 2 *"), (cluster_1, cluster_2)):
-        _write_after_label(rapport, label, value, occurrence=2)
+        aliases = (
+            ("Milieu, Landbouw, voeding en natuurlijke grondstoffen",)
+            if value == "Landbouw, voeding en natuurlijke grondstoffen"
+            else ()
+        )
+        described_value = (
+            _with_description(value, cluster_descriptions, "Gegevens", aliases)
+            if value
+            else value
+        )
+        _write_after_label(rapport, label, described_value, occurrence=2)
     for label, value in zip(("Hoogste score 1 *", "Hoogste score 2 *"), (culture_1, culture_2)):
-        _write_after_label(rapport, label, value, occurrence=3)
+        described_value = (
+            _with_description(value, culture_descriptions, "Gegevens", (f"De {value}",))
+            if value
+            else value
+        )
+        _write_after_label(rapport, label, described_value, occurrence=3)
 
     for component, value in jcm_scores.items():
         _write_after_label(rapport, component, value)
@@ -235,6 +317,9 @@ def generate_word_report(excel_path, client=None):
         wb.close()
 
     document = Document()
+    for style in document.styles:
+        if style.type in (WD_STYLE_TYPE.PARAGRAPH, WD_STYLE_TYPE.CHARACTER):
+            style.font.name = "Calibri"
     document.add_heading("Loopbaanrapport", level=0)
     if client and client.get("name"):
         document.add_paragraph(client["name"], style="Subtitle")
